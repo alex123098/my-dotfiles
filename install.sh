@@ -17,6 +17,7 @@ function install_nvim_cfg() {
 
 	echo "Installing NeoVim config..."
 	mkdir -p ~/.config/nvim/
+	cp -r ./nvim/* ~/.config/nvim/
 
 	echo "Running headless install of NeoVim plugins..."
 	nvim --headless "+Lazy! sync" +qa
