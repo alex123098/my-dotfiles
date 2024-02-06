@@ -43,6 +43,10 @@ print_usage() {
 	echo "  kitty_cfg: Install Kitty config"
 }
 
+get_gpg_keyid() {
+	gpg --list-secret-keys --keyid-format long "$(git config --get user.email)" | sed 's/^sec.*\/\([[:alnum:]]*\).*$/\1/' | head -n 1
+}
+
 if [ -z "${1}" ]; then
 	print_usage
 	exit 1
