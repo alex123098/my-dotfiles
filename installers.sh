@@ -67,6 +67,10 @@ install_nvim() {
 	sudo apt-get install -y neovim
 	echo
 	echo "Neovim is installed"
+	read -p "Do you want to set neovim as default editor? [Y/n]" -n 1 -r set_nvim
+	[[ "${set_nvim}" =~ ^[Nn]$ ]] && return
+	echo "Setting neovim as default editor"
+	sudo update-alternatives --install /usr/bin/editor editor "$(which nvim)" 50
 }
 
 install_pritunl() {
@@ -94,4 +98,17 @@ install_zsh() {
 	echo "Setting zsh as default shell"
 	sudo chsh -s "$(which zsh)" "$(whoami)"
 	echo "Zsh is installed and set as default shell"
+}
+
+install_terminal() {
+	echo "Installing kitty as a default terminal emulator"
+	sudo apt-get update
+	sudo apt-get install -y kitty
+	echo "Copying configuration for kitty"
+	mkdir -p "$HOME/.config/kitty"
+	cp -r ./kitty/* "$HOME/.config/kitty"
+	read -p "Do you want to set kitty as default terminal emulator? [Y/n]" -n 1 -r set_kitty
+	[[ "${set_kitty}" =~ ^[Nn]$ ]] && return
+	echo "Setting kitty as default terminal emulator"
+	sudo update-alternatives --set x-terminal-emulator "$(which kitty)"
 }
