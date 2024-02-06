@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-function remove_nvim_cfg() {
+remove_nvim_cfg() {
 	echo "Removeing previous NeoVim config..."
 	rm -rf ~/.config/nvim/
 	rm -rf ~/.local/share/nvim/
@@ -9,13 +9,13 @@ function remove_nvim_cfg() {
 	echo "Previous NeoVim config removed!"
 }
 
-function install_nvim_cfg() {
+install_nvim_cfg() {
 	if [ -d "${HOME}/.config/nvim" ]; then
 		read -p "Remove previous nvim config? [y/N]" -n 1 -r remove_cfg
+		echo
 		[[ "${remove_cfg}" =~ ^[Yy]$ ]] && remove_nvim_cfg
 	fi
 
-	echo
 	echo "Symlinking NeoVim config"
 	stow -v nvim
 
@@ -24,13 +24,39 @@ function install_nvim_cfg() {
 	echo "NeoVim config installed!"
 }
 
-if [ -z "${1}" ]; then
+install_kitty_cfg() {
+	if [ -d "${HOME}/.config/kitty" ]; then
+		read -p "Remove previous kitty config? [y/N]" -n 1 -r remove_cfg
+		echo
+		[[ "${remove_cfg}" =~ ^[Yy]$ ]] && rm -rf ~/.config/kitty/
+	fi
+
+	echo "Symlinking kitty config"
+	stow -v kitty
+	echo "Kitty config installed!"
+}
+
+print_usage() {
 	echo "Usage: install.sh <cmd>"
+	echo "Commands:"
+	echo "  nvim_cfg: Install NeoVim config"
+	echo "  kitty_cfg: Install Kitty config"
+}
+
+if [ -z "${1}" ]; then
+	print_usage
 	exit 1
 fi
 
 case "${1}" in
-"nvim")
+"nvim_cfg")
 	install_nvim_cfg
+	;;
+"kitty_cfg")
+	install_kitty_cfg
+	;;
+*)
+	print_usage
+	exit 1
 	;;
 esac
