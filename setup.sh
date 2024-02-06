@@ -10,14 +10,14 @@ function remove_nvim_cfg() {
 }
 
 function install_nvim_cfg() {
-	read -p "Remove previous nvim config? [y/N]" -n 1 -r remove_cfg
-	if [[ "${remove_cfg}" =~ ^[Yy]$ ]]; then
-		remove_nvim_cfg
+	if [ -d "${HOME}/.config/nvim" ]; then
+		read -p "Remove previous nvim config? [y/N]" -n 1 -r remove_cfg
+		[[ "${remove_cfg}" =~ ^[Yy]$ ]] && remove_nvim_cfg
 	fi
 
-	echo "Installing NeoVim config..."
-	mkdir -p ~/.config/nvim/
-	cp -r ./nvim/* ~/.config/nvim/
+	echo
+	echo "Symlinking NeoVim config"
+	stow -v nvim
 
 	echo "Running headless install of NeoVim plugins..."
 	nvim --headless "+Lazy! sync" +qa

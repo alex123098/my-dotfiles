@@ -5,7 +5,7 @@ vim.filetype.add({
     sh = "sh",
   },
   filename = {
-    [".zshrc"] = "sh",
     [".zshenv"] = "sh",
+    [".zshrc"] = "sh",
   },
 })
