@@ -44,7 +44,9 @@ print_usage() {
 }
 
 get_gpg_keyid() {
-	gpg --list-secret-keys --keyid-format long "$(git config --get user.email)" | sed 's/^sec.*\/\([[:alnum:]]*\).*$/\1/' | head -n 1
+	gpg --list-secret-keys --keyid-format long "$(git config --get user.email)" |
+		sed 's/^sec.*\/\([[:alnum:]]*\).*$/\1/' |
+		head -n 1
 }
 
 if [ -z "${1}" ]; then
