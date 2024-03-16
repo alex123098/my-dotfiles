@@ -7,7 +7,7 @@ return {
           Lua = {
             diagnostics = {
               enable = true,
-              globals = { "vim", "awesome", "client", "root", "network_interfaces", "apps" },
+              globals = { "vim", "awesome", "client", "root", "network_interfaces", "apps", "tag", "screen", "globalkeys" },
             },
           },
         },
