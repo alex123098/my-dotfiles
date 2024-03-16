@@ -258,7 +258,7 @@ theme.volume.widget:buttons(awful.util.table.join(
 	end)
 ))
 
-require("volume")
+require("components.volume")
 
 -- Net
 local neticon = wibox.widget.imagebox(theme.widget_net)
@@ -326,7 +326,7 @@ function theme.at_screen_connect(s)
 	s.mywibox =
 		awful.wibar({ position = "top", screen = s, height = dpi(18), bg = theme.bg_normal, fg = theme.fg_normal })
 
-  local logout_menu = require("logout-widget")
+  local logout_menu = require("components.logout-widget")
 
 	-- Add widgets to the wibox
 	s.mywibox:setup({

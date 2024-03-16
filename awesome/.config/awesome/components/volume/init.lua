@@ -7,7 +7,7 @@ local dpi = beautiful.xresources.apply_dpi
 local xoffset = dpi(56)
 local yoffset = dpi(300)
 local screen = awful.screen.focused()
-local icons_dir = gears.filesystem.get_configuration_dir() .. "icons/"
+local icons_dir = gears.filesystem.get_configuration_dir() .. "components/volume/icons/"
 
 local volume_icon = wibox.widget({
 	widget = wibox.widget.imagebox,

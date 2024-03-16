@@ -12,13 +12,13 @@ local wibox = require("wibox")
 local gears = require("gears")
 local beautiful = require("beautiful")
 
-local CONFIG_DIR = gears.filesystem.get_configuration_dir()
-local ICON_DIR = CONFIG_DIR .. "logout-widget/icons/"
+local widget_dir = gears.filesystem.get_configuration_dir() .. "components/logout-widget/"
+local icons_dir = widget_dir .. "icons/"
 
 local logout_menu_widget = wibox.widget({
 	{
 		{
-			image = ICON_DIR .. "power_w.svg",
+			image = icons_dir .. "power_w.svg",
 			resize = true,
 			widget = wibox.widget.imagebox,
 		},
@@ -38,7 +38,7 @@ local popup = awful.popup({
 		gears.shape.rounded_rect(cr, width, height, 4)
 	end,
 	border_width = 1,
-	border_color = beautiful.bg_focus,
+	border_color = beautiful.menu_bg_focus,
 	maximum_width = 400,
 	offset = { y = 5 },
 	widget = {},
@@ -56,7 +56,7 @@ local function worker(user_args)
 	end
 	local onlock = args.onlock
 		or function()
-			awful.spawn.with_shell("sh " .. CONFIG_DIR .. "logout-widget/lockscreen.sh")
+			awful.spawn.with_shell("sh " .. widget_dir .. "lockscreen.sh")
 		end
 	local onreboot = args.onreboot or function()
 		awful.spawn.with_shell("reboot")
@@ -81,7 +81,7 @@ local function worker(user_args)
 			{
 				{
 					{
-						image = ICON_DIR .. item.icon_name,
+						image = icons_dir .. item.icon_name,
 						resize = false,
 						widget = wibox.widget.imagebox,
 					},
@@ -96,28 +96,17 @@ local function worker(user_args)
 				margins = 8,
 				layout = wibox.container.margin,
 			},
-			bg = beautiful.bg_normal,
+			bg = beautiful.menu_bg_normal,
 			widget = wibox.container.background,
 		})
 
 		row:connect_signal("mouse::enter", function(c)
-			c:set_bg(beautiful.bg_focus)
+			c:set_bg(beautiful.menu_bg_focus)
+      c:set_fg(beautiful.menu_fg_focus)
 		end)
 		row:connect_signal("mouse::leave", function(c)
-			c:set_bg(beautiful.bg_normal)
-		end)
-
-		local old_cursor, old_wibox
-		row:connect_signal("mouse::enter", function()
-			local wb = mouse.current_wibox
-			old_cursor, old_wibox = wb.cursor, wb
-			wb.cursor = "hand1"
-		end)
-		row:connect_signal("mouse::leave", function()
-			if old_wibox then
-				old_wibox.cursor = old_cursor
-				old_wibox = nil
-			end
+			c:set_bg(beautiful.menu_bg_normal)
+      c:set_fg(beautiful.meni_fg_normal)
 		end)
 
 		row:buttons(awful.util.table.join(awful.button({}, 1, function()
@@ -132,10 +121,9 @@ local function worker(user_args)
 	logout_menu_widget:buttons(awful.util.table.join(awful.button({}, 1, function()
 		if popup.visible then
 			popup.visible = not popup.visible
-			logout_menu_widget:set_bg("#00000000")
 		else
 			popup:move_next_to(mouse.current_widget_geometry)
-			logout_menu_widget:set_bg(beautiful.bg_focus)
+			logout_menu_widget:set_bg(beautiful.menu_bg_focus)
 		end
 	end)))
 

@@ -11,7 +11,7 @@ local mytable = awful.util.table
 require("awful.hotkeys_popup.keys")
 require("error_handler")
 require("autostart")
-
+require("components.brightness")
 -- {{{ Variable definitions
 
 local modkey = "Mod4"
@@ -404,9 +404,11 @@ globalkeys = mytable.join(
 	-- Screen brightness
 	awful.key({}, "XF86MonBrightnessUp", function()
 		os.execute("bright +")
+    awesome.emit_signal("brightness_changed")
 	end, { description = "+5%", group = "hotkeys" }),
 	awful.key({}, "XF86MonBrightnessDown", function()
 		os.execute("bright -")
+    awesome.emit_signal("brightness_changed")
 	end, { description = "-5%", group = "hotkeys" }),
 
 	-- ALSA volume control

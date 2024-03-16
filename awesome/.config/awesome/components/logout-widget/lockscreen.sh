@@ -1,12 +1,13 @@
 #!/usr/bin/env bash
 
 set -o errexit -o noclobber -o nounset
+set -x
 
 hue=(-level "0%,100%,0.6")
 effect=(-filter Gaussian -resize 20% -define "filter:sigma=1.5" -resize 500.5%)
 font=$(convert -list font | awk "{ a[NR] = \$2 } /family: $(fc-match sans -f "%{family}\n")/ { print a[NR-1]; exit }")
 image=$(mktemp --suffix=.png)
-shot=(import -silent -window root)
+shot=(scrot --format png -o)
 lock=(i3lock -i "${image}")
 
 set -o pipefail
@@ -14,11 +15,11 @@ trap 'rm -f "$image"' EXIT
 
 # take a screenshot
 command -- "${shot[@]}" "${image}"
+brightness=$(convert "${image}" -gravity center -crop 100x100+0+0 +repage -colorspace hsb -resize 1x1 txt:- |
+	awk -F '[%$]' 'NR==2 { gsub(",", ""); printf "%.0f\n", $(NF-1)}')
 
-brightness=$(convert "${image}" -gravity center -crop 100x100+0+0 +repage -colorspace hsb -resize 1x1 \
-	txt:- | awk -F '[%$]' 'NR==2 { gsub(",", ""); printf "%.0f\n", $(NF-1)}')
-
-icons_root="${HOME}/.config/awesome/logout-widget/icons"
+script_dir=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)
+icons_root="${script_dir}/icons"
 
 if [[ $brightness -gt 60 ]]; then
 	bw="black"
@@ -39,6 +40,7 @@ else
 		"--verif-color=00000000" "--wrong-color=ff000000" "--time-color=00000000"
 		"--date-color=00000000" "--layout-color=00000000")
 fi
+
 convert "$image" "${hue[@]}" "${effect[@]}" -font "$font" -pointsize 26 -fill "$bw" -gravity center \
 	-annotate +0+160 "Enter password to unlock" "$icon" -gravity center -composite "$image"
 
