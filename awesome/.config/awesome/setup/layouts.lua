@@ -1,7 +1,7 @@
 local awful = require("awful")
 local lain = require("lain")
 
-awful.util.tagnames = { "1", "2", "3", "4", "5" }
+awful.util.tagnames = { "web", "messages", "dev", "music" }
 awful.layout.layouts = {
 	awful.layout.suit.tile,
 	awful.layout.suit.tile.left,

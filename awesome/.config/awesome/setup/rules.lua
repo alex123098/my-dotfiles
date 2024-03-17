@@ -57,8 +57,11 @@ awful.rules.rules = {
 	-- Add titlebars to normal clients and dialogs
 	{ rule_any = { type = { "normal", "dialog" } }, properties = { titlebars_enabled = true } },
 
-	-- Set Firefox to always map on the tag named "2" on screen 1.
-	-- { rule = { class = "Firefox" },
-	--   properties = { screen = 1, tag = "2" } },
+  { rule = { instance = "firefox" }, properties = { tag = "web" } },
+  { rule = { instance = "spotify" }, properties = { tag = "music" } },
+  { rule = { instance = "telegram-desktop" }, properties = { tag = "messages" } },
+  { rule = { instance = "slack" }, properties = { tag = "messages" } },
+  { rule = { instance = "code-insiders" }, properties = { tag = "dev" } },
+  { rule = { instance = "rider" }, properties = { tag = "dev", maximized_vertical = true, maximized_horizontal = true } }
 }
 

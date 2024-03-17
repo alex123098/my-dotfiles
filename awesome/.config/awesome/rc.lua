@@ -10,7 +10,6 @@ require("components.brightness")
 require("components.volume")
 require("setup.layouts")
 
-
 awful.util.terminal = settings.terminal
 beautiful.init(gears.filesystem.get_configuration_dir() .. "theme.lua")
 

@@ -107,71 +107,11 @@ end)
 theme.cal = lain.widget.cal {
 	attach_to = { clock },
 	notification_preset = {
-		font = "Terminus 10",
-		fg = theme.fg_normal,
-		bg = theme.bg_normal,
+		font = "Roboto Flex 10",
+		fg = theme.menu_fg_normal,
+		bg = theme.menu_bg_normal,
 	},
 }
-
--- Mail IMAP check
-local mailicon = wibox.widget.imagebox(theme.widget_mail)
---[[ commented because it needs to be set before use
-mailicon:buttons(my_table.join(awful.button({ }, 1, function () awful.spawn(mail) end)))
-theme.mail = lain.widget.imap({
-    timeout  = 180,
-    server   = "server",
-    mail     = "mail",
-    password = "keyring get mail",
-    settings = function()
-        if mailcount > 0 then
-            widget:set_markup(markup.font(theme.font, " " .. mailcount .. " "))
-            mailicon:set_image(theme.widget_mail_on)
-        else
-            widget:set_text("")
-            mailicon:set_image(theme.widget_mail)
-        end
-    end
-})
---]]
-
--- MPD
-local musicplr = awful.util.terminal .. " -title Music -e ncmpcpp"
-local mpdicon = wibox.widget.imagebox(theme.widget_music)
-mpdicon:buttons(my_table.join(
-	awful.button({ "Mod4" }, 1, function()
-		awful.spawn(musicplr)
-	end),
-	awful.button({}, 1, function()
-		os.execute("mpc prev")
-		theme.mpd.update()
-	end),
-	awful.button({}, 2, function()
-		os.execute("mpc toggle")
-		theme.mpd.update()
-	end),
-	awful.button({}, 3, function()
-		os.execute("mpc next")
-		theme.mpd.update()
-	end)
-))
-theme.mpd = lain.widget.mpd({
-	settings = function()
-		if mpd_now.state == "play" then
-			artist = " " .. mpd_now.artist .. " "
-			title = mpd_now.title .. " "
-			mpdicon:set_image(theme.widget_music_on)
-		elseif mpd_now.state == "pause" then
-			artist = " mpd "
-			title = "paused "
-		else
-			artist = ""
-			title = ""
-			mpdicon:set_image(theme.widget_music)
-		end
-
-		widget:set_markup(markup.font(theme.font, markup("#EA6F81", artist) .. title))
-	end,
-})
 
 -- MEM
 local memicon = wibox.widget.imagebox(theme.widget_mem)
@@ -199,14 +139,12 @@ local temp = lain.widget.temp({
 
 -- / fs
 local fsicon = wibox.widget.imagebox(theme.widget_hdd)
---[[ commented because it needs Gio/Glib >= 2.54
 theme.fs = lain.widget.fs({
-    notification_preset = { fg = theme.fg_normal, bg = theme.bg_normal, font = "Terminus 10" },
-    settings = function()
-        widget:set_markup(markup.font(theme.font, " " .. fs_now["/"].percentage .. "% "))
-    end
+  notification_preset = { fg = theme.fg_normal, bg = theme.bg_normal, font = "Roboto Flex 10" },
+  settings = function()
+      widget:set_markup(markup.font(theme.font, " " .. fs_now["/"].percentage .. "% "))
+  end,
 })
---]]
 
 -- Battery
 local baticon = wibox.widget.imagebox(theme.widget_battery)
@@ -279,9 +217,6 @@ local arrl_dl = separators.arrow_left(theme.bg_focus, "alpha")
 local arrl_ld = separators.arrow_left("alpha", theme.bg_focus)
 
 function theme.at_screen_connect(s)
-	-- Quake application
-	s.quake = lain.util.quake({ app = awful.util.terminal })
-
 	-- If wallpaper is a function, call it with the screen
 	local wallpaper = theme.wallpaper
 	if type(wallpaper) == "function" then
@@ -335,22 +270,17 @@ function theme.at_screen_connect(s)
 			s.mytaglist,
 			s.mypromptbox,
 			spr,
+			wibox.widget.systray(),
 		},
 		s.mytasklist, -- Middle widget
 		{ -- Right widgets
 			layout = wibox.layout.fixed.horizontal,
-			wibox.widget.systray(),
-			keyboardlayout,
 			spr,
 			arrl_ld,
-			wibox.container.background(mpdicon, theme.bg_focus),
-			wibox.container.background(theme.mpd.widget, theme.bg_focus),
+			wibox.container.background(keyboardlayout, theme.bg_focus),
 			arrl_dl,
 			volicon,
 			theme.volume.widget,
-			arrl_ld,
-			wibox.container.background(mailicon, theme.bg_focus),
-			--wibox.container.background(theme.mail.widget, theme.bg_focus),
 			arrl_dl,
 			memicon,
 			mem.widget,
@@ -362,7 +292,7 @@ function theme.at_screen_connect(s)
 			temp.widget,
 			arrl_ld,
 			wibox.container.background(fsicon, theme.bg_focus),
-			--wibox.container.background(theme.fs.widget, theme.bg_focus),
+			wibox.container.background(theme.fs.widget, theme.bg_focus),
 			arrl_dl,
 			baticon,
 			bat.widget,
