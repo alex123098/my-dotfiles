@@ -258,8 +258,6 @@ theme.volume.widget:buttons(awful.util.table.join(
 	end)
 ))
 
-require("components.volume")
-
 -- Net
 local neticon = wibox.widget.imagebox(theme.widget_net)
 local net = lain.widget.net({
