@@ -57,7 +57,7 @@ awful.rules.rules = {
 	-- Add titlebars to normal clients and dialogs
 	{ rule_any = { type = { "normal", "dialog" } }, properties = { titlebars_enabled = true } },
 
-  { rule = { instance = "firefox" }, properties = { tag = "web" } },
+  { rule = { class = "firefox" }, properties = { tag = "web" } },
   { rule = { instance = "spotify" }, properties = { tag = "music" } },
   { rule = { instance = "telegram-desktop" }, properties = { tag = "messages" } },
   { rule = { instance = "slack" }, properties = { tag = "messages" } },
