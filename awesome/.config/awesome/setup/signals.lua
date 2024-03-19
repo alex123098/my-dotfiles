@@ -2,18 +2,27 @@ local awful = require("awful")
 local beautiful = require("beautiful")
 local gtable = require("gears.table")
 local wibox = require("wibox")
+local gears = require("gears")
+
+local function update_client_corners(c)
+  if c.maximized or c.fullscreen then
+    c.shape = gears.shape.rectangle
+  else
+    c.shape = gears.shape.rounded_rect
+  end
+end
 
 -- Signal function to execute when a new client appears.
 client.connect_signal("manage", function(c)
-	-- Set the windows at the slave,
-	-- i.e. put it at the end of others instead of setting it master.
-	-- if not awesome.startup then awful.client.setslave(c) end
-
 	if awesome.startup and not c.size_hints.user_position and not c.size_hints.program_position then
 		-- Prevent clients from being unreachable after screen count changes.
 		awful.placement.no_offscreen(c)
 	end
+  update_client_corners(c)
 end)
+
+client.connect_signal("property::maximized", update_client_corners)
+client.connect_signal("property::fullscreen", update_client_corners)
 
 -- Add a titlebar if titlebars_enabled is set to true in the rules.
 client.connect_signal("request::titlebars", function(c)

@@ -11,7 +11,6 @@ local awful = require("awful")
 local wibox = require("wibox")
 local dpi = require("beautiful.xresources").apply_dpi
 
-local os = os
 local my_table = awful.util.table or gears.table -- 4.{0,1} compatibility
 
 local theme = {}
@@ -72,7 +71,8 @@ theme.widget_mail = theme.dir .. "/icons/mail.png"
 theme.widget_mail_on = theme.dir .. "/icons/mail_on.png"
 theme.tasklist_plain_task_name = true
 theme.tasklist_disable_icon = true
-theme.useless_gap = dpi(0)
+theme.useless_gap = dpi(2)
+theme.gap_single_client = false
 theme.titlebar_close_button_focus = theme.dir .. "/icons/titlebar/close_focus.png"
 theme.titlebar_close_button_normal = theme.dir .. "/icons/titlebar/close_normal.png"
 theme.titlebar_ontop_button_focus_active = theme.dir .. "/icons/titlebar/ontop_focus_active.png"
@@ -109,7 +109,7 @@ theme.cal = lain.widget.cal {
 	notification_preset = {
 		font = "Roboto Flex 10",
 		fg = theme.menu_fg_normal,
-		bg = theme.menu_bg_normal,
+		bg = "#1a1b26ee",
 	},
 }
 

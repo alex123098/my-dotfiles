@@ -7,6 +7,7 @@ end
 
 run_once({ "hsetroot", "-solid", "#000066" })
 run_once({ "xcompmgr", "-c", "-C", "-t-5", "-l-5", "-r4.2", "-o.55" })
+run_once({ "/usr/lib/xfce-polkit/xfce-polkit" })
 
 -- This function implements the XDG autostart specification
 --[[
