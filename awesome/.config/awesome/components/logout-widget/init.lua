@@ -44,37 +44,10 @@ local popup = awful.popup({
 	widget = {},
 })
 
-local function worker(user_args)
+local function worker()
 	local rows = { layout = wibox.layout.fixed.vertical }
-
-	local args = user_args or {}
-
-	local font = args.font or beautiful.font
-
-	local onlogout = args.onlogout or function()
-		awesome.quit()
-	end
-	local onlock = args.onlock
-		or function()
-			awful.spawn.with_shell("sh " .. widget_dir .. "lockscreen.sh")
-		end
-	local onreboot = args.onreboot or function()
-		awful.spawn.with_shell("reboot")
-	end
-	local onsuspend = args.onsuspend or function()
-		awful.spawn.with_shell("systemctl suspend")
-	end
-	local onpoweroff = args.onpoweroff or function()
-		awful.spawn.with_shell("shutdown now")
-	end
-
-	local menu_items = {
-		{ name = "Log out", icon_name = "log-out.svg", command = onlogout },
-		{ name = "Lock", icon_name = "lock.svg", command = onlock },
-		{ name = "Reboot", icon_name = "refresh-cw.svg", command = onreboot },
-		{ name = "Suspend", icon_name = "moon.svg", command = onsuspend },
-		{ name = "Power off", icon_name = "power.svg", command = onpoweroff },
-	}
+	local font = beautiful.font
+	local menu_items = require("components.logout-widget.menu")
 
 	for _, item in ipairs(menu_items) do
 		local row = wibox.widget({

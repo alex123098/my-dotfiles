@@ -22,15 +22,19 @@ local myawesomemenu = {
 		end,
 	},
 }
+local sessionmenu = {}
+local widget_menu = require("components.logout-widget.menu")
+for _, item in ipairs(widget_menu) do
+  table.insert(sessionmenu, { item.name, item.command })
+end
 
 awful.util.mymainmenu = freedesktop.menu.build({
 	before = {
 		{ "Awesome", myawesomemenu, beautiful.awesome_icon },
-		-- other triads can be put here
 	},
 	after = {
+    { "Session", sessionmenu },
 		{ "Open terminal", settings.terminal },
-		-- other triads can be put here
 	},
 })
 

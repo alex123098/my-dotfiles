@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
 set -o errexit -o noclobber -o nounset
-set -x
 
 hue=(-level "0%,100%,0.6")
 effect=(-filter Gaussian -resize 20% -define "filter:sigma=1.5" -resize 500.5%)
@@ -42,7 +41,7 @@ else
 fi
 
 convert "$image" "${hue[@]}" "${effect[@]}" -font "$font" -pointsize 26 -fill "$bw" -gravity center \
-	-annotate +0+160 "Enter password to unlock" "$icon" -gravity center -composite "$image"
+	-annotate +0+160 "Enter password or press [Enter] to use fingerprint to unlock" "$icon" -gravity center -composite "$image"
 
 if ! "${lock[@]}" "${param[@]}" >/dev/null 2>&1; then
 	"${lock[@]}"
