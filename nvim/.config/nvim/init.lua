@@ -1,8 +1,9 @@
--- bootstrap lazy.nvim, LazyVim and your plugins
-require("config.lazy")
+vim.g.mapleader = " "
+vim.g.maplocalleader = " "
+vim.g.have_nerd_font = true
 
-if not vim.g.neovide then
-  return
-end
-
-require("config.neovide")
+require "options"
+require "keymaps"
+require "autocmds"
+require "init-lazy"
+require "neovide"
