@@ -32,7 +32,7 @@ vim.api.nvim_create_autocmd('VimResized', {
   group = group 'resize_children',
   callback = function()
     local cur_tab = vim.fn.tabpagenr()
-    vim.cmd 'tabdo wuncmd ='
+    vim.cmd 'tabdo wincmd ='
     vim.cmd('tabnext ' .. cur_tab)
   end,
 })
