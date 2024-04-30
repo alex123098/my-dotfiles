@@ -23,13 +23,9 @@ return {
         },
       },
     },
-    config = function()
-      require("telescope").setup {
-        extensions = {
-          ["ui-select"] = require("telescope.themes").get_dropdown(),
-        },
-      }
-
+    opts = {},
+    config = function(_, opts)
+      require("telescope").setup(opts)
       pcall(require("telescope").load_extension, "fzf")
       pcall(require("telescope").load_extension, "ui-select")
 
