@@ -33,6 +33,8 @@ vim.opt.cursorline = true
 vim.opt.scrolloff = 8
 
 vim.opt.hlsearch = true
+vim.g.loaded_perl_provider = 0
+vim.g.loaded_ruby_provider = 0
 
 vim.opt.tabstop = 2
 vim.opt.softtabstop = 2
