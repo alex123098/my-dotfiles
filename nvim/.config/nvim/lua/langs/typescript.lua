@@ -3,12 +3,15 @@ return {
     "nvim-treesitter/nvim-treesitter",
     opts = function(_, opts)
       if type(opts.ensure_installed) == "table" then
-        vim.list_extend(opts.ensure_installed, { "typescript", "tsx" })
+        vim.list_extend(opts.ensure_installed, { "typescript", "tsx", "javascript" })
       end
     end,
   },
   {
     "neovim/nvim-lspconfig",
+    dependencies = {
+      "WhoIsSethDaniel/mason-tool-installer.nvim",
+    },
     opts = {
       servers = {
         tsserver = {
@@ -52,13 +55,16 @@ return {
     },
   },
   {
+    "WhoIsSethDaniel/mason-tool-installer.nvim",
+    opts = function(_, opts)
+      opts.ensure_installed = opts.ensure_installed or {}
+      vim.list_extend(opts.ensure_installed, { "js-debug-adapter", "tsserver" })
+    end,
+  },
+  {
     "mfussenegger/nvim-dap",
     dependencies = {
       "WhoIsSethDaniel/mason-tool-installer.nvim",
-      opts = function(_, opts)
-        opts.ensure_installed = opts.ensure_installed or {}
-        table.insert(opts.ensure_installed, { "js-debug-adapter", "tsserver" })
-      end,
     },
     opts = function()
       local dap = require "dap"
