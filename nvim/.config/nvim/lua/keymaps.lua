@@ -13,10 +13,10 @@ vim.keymap.set("n", "j", "gj")
 vim.keymap.set("n", "k", "gk")
 
 -- windows manipulation
-vim.keymap.set("n", "<C-h>", "<C-w><C-h>", { desc = "Move to the window on the left" })
-vim.keymap.set("n", "<C-j>", "<C-w><C-j>", { desc = "Move to the window on the bottom" })
-vim.keymap.set("n", "<C-k>", "<C-w><C-k>", { desc = "Move to the window on the top" })
-vim.keymap.set("n", "<C-l>", "<C-w><C-l>", { desc = "Move to the window on the right" })
+vim.keymap.set("n", "<C-h>", ":wincmd h<cr>", { silent = true, desc = "Move to the window on the left" })
+vim.keymap.set("n", "<C-j>", ":wincmd j<cr>", { silent = true, desc = "Move to the window on the bottom" })
+vim.keymap.set("n", "<C-k>", ":wincmd k<cr>", { silent = true, desc = "Move to the window on the top" })
+vim.keymap.set("n", "<C-l>", ":wincmd l<cr>", { silent = true, desc = "Move to the window on the right" })
 
 vim.keymap.set("n", "<C-Up>", "<cmd>resize +2<cr>", { desc = "Increase window height" })
 vim.keymap.set("n", "<C-Down>", "<cmd>resize -2<cr>", { desc = "Decrease window height" })
