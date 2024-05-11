@@ -15,16 +15,6 @@ return {
     opts = {
       servers = {
         gopls = {
-          keys = {
-            -- override the "debug test" keybinding because neotest-go lacks integration with dap
-            {
-              "<leader>td",
-              function()
-                require("dap-go").debug_test()
-              end,
-              desc = "Debug test",
-            },
-          },
           settings = {
             gopls = {
               gofumpt = true,
@@ -124,6 +114,17 @@ return {
       "nvim-treesitter/nvim-treesitter",
     },
     config = function(_, opts)
+      -- override the "debug test" keybinding because neotest-go lacks integration with dap
+      vim.api.nvim_create_autocmd("FileType", {
+        pattern = "go",
+        group = vim.api.nvim_create_augroup("go-keymap", { clear = true }),
+        callback = function(event)
+          vim.keymap.set("n", "<leader>td", function()
+            require("dap-go").debug_test()
+          end, { buffer = event.buf })
+        end,
+      })
+
       require("go").setup(opts)
     end,
     event = "CmdLineEnter",
