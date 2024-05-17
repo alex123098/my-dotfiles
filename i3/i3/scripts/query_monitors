@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+monitors=($(xrandr --listactivemonitors | tail -n +2 | awk '{print $4}'))
+
+echo "Monitors: ${monitors[@]}, len: ${#monitors[@]}"
