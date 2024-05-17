@@ -1,20 +1,34 @@
 return {
   {
     "hrsh7th/nvim-cmp",
-    dependencies = {
-      "Saecki/crates.nvim",
-      event = { "BufRead Cargo.toml" },
-      opts = {
-        src = {
-          cmp = { enabled = true },
+    dependencies = { "Saecki/crates.nvim" },
+    opts = function()
+      vim.api.nvim_create_autocmd("BufRead", {
+        group = vim.api.nvim_create_augroup("CmpSourceCargo", { clear = true }),
+        pattern = "Cargo.toml",
+        callback = function()
+          local cmp = require "cmp"
+          cmp.setup.buffer { sources = { { name = "crates" } } }
+        end,
+      })
+    end,
+  },
+  {
+    "Saecki/crates.nvim",
+    event = { "BufRead Cargo.toml" },
+    opts = {
+      completion = {
+        cmp = { enabled = true },
+        crates = {
+          enabled = true,
+          max_results = 5,
+          min_chars = 3,
         },
       },
+      popup = {
+        border = "rounded",
+      },
     },
-    ---@param opts cmp.ConfigSchema
-    opts = function(_, opts)
-      opts.sources = opts.sources or {}
-      table.insert(opts.sources, { name = "crates" })
-    end,
   },
   {
     "nvim-treesitter/nvim-treesitter",
