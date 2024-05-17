@@ -2,15 +2,9 @@ return {
   {
     "hrsh7th/nvim-cmp",
     dependencies = { "Saecki/crates.nvim" },
-    opts = function()
-      vim.api.nvim_create_autocmd("BufRead", {
-        group = vim.api.nvim_create_augroup("CmpSourceCargo", { clear = true }),
-        pattern = "Cargo.toml",
-        callback = function()
-          local cmp = require "cmp"
-          cmp.setup.buffer { sources = { { name = "crates" } } }
-        end,
-      })
+    opts = function(_, opts)
+      opts.sources = opts.sources or {}
+      opts.sources = vim.list_extend(opts.sources, { { name = "crates" } })
     end,
   },
   {
@@ -29,6 +23,33 @@ return {
         border = "rounded",
       },
     },
+    config = function()
+      require("crates").setup {}
+
+      -- setup Cargo.toml specific keymaps
+      vim.api.nvim_create_autocmd("BufEnter", {
+        group = vim.api.nvim_create_augroup("CargoTomlKeymaps", { clear = true }),
+        pattern = { "Cargo.toml" },
+        callback = function(e)
+          local buf = e.buf
+          local function mapn(lhs, rhs, desc)
+            vim.keymap.set("n", lhs, rhs, { buffer = buf, desc = desc, silent = true, noremap = true })
+          end
+          mapn("<leader>cp", function()
+            require("crates").show_crate_popup()
+          end, "Crate details")
+          mapn("<leader>cl", function()
+            require("crates").show_dependencies_popup()
+          end, "Crate dependencies")
+          mapn("<leader>cf", function()
+            require("crates").show_features_popup()
+          end, "Crate features")
+          mapn("<leader>co", function()
+            require("crates").open_repository()
+          end, "Open crate repository")
+        end,
+      })
+    end,
   },
   {
     "nvim-treesitter/nvim-treesitter",
