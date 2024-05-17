@@ -1,0 +1,44 @@
+" .ideavimrc is a configuration file for IdeaVim plugin. It uses
+"   the same commands as the original .vimrc configuration.
+" You can find a list of commands here: https://jb.gg/h38q75
+" Find more examples here: https://jb.gg/share-ideavimrc
+let mapleader=" "
+set nu
+set scrolloff=5
+set hlsearch
+set ignorecase
+set smartcase
+set incsearch
+set relativenumber
+set showmode
+set clipboard=unnamed,unnamedplus
+
+" Plugins
+set showmode
+set easymotion
+set ideajoin
+set NERDTree
+" Highlight copied text
+Plug 'machakann/vim-highlightedyank'
+" Commentary plugin
+Plug 'tpope/vim-commentary'
+
+" Don't use Ex mode, use Q for formatting.
+nnoremap <Esc><Esc> :nohl<cr>
+map Q gq
+nmap gc :action CommentByLineComment<cr>
+vmap gc :action CommentByLineComment<cr>
+
+nmap <leader>bd :action CloseEditor<cr>
+nmap <S-h> :action PreviousTab<cr>
+nmap <S-l> :action NextTab<cr>
+
+nmap gd :action GotoDeclaration<cr>
+nmap gr :action FindUsages<cr>
+
+nnoremap <leader>ff :action GotoFile<cr>
+nnoremap <leader>fs :action GotoSymbol<cr>
+nnoremap <leader>cs :action FileStructurePopup<cr>
+nnoremap <leader>bf :action ReformatCode<cr>
+
+nnoremap <leader>cr :action RenameElement<cr>
