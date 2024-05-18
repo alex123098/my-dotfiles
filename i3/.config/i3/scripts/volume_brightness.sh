@@ -1,9 +1,6 @@
 #!/bin/bash
 # original source: https://gitlab.com/Nmoleo/i3-volume-brightness-indicator
 
-# taken from here: https://gitlab.com/Nmoleo/i3-volume-brightness-indicator
-
-# See README.md for usage instructions
 bar_color="#7275b3"
 volume_step=1
 brightness_step=2.5
@@ -21,7 +18,7 @@ function get_mute {
 
 # Uses regex to get brightness from xbacklight
 function get_brightness {
-    xbacklight | grep -Po '[0-9]{1,3}' | head -n 1
+    xbacklight -get | grep -Po '[0-9]{1,3}' | head -n 1
 }
 
 # Returns a mute icon, a volume-low icon, or a volume-high icon, depending on the volume
@@ -53,7 +50,7 @@ function show_volume_notif {
 function show_brightness_notif {
     brightness=$(get_brightness)
     get_brightness_icon
-    dunstify -t 1000 -r 2593 -u normal "$brightness_icon $brightness%" -h int:value:$brightness -h string:hlcolor:$bar_color
+    dunstify -t 1000 -r 2593 -u normal "$brightness_icon   $brightness%" -h int:value:$brightness -h string:hlcolor:$bar_color
 }
 
 # Main function - Takes user input, "volume_up", "volume_down", "brightness_up", or "brightness_down"
