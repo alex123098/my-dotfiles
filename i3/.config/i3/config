@@ -4,7 +4,6 @@
 # xbrightness is used to control the screen brightness
 # picom is used as the compositor
 # rofi is used as the application launcher
-# yad for graphical dialogs
 # also make sure to have power-profiles-daemon installed and running
 
 # GTK 2/3 theme used is: TokyoNight DarkMoon BL: https://github.com/Fausto-Korpsvart/Tokyo-Night-GTK-Theme
