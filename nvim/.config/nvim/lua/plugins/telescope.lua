@@ -23,7 +23,21 @@ return {
         },
       },
     },
-    opts = {},
+    opts = {
+      defaults = {
+        mappings = {
+          i = {
+            ["<C-q>"] = false,
+            ["<M-q>"] = false,
+            ["<C-t>"] = function(buf)
+              local actions = require "telescope.actions"
+              actions.smart_send_to_qflist(buf)
+              actions.open_qflist(buf)
+            end,
+          },
+        },
+      },
+    },
     config = function(_, opts)
       require("telescope").setup(opts)
       pcall(require("telescope").load_extension, "fzf")
