@@ -1,0 +1,45 @@
+nvim=$(command -v nvim)
+GPG_TTY=$(tty)
+export GPG_TTY
+export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/gcr/ssh"
+
+export XDG_CONFIG_HOME="$HOME/.config"
+export XDG_CACHE_HOME="$HOME/.cache"
+export XDG_DATA_HOME="$HOME/.local/share"
+
+export GOBIN="$HOME/go/bin"
+
+export PATH="$HOME/.local/bin:$GOBIN:$PATH"
+
+export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
+
+export MANPAGER="${nvim} +Man!"
+export EDITOR=$nvim
+export VISUAL=$nvim
+
+export HISTFILE="$XDG_DATA_HOME/zsh/history"
+export HISTSIZE=10000
+export SAVEHIST=$HISTSIZE
+
+FZF_COLORS="bg+:-1,\
+fg:gray,\
+fg+:white,\
+border:black,\
+spinner:0,\
+hl:yellow,\
+header:blue,\
+info:green,\
+pointer:red,\
+marker:blue,\
+prompt:gray,\
+hl+:red"
+
+export FZF_DEFAULT_OPTS="--height 60% \
+--border sharp \
+--layout reverse \
+--color '$FZF_COLORS' \
+--prompt '∷ ' \
+--pointer ▶ \
+--marker ⇒"
+export FZF_ALT_C_OPTS="--preview 'tree -C {} | head -n 10'"
+export FZF_COMPLETION_DIR_COMMANDS="cd pushd rmdir tree ls"
