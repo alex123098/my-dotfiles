@@ -1,6 +1,6 @@
-source /usr/share/zsh/plugins/fzf-tab-git/fzf-tab.zsh
-
 autoload -U +X compinit && compinit
+
+source /usr/share/zsh/plugins/fzf-tab-git/fzf-tab.zsh
 
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"

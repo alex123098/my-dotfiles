@@ -34,6 +34,8 @@ __git_main_branch() {
 	return 1
 }
 alias g='git'
+alias ga="git add"
+alias gaa='git add --all'
 alias gst='git status'
 alias gco='git checkout'
 alias gcb='git checkout -b'
@@ -118,7 +120,7 @@ alias yli='yay -Qe'  # yay list installed
 alias yrmc='yay -SC' # yay remove cache
 sys_upgrade() {
 	# just use eos-update if it's available
-	if ! command -v eos-update &>/dev/null; then
+	if type -p eos-update &>/dev/null; then
 		eos-update --aur
 		return 0
 	fi
@@ -135,3 +137,8 @@ sys_upgrade() {
 
 	yay -Syuv
 }
+
+# misc
+alias vim='nvim'
+alias grep 'grep --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn,.idea,node_modules}'
+alias diff='diff --color=auto'

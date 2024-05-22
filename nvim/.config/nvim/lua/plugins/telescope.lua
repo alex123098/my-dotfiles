@@ -45,7 +45,9 @@ return {
 
       local bi = require "telescope.builtin"
       vim.keymap.set("n", "<leader>/", bi.live_grep, { desc = "Live grep" })
-      vim.keymap.set("n", "<leader>ff", bi.find_files, { desc = "Find Files" })
+      vim.keymap.set("n", "<leader>ff", function()
+        bi.find_files { find_command = { "rg", "--files", "--hidden", "-g", "!.git" } }
+      end, { desc = "Find Files" })
       vim.keymap.set("n", "<leader>fh", bi.help_tags, { desc = "Find help tag" })
       vim.keymap.set("n", "<leader>fk", bi.keymaps, { desc = "Keymaps" })
       vim.keymap.set("n", "<leader>fw", bi.grep_string, { desc = "Find current word" })

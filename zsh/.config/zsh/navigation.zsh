@@ -8,4 +8,4 @@ setopt CORRECT
 setopt CDABLE_VARS
 setopt EXTENDED_GLOB
 
-eval $(zoxide init --cmd cd zsh)
+source <(zoxide init --cmd j zsh)

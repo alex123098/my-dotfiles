@@ -5,10 +5,15 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
 fi
 
 # define colors
-eval $(dircolors -b)
+export LS_COLORS=$(vivid generate $ZDOTDIR/vivid-theme.yml)
+
+unsetopt beep
 
 # Source p10k theme
 source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
+
+# set navigation settings
+source $ZDOTDIR/navigation.zsh
 
 # Syntax highlighting
 source /usr/share/zsh/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
@@ -18,9 +23,6 @@ source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 # Completions
 source $ZDOTDIR/completions.zsh
-
-# set navigation settings
-source $ZDOTDIR/navigation.zsh
 
 # set history settings
 source $ZDOTDIR/history.zsh
@@ -38,3 +40,5 @@ source /usr/share/nvm/init-nvm.sh
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 source $ZDOTDIR/aliases.zsh
+
+source <(direnv hook zsh)
