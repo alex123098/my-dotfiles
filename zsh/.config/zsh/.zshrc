@@ -7,7 +7,6 @@ fi
 # define colors
 eval $(dircolors -b)
 
-
 # Source p10k theme
 source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
 
@@ -26,6 +25,12 @@ source $ZDOTDIR/navigation.zsh
 # set history settings
 source $ZDOTDIR/history.zsh
 
+# the most useful command in the world ;)
+eval $(thefuck --alias)
+
+source /usr/share/nvm/init-nvm.sh
+
 # Activate p10k prompt
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
+source $ZDOTDIR/aliases.zsh
