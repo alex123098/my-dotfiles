@@ -1,6 +1,10 @@
 return {
   {
     "nvim-treesitter/nvim-treesitter",
+    dependencies = {
+      { "nvim-treesitter/nvim-treesitter-textobjects" },
+      { "nvim-treesitter/nvim-treesitter-context" },
+    },
     build = ":TSUpdate",
     opts = {
       ensure_installed = {
@@ -33,12 +37,12 @@ return {
     event = "BufReadPre",
     keys = {
       {
-        "[c",
+        "[h",
         function()
           require("treesitter-context").go_to_context(vim.v.count1)
         end,
         silent = true,
-        desc = "Jump to context",
+        desc = "Jump to context header",
       },
     },
     opts = {
