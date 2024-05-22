@@ -28,6 +28,10 @@ source $ZDOTDIR/history.zsh
 # the most useful command in the world ;)
 eval $(thefuck --alias)
 
+# set keybindings
+source $ZDOTDIR/keybindings.zsh
+
+# setup nvm
 source /usr/share/nvm/init-nvm.sh
 
 # Activate p10k prompt
