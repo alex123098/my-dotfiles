@@ -15,7 +15,7 @@ export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
 
 export MANPAGER="${nvim} +Man!"
 export EDITOR=$nvim
-export VISUAL="${nvim} -m -R"
+export VISUAL="${nvim}"
 
 export HISTFILE="$XDG_DATA_HOME/zsh/history"
 export HISTSIZE=10000
