@@ -110,7 +110,7 @@ ags() {
 }
 
 # kitty alias
-icat='kitty icat'
+alias icat='kitty icat'
 
 # yay & pacman
 alias yi='yay -S --noconfirm'
@@ -152,3 +152,12 @@ alias vim='nvim'
 alias grep='grep --color=always --exclude-dir={.bzr,CVS,.git,.hg,.svn,.idea,node_modules}'
 alias diff='diff --color=auto'
 alias cless='LESS=" -R " LESSOPEN="| /usr/bin/src-hilite-lesspipe.sh %s" less -M '
+# launch yazi, cd after exit
+yy() {
+	local dir="$(mktemp -t "yazi-cwd.XXXXXX")"
+	yazi "$@" --cwd-file="$dir"
+	if cwd="$(command cat -- "$dir")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+		cd -- "$cwd"
+	fi
+	rm -f -- "$dir"
+}
