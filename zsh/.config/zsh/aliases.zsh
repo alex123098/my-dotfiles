@@ -40,6 +40,7 @@ alias gst='git status'
 alias gco='git checkout'
 alias gcb='git checkout -b'
 alias gcm='git checkout $(__git_main_branch)'
+alias gb="git branch"
 alias gbd='git branch -d'
 alias gbD='git branch -D'
 alias gbl='git branch -l'
@@ -137,8 +138,17 @@ sys_upgrade() {
 
 	yay -Syuv
 }
+# show searchable package menu and install selected package(s)
+alias yimenu="yay -Slq | fzf --multi --preview 'yay -Si {1}' | xargs yay -S --noconfirm"
+# show searchable list of installed packages and remove selected
+alias yrmenu="yay -Qq | fzf --multi --preview 'yay -Qi {1}' | xargs yay -Rns --noconfirm"
+
+# tmux 
+alias ta="tmux attach"
+alias tks="tmux kill-session"
 
 # misc
 alias vim='nvim'
-alias grep 'grep --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn,.idea,node_modules}'
+alias grep='grep --color=always --exclude-dir={.bzr,CVS,.git,.hg,.svn,.idea,node_modules}'
 alias diff='diff --color=auto'
+alias cless='LESS=" -R " LESSOPEN="| /usr/bin/src-hilite-lesspipe.sh %s" less -M '

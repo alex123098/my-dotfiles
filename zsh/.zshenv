@@ -15,29 +15,19 @@ export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
 
 export MANPAGER="${nvim} +Man!"
 export EDITOR=$nvim
-export VISUAL=$nvim
+export VISUAL="${nvim} -m -R"
 
 export HISTFILE="$XDG_DATA_HOME/zsh/history"
 export HISTSIZE=10000
 export SAVEHIST=$HISTSIZE
 
-FZF_COLORS="bg+:-1,\
-fg:gray,\
-fg+:white,\
-border:black,\
-spinner:0,\
-hl:yellow,\
-header:blue,\
-info:green,\
-pointer:red,\
-marker:blue,\
-prompt:gray,\
-hl+:red"
-
 export FZF_DEFAULT_OPTS="--height 60% \
 --border sharp \
 --layout reverse \
---color '$FZF_COLORS' \
+--color=fg:#c0caf5,bg:#1a1b26,hl:#ff9e64 \
+--color=fg+:#c0caf5,bg+:#292e42,hl+:#ff9e64 \
+--color=info:#7aa2f7,prompt:#7dcfff,pointer:#7dcfff \
+--color=marker:#9ece6a,spinner:#9ece6a,header:#9ece6a \
 --prompt '∷ ' \
 --pointer ▶ \
 --marker ⇒"
