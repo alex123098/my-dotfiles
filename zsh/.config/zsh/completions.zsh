@@ -1,6 +1,6 @@
 fpath=($ZDOTDIR/funcs $fpath)
 autoload -Uz bashcompinit && bashcompinit -i
-autoload -U +X compinit && compinit
+autoload -U compinit && compinit
 
 complete -C aws_completer aws
 compdef '_docker compose build' dcbr
