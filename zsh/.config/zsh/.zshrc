@@ -23,6 +23,8 @@ source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 # Completions
 source $ZDOTDIR/completions.zsh
+autoload -Uz +X _dcbr
+compdef _dcbr dcbr
 
 # set history settings
 source $ZDOTDIR/history.zsh

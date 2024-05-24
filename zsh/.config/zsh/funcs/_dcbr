@@ -1,0 +1,11 @@
+#commpdef dcbr
+# Completion for custom dcbr command that does docker compose build $1 && docker compose run $1
+compdef _dcbr dcbr
+
+_dcbr() {
+	local -a services
+	services=($(docker compose config --services 2>/dev/null | tr '\n' ' '))
+	_describe 'services' services
+}
+
+# vim: ft=zsh
