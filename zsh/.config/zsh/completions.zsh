@@ -1,4 +1,7 @@
+autoload -Uz bashcompinit && bashcompinit -i
 autoload -U +X compinit && compinit
+
+complete -C aws_completer aws
 
 source /usr/share/zsh/plugins/fzf-tab-git/fzf-tab.zsh
 
