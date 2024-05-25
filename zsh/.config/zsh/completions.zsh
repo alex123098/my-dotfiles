@@ -15,3 +15,4 @@ zstyle 'fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls --color $realpath'
 
 # init fzf integrations
 eval $(fzf --zsh)
+export NVM_COMPLETION=true
