@@ -19,7 +19,7 @@ return {
     end,
   },
   {
-    "DaikyXendo/nvim-material-icon",
+    "nvim-tree/nvim-web-devicons",
     opts = {
       color_icons = true,
       default = true,

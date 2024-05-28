@@ -2,7 +2,7 @@ return {
   {
     "echasnovski/mini.nvim",
     dependencies = {
-      "DaikyXendo/nvim-material-icon",
+      "nvim-tree/nvim-web-devicons",
     },
     config = function()
       require("mini.ai").setup { n_lines = 500 }
