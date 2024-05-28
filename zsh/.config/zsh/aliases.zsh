@@ -151,7 +151,7 @@ alias tks="tmux kill-session"
 alias vim='nvim'
 alias grep='grep --color=always --exclude-dir={.bzr,CVS,.git,.hg,.svn,.idea,node_modules}'
 alias diff='diff --color=auto'
-alias cless='LESS=" -R " LESSOPEN="| /usr/bin/src-hilite-lesspipe.sh %s" less -M '
+alias cless='LESS=" -Ri " LESSOPEN="| $ZDOTDIR/less-highlight-guess-ft.sh %s" less -M '
 # launch yazi, cd after exit
 yy() {
 	local dir="$(mktemp -t "yazi-cwd.XXXXXX")"
