@@ -20,6 +20,10 @@ return {
   },
   {
     "DaikyXendo/nvim-material-icon",
+    opts = {
+      color_icons = true,
+      default = true,
+    },
   },
   {
     "norcalli/nvim-colorizer.lua",
