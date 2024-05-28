@@ -33,6 +33,9 @@ __git_main_branch() {
 	echo "main"
 	return 1
 }
+gdcol() {
+	git diff --name-only --relative --diff-filter=d | xargs bat --diff
+}
 alias g='git'
 alias ga="git add"
 alias gaa='git add --all'
@@ -151,7 +154,7 @@ alias tks="tmux kill-session"
 alias vim='nvim'
 alias grep='grep --color=always --exclude-dir={.bzr,CVS,.git,.hg,.svn,.idea,node_modules}'
 alias diff='diff --color=auto'
-alias cless='LESS=" -Ri " LESSOPEN="| $ZDOTDIR/less-highlight-guess-ft.sh %s" less -M '
+alias cless='LESS=" -Ri " LESSOPEN="| pygmentize -O style=tokyonight -g %s" less -M '
 # launch yazi, cd after exit
 yy() {
 	local dir="$(mktemp -t "yazi-cwd.XXXXXX")"
