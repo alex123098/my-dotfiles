@@ -147,6 +147,7 @@ alias yimenu="yay -Slq | fzf --multi --preview 'yay -Si {1}' | xargs yay -S --no
 alias yrmenu="yay -Qq | fzf --multi --preview 'yay -Qi {1}' | xargs yay -Rns --noconfirm"
 
 # tmux 
+alias t="tmux"
 alias ta="tmux attach"
 alias tks="tmux kill-session"
 
