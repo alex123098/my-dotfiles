@@ -4,7 +4,7 @@ return {
     version = "*",
     dependencies = {
       "nvim-lua/plenary.nvim",
-      "nvim-tree/nvim-web-devicons",
+      "DaikyXendo/nvim-material-icon",
       "MunifTanjim/nui.nvim",
     },
     cmd = "Neotree",

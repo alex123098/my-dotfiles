@@ -5,7 +5,7 @@ return {
     version = "*",
     dependencies = {
       "SmiteshP/nvim-navic",
-      "nvim-tree/nvim-web-devicons",
+      "DaikyXendo/nvim-material-icon",
     },
     opts = {
       create_autocmd = false,

@@ -19,11 +19,25 @@ return {
     end,
   },
   {
-    "nvim-tree/nvim-web-devicons",
+    "DaikyXendo/nvim-material-icon",
     opts = {
       color_icons = true,
       default = true,
     },
+    config = function(_, opts)
+      local devicons = require "nvim-web-devicons"
+      devicons.setup(opts)
+
+      -- Fix for plugins like barbecue that rely on the default icon
+      devicons.get_default_icon = function()
+        return {
+          icon = "󰈙",
+          color = "#6d8086",
+          cterm_color = "66",
+          name = "Default",
+        }
+      end
+    end,
   },
   {
     "norcalli/nvim-colorizer.lua",

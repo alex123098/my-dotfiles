@@ -13,7 +13,7 @@ return {
         end,
       },
       { "nvim-telescope/telescope-ui-select.nvim" },
-      { "nvim-tree/nvim-web-devicons", enabled = true },
+      { "DaikyXendo/nvim-material-icon", enabled = true },
       {
         "folke/which-key.nvim",
         opts = {
