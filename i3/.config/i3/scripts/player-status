@@ -1,0 +1,43 @@
+#!/usr/bin/env bash
+set +x
+format_output() {
+	INPUT=$(cat)
+	PLAYER=$(echo $INPUT | awk -F ';' '{print $1}')
+	case $PLAYER in
+		"spotify")
+			PLAYER="<span font='FontAwesome'></span>"
+			;;
+		"mpv")
+			PLAYER="<span font='FontAwesome'></span>"
+			;;
+		"firefox")
+			PLAYER="<span font='FontAwesome'></span>"
+			;;
+		*)
+			PLAYER="<span font='FontAwesome'></span>"
+			;;
+	esac
+
+	STATUS=$(echo $INPUT | awk -F ';' '{print $2}')
+	case $STATUS in
+		"playing")
+			STATUS="<span font='FontAwesome'></span>"
+			;;
+		"paused")
+			STATUS="<span font='FontAwesome'></span>"
+			;;
+		"stopped")
+			STATUS="<span font='FontAwesome'></span>"
+			;;
+		*)
+			STATUS="<span font='FontAwesome'></span>"
+			;;
+	esac
+
+	ARTIST=$(echo $INPUT | awk -F ';' '{print $3}')
+	TITLE=$(echo $INPUT | awk -F ';' '{print $4}')
+
+	echo "$PLAYER $STATUS $ARTIST - $TITLE"
+}
+
+playerctl --format '{{lc(playerName)}};{{lc(status)}};{{artist}};{{trunc(title, 20)}}' metadata | format_output
