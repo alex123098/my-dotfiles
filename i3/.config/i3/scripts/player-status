@@ -2,6 +2,10 @@
 set +x
 format_output() {
 	INPUT=$(cat)
+	if [[ -z $INPUT ]]; then
+		echo "<span font='FontAwesome'></span> No media playing"
+		exit 0
+	fi
 	PLAYER=$(echo $INPUT | awk -F ';' '{print $1}')
 	case $PLAYER in
 		"spotify")
