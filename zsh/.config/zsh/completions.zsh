@@ -2,7 +2,7 @@ fpath=($ZDOTDIR/funcs $fpath)
 autoload -Uz bashcompinit && bashcompinit -i
 autoload -U compinit && compinit
 
-complete -C aws_completer aws
+source /usr/bin/aws_zsh_completer.sh
 compdef '_docker compose build' dcbr
 
 source /usr/share/zsh/plugins/fzf-tab-git/fzf-tab.zsh
