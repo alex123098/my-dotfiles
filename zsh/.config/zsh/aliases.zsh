@@ -165,3 +165,18 @@ yy() {
 	fi
 	rm -f -- "$dir"
 }
+
+# search file with preview, print full path to stdout
+frg() {
+	result=$(rg --ignore-case --color=always --line-number --no-heading --with-filename --hidden -g "!.git" . |
+			fzf --ansi \
+					--color 'hl:-1:underline,hl+:-1:underline:reverse' \
+					--delimiter ':' \
+					--preview "bat --color=always {1} --highlight-line {2}" \
+					--preview-window 'up,60%,border-bottom,+{2}+3/3,~3')
+	file="${result%%:*}"
+	linenumber=$(echo $result | cut -d ':' -f 2)
+	if [ ! -z "$file" ]; then
+		$EDITOR +"${linenumber}" "${file}"
+	fi
+}
