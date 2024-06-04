@@ -36,6 +36,9 @@ __git_main_branch() {
 gdcol() {
 	git diff --name-only --relative --diff-filter=d | xargs bat --diff
 }
+gdscol() {
+	git diff --name-only --relative --diff-filter=d --staged | xargs bat --diff
+}
 alias g='git'
 alias ga="git add"
 alias gaa='git add --all'
@@ -180,3 +183,4 @@ frg() {
 		$EDITOR +"${linenumber}" "${file}"
 	fi
 }
+alias ssh='kitten ssh'
