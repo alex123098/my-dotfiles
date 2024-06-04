@@ -183,4 +183,4 @@ frg() {
 		$EDITOR +"${linenumber}" "${file}"
 	fi
 }
-alias ssh='kitten ssh'
+alias kssh='kitten ssh'
