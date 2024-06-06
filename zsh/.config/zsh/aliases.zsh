@@ -34,10 +34,18 @@ __git_main_branch() {
 	return 1
 }
 gdcol() {
-	git diff --name-only --relative --diff-filter=d | xargs bat --diff
+	if ! git rev-parse >/dev/null 2>&1; then
+		echo "Not a git repository"
+		return 1
+	fi
+	git diff --name-only --line-prefix=`git rev-parse --show-toplevel`/ --diff-filter=d | xargs bat --diff
 }
 gdscol() {
-	git diff --name-only --relative --diff-filter=d --staged | xargs bat --diff
+	if ! git rev-parse >/dev/null 2>&1; then
+		echo "Not a git repository"
+		return 1
+	fi
+	git diff --name-only --line-prefix=`git rev-parse --show-toplevel`/ --diff-filter=d --staged | xargs bat --diff
 }
 alias g='git'
 alias ga="git add"
@@ -70,6 +78,7 @@ alias glgfull='git log --full-diff --pretty=format="%h%d: %s [%an]" -p'
 alias glg='git log --oneline --decorate'
 alias glgg='git log --oneline --decorate --graph --all'
 alias glgs='git log --oneline --decorate --stat'
+alias gm='git merge'
 
 # kubernetes
 alias k='kubectl'
@@ -96,6 +105,7 @@ alias kgcj='kubectl get cronjob'
 alias kgcjw='kubectl get cronjob --watch'
 alias kdcj='kubectl describe cronjob'
 alias keti='kubectl exec -ti'
+alias ktp='kubectl top pods'
 
 # cat
 alias cat='bat --paging=never'
