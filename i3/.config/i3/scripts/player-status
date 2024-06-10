@@ -7,7 +7,6 @@
 select_line() {
 	local statuses=("${(@f)${1}}")
 	local selected=""
-	local picked_player
 
 	for line in "${statuses[@]}"; do
 		local player=$(echo $line | cut -d';' -f1)
@@ -16,7 +15,6 @@ select_line() {
 			break
 		elif [[ $player == 'spotify' ]]; then
 			selected=$line
-			picked_player=$player
 		fi
 	done
 	if [[ -z $selected ]]; then
