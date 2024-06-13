@@ -70,10 +70,10 @@ if ($temperature < 45) {
   $label = '';
 }
 # Print short_text, full_text
-print "${label}";
-print " $temperature°C\n";
-print "${label}";
-print " $temperature°C\n";
+print "<span font='FontAwesome' size='large'>${label}</span>";
+print "  $temperature°C\n";
+print "<span font='FontAwesome' size='large'>${label}</span>";
+print "  $temperature°C\n";
 
 # Print color, if needed
 if ($temperature >= $t_crit) {

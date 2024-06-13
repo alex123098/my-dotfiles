@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-LABEL="<span font='FontAwesome'>⇅ </span>"
+LABEL="<span font='FontAwesome' size='large'>⇅ </span>"
 DT=3
 ONE_KB=1024
 ONE_MB=$(echo "${ONE_KB}*1024" | bc -l)
@@ -22,8 +22,8 @@ function FormatNumber() {
 }
 
 IFACE="$(ip route | awk '/^default via/ {print $5; exit}')"
-TX_OLD=0
 RX_OLD=0
+TX_OLD=0
 
 while true; do
   IFACE_STATS="$(grep ${IFACE} /proc/net/dev | cut -d: -f2)"
@@ -32,23 +32,22 @@ while true; do
     exit
   fi
 
-  TX_CUR=$(echo "${IFACE_STATS}" | awk '{print $1}')
-  RX_CUR=$(echo "${IFACE_STATS}" | awk '{print $9}')
+  RX_CUR=$(echo "${IFACE_STATS}" | awk '{print $1}')
+  TX_CUR=$(echo "${IFACE_STATS}" | awk '{print $9}')
 
   if [[ "${TX_OLD}" != "0" ]] && [[ "${RX_OLD}" != "0" ]]; then
-    # Calculate the CPU usage since we last checked.
+    RX_DIFF=$(echo "scale=0;(${RX_CUR} - ${RX_OLD})/${DT}" | bc -l)
     TX_DIFF=$(echo "scale=0;(${TX_CUR} - ${TX_OLD})/${DT}" | bc -l)
-    RX_DIFF=$(echo "scale=0;(${RX_OLD} - ${RX_OLD})/${DT}" | bc -l)
 
-    TX_USAGE=$(FormatNumber "${TX_DIFF}")
     RX_USAGE=$(FormatNumber "${RX_DIFF}")
+    TX_USAGE=$(FormatNumber "${TX_DIFF}")
 
-    echo "${LABEL}${TX_USAGE} : ${RX_USAGE}"
+    echo "${LABEL}${RX_USAGE} : ${TX_USAGE}"
   else
     echo "${LABEL}? : ?"
   fi
 
-  TX_OLD=${TX_CUR}
   RX_OLD=${RX_CUR}
+  TX_OLD=${TX_CUR}
   sleep ${DT}
 done
