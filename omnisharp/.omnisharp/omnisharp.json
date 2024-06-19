@@ -1,0 +1,14 @@
+{
+  "RoslynExtensionsOptions": {
+    "EnableDecompilationSupport": true
+  },
+  "FormattingOptions": {
+    "IndentationSize": 4,
+    "TabSize": 4,
+    "IndentationType": "Spaces",
+    "EndOfLine": "LF",
+    "InsertFinalNewline": false,
+    "TrimTrailingWhitespace": true,
+    "EnableEditorConfigSupport": true
+  }
+}
