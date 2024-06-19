@@ -11,7 +11,7 @@ return {
     "WhoIsSethDaniel/mason-tool-installer.nvim",
     opts = function(_, opts)
       opts.ensure_installed = opts.ensure_installed or {}
-      vim.list_extend(opts.ensure_installed, { "netcoredbg", "csharpier", "omnisharp" })
+      vim.list_extend(opts.ensure_installed, { "netcoredbg", "omnisharp" })
     end,
   },
   {
@@ -36,20 +36,6 @@ return {
           enable_roslyn_analyzers = true,
           organize_imports_on_format = true,
           enable_import_completion = true,
-        },
-      },
-    },
-  },
-  {
-    "stevearc/conform.nvim",
-    opts = {
-      formatters_by_ft = {
-        cs = { "csharpier" },
-      },
-      formatters = {
-        csharpier = {
-          command = "dotnet-csharpier",
-          args = { "--write-stdout" },
         },
       },
     },
