@@ -1,12 +1,12 @@
 # This repo
 
-This repo just contains a collection of my dotfiles and a couple of scripts that I use day-to-day.
+This is just a collection of my dotfiles and a couple of scripts that I use day-to-day.
 
 ## Installation
 
 Make sure you have `stow` installed.
 
-Clone this repo somewhere, I keep it directly in my home directory like so: `~/.dotfiles`
+Clone this repo somewhere, I keep it under my home directory like so: `~/.dotfiles`
 Then just `cd` into the repo dir and run:
 
 ```bash
