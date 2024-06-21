@@ -159,7 +159,7 @@ alias yimenu="yay -Slq | fzf --multi --preview 'yay -Si {1}' | xargs yay -S --no
 # show searchable list of installed packages and remove selected
 alias yrmenu="yay -Qq | fzf --multi --preview 'yay -Qi {1}' | xargs yay -Rns --noconfirm"
 
-# tmux 
+# tmux
 alias t="tmux"
 alias ta="tmux attach"
 alias tks="tmux kill-session"
@@ -179,7 +179,7 @@ yy() {
 	rm -f -- "$dir"
 }
 
-# search file with preview, print full path to stdout
+# search file with preview, open for edit afterwards
 frg() {
 	result=$(rg --ignore-case --color=always --line-number --no-heading --with-filename --hidden -g "!.git" . |
 			fzf --ansi \

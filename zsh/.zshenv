@@ -14,7 +14,7 @@ export PATH="$HOME/.dotnet/tools:$HOME/.local/bin:$GOBIN:$PATH"
 export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
 
 export MANPAGER="${nvim} +Man!"
-export EDITOR=$nvim
+export EDITOR="${nvim}"
 export VISUAL="${nvim}"
 
 export HISTFILE="$XDG_DATA_HOME/zsh/history"
