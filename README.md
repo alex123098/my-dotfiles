@@ -38,3 +38,4 @@ These are the CLI tools and zsh plugins I have installed:
 - ripgrep
 - vivid
 - thefuck
+- neovim as editor
