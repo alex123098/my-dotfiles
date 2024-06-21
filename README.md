@@ -36,3 +36,5 @@ These are the CLI tools and zsh plugins I have installed:
 - aws zsh completer (typically installed with aws CLI)
 - direnv
 - ripgrep
+- vivid
+- thefuck
