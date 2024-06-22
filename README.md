@@ -26,7 +26,7 @@ Note that the `-t ~` part is required only if you have this repo cloned anywhere
 These are the CLI tools and zsh plugins I have installed:
 
 - bat
-- powerlevel10k
+- oh-my-posh
 - fzf
 - fzf-tab
 - zsh-syntax-highlighting

@@ -1,16 +1,7 @@
-# Enable instant prompt. Should stay close to the top of .zshrc. The code between this
-# and the line sourcing .p10k.zsh must not produce any output to stdout.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
-
 # define colors
 export LS_COLORS=$(vivid generate $ZDOTDIR/vivid-theme.yml)
 
 unsetopt beep
-
-# Source p10k theme
-source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
 
 # set navigation settings
 source $ZDOTDIR/navigation.zsh
@@ -38,8 +29,8 @@ source $ZDOTDIR/keybindings.zsh
 # setup nvm
 source /usr/share/nvm/init-nvm.sh
 
-# Activate p10k prompt
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+# Activate oh-my-posh
+eval "$(oh-my-posh init zsh --config ~/.config/zsh/omp.conf.json)"
 
 source $ZDOTDIR/aliases.zsh
 
