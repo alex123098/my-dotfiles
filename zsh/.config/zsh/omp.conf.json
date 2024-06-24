@@ -110,7 +110,7 @@
             "threshold": 350,
             "style": "austin"
           },
-          "template": "\uf252 {{ .FormattedMs }}"
+          "template": " \uf252 {{ .FormattedMs }}"
         },
         {
           "type": "status",
