@@ -75,7 +75,7 @@ return {
               request = "launch",
               ---@diagnostic disable-next-line: redundant-parameter
               program = function()
-                return vim.fn.input("Path to dll: ", vim.fn.getcwd() .. "/", "file")
+                return vim.fn.input("Path to dll: ", vim.fn.getcwd() .. "/bin/Debug/", "file")
               end,
               cwd = "${workspaceFolder}",
             },
@@ -87,8 +87,10 @@ return {
   {
     "nvim-neotest/neotest",
     dependencies = { "Issafalcon/neotest-dotnet" },
-    opts = function(_, opts)
-      vim.list_extend(opts.adapters, { require "neotest-dotnet" })
-    end,
+    opts = {
+      adapters = {
+        ["neotest-dotnet"] = {},
+      },
+    },
   },
 }
