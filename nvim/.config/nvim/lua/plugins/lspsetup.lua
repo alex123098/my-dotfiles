@@ -7,6 +7,10 @@ return {
       "WhoIsSethDaniel/mason-tool-installer.nvim",
       { "j-hui/fidget.nvim", opts = {} },
       { "folke/neodev.nvim", opts = {} },
+      {
+        "aznhe21/actions-preview.nvim",
+        event = "VeryLazy",
+      },
     },
     opts = {
       servers = {
@@ -34,11 +38,11 @@ return {
           map("gd", require("telescope.builtin").lsp_definitions, "Goto definition")
           map("gr", require("telescope.builtin").lsp_references, "Goto references")
           map("gI", require("telescope.builtin").lsp_implementations, "Goto implementation")
-          map("<leader>cD", require("telescope.builtin").lsp_type_definitions, "Type iefinition")
+          map("<leader>cD", require("telescope.builtin").lsp_type_definitions, "Type definition")
           map("<leader>fs", require("telescope.builtin").lsp_document_symbols, "Find symbols in current document")
           map("<leader>fS", require("telescope.builtin").lsp_dynamic_workspace_symbols, "Find symbols in workspace")
           map("<leader>cr", vim.lsp.buf.rename, "Rename")
-          map("<leader>ca", vim.lsp.buf.code_action, "Code action")
+          map("<leader>ca", require("actions-preview").code_actions, "Code action")
           map("<leader>cL", vim.lsp.codelens.run, "Codelens action")
           map("K", vim.lsp.buf.hover, "Hover Documentation")
           map("gD", vim.lsp.buf.declaration, "Goto declaration")
@@ -100,6 +104,28 @@ return {
     cmd = "Mason",
     build = ":MasonUpdate",
     opts = true,
+  },
+  {
+    "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
+    opts = true,
+    config = function()
+      require("lsp_lines").setup()
+
+      vim.diagnostic.config {
+        virtual_text = true,
+        virtual_lines = false,
+      }
+
+      local function lines_toggle()
+        local current = vim.diagnostic.config().virtual_text
+        vim.diagnostic.config {
+          virtual_text = not current,
+          virtual_lines = current,
+        }
+        return current
+      end
+      vim.keymap.set("n", "<leader>cl", lines_toggle, { desc = "Toggle underline diagnostics", silent = true })
+    end,
   },
   {
     "WhoIsSethDaniel/mason-tool-installer.nvim",
