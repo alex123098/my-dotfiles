@@ -53,14 +53,6 @@ return {
         end,
       },
       {
-        "folke/which-key.nvim",
-        opts = {
-          defaults = {
-            ["<leader>d"] = { name = "Debug" },
-          },
-        },
-      },
-      {
         "theHamsta/nvim-dap-virtual-text",
         opts = {},
       },

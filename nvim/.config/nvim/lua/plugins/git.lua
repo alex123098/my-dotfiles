@@ -1,14 +1,6 @@
 return {
   {
     "lewis6991/gitsigns.nvim",
-    dependencies = {
-      "folke/which-key.nvim",
-      opts = {
-        defaults = {
-          ["<leader>g"] = { name = "Git" },
-        },
-      },
-    },
     opts = {
       signs = {
         add = { text = "+" },

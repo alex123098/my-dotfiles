@@ -4,17 +4,23 @@ return {
   opts = {
     plugins = { spelling = true },
     defaults = {
-      mode = { "n", "v" },
-      ["g"] = { name = "Goto" },
-      ["]"] = { name = "Next" },
-      ["["] = { name = "Previos" },
-      ["<leader>c"] = { name = "Code" },
-      ["<leader>b"] = { name = "Buffer" },
+      {
+        mode = { "n", "v" },
+        { "g", group = "Goto" },
+        { "]", group = "Next" },
+        { "[", group = "Previos" },
+        { "<leader>c", group = "Code" },
+        { "<leader>b", group = "Buffer" },
+        { "<leader>d", group = "Debug" },
+        { "<leader>f", group = "Find" },
+        { "<leader>t", group = "Tests" },
+        { "<leader>g", group = "Git" },
+      },
     },
   },
   config = function(_, opts)
     local wk = require "which-key"
     wk.setup(opts)
-    wk.register(opts.defaults)
+    wk.add(opts.defaults)
   end,
 }

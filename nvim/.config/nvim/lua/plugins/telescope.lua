@@ -14,14 +14,6 @@ return {
       },
       { "nvim-telescope/telescope-ui-select.nvim" },
       { "DaikyXendo/nvim-material-icon", enabled = true },
-      {
-        "folke/which-key.nvim",
-        opts = {
-          defaults = {
-            ["<leader>f"] = { name = "Find" },
-          },
-        },
-      },
     },
     opts = {
       defaults = {
