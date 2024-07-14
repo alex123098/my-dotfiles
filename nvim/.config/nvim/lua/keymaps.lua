@@ -36,10 +36,7 @@ vim.keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Enter normal mode" })
 
 -- Diagnostics & Quickfixes navigation
 local function goto_diag(next, severity)
-  local go = function()
-    local cnt = next and 1 or -1
-    vim.diagnostic.jump { count = cnt }
-  end
+  local go = next and vim.diagnostic.goto_next or vim.diagnostic.goto_prev
   severity = severity and vim.diagnostic.severity[severity] or nil
   return function()
     go { severity = severity }
