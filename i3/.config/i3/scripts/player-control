@@ -1,0 +1,28 @@
+#!/usr/bin/env zsh
+
+select_player() {
+    local players=($(playerctl -a --format '{{lc(playerName)}};{{lc(status)}}' metadata))
+    local selected=""
+
+	for line in "${players[@]}"; do
+		local player=$(echo $line | cut -d';' -f1)
+		if [[ $(echo $line | cut -d';' -f2) == 'playing' ]]; then
+			selected=$line
+			break
+		elif [[ $player == 'spotify' ]]; then
+			selected=$line
+		fi
+	done
+	if [[ -z $selected ]]; then
+		selected=$line
+	fi
+	echo "${selected}" | cut -d';' -f1
+}
+
+cur_player=$(select_player)
+if [[ -z "${cur_player}" ]]; then
+    echo "No active player"
+    exit 0
+fi
+
+playerctl -p "${cur_player}" $1

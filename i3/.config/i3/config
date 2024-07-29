@@ -140,9 +140,9 @@ bindsym $mod+Shift+Up move up
 bindsym $mod+Shift+Right move right
 
 # player control
-bindsym $mod+Control+p exec --no-startup-id playerctl play-pause
-bindsym $mod+Control+l exec --no-startup-id playerctl next
-bindsym $mod+Control+h exec --no-startup-id playerctl previous
+bindsym $mod+Control+p exec --no-startup-id ~/.config/i3/scripts/player-control play-pause
+bindsym $mod+Control+l exec --no-startup-id ~/.config/i3/scripts/player-control next
+bindsym $mod+Control+h exec --no-startup-id ~/.config/i3/scripts/player-control previous
 
 # split in horizontal orientation
 bindsym $mod+\ split h
@@ -236,7 +236,7 @@ exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 exec --no-startup-id dex --autostart --environment i3
 
 # start welcome app
-#exec --no-startup-id sh /usr/share/endeavouros/scripts/welcome --startdelay=3 
+#exec --no-startup-id sh /usr/share/endeavouros/scripts/welcome --startdelay=3
 
 # num lock activated
 exec --no-startup-id numlockx on
@@ -273,7 +273,7 @@ exec --no-startup-id xset s 480 dpms 600 600 600
 # dunst config used ~/.config/dunst/dunstrc
 # set alternative config if needed:
 #exec --no-startup-id /usr/bin/dunst --config ~/.config/dunst/dunstrc
-# may need to run dbus-launch explicitly: 
+# may need to run dbus-launch explicitly:
 #exec --no-startup-id dbus-launch /usr/bin/dunst
 exec --no-startup-id /usr/bin/dunst
 
@@ -295,7 +295,7 @@ for_window [class="kitty"] border pixel 1
 
 # set size of floating window
 #for_window [window_role="(?i)GtkFileChooserDialog"] resize set 640 480 #to set size of file choose dialog
-#for_window [class=".*"] resize set 640 480 #to change size of all floating windows 
+#for_window [class=".*"] resize set 640 480 #to change size of all floating windows
 
 # set position of floating window
 #for_window [class=".*"] move position center
