@@ -15,4 +15,7 @@ zstyle 'fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls --color $realpath'
 
 # init fzf integrations
 eval $(fzf --zsh)
+if type "gobuster" > /dev/null; then
+  eval $(gobuster completion zsh)
+fi
 export NVM_COMPLETION=true

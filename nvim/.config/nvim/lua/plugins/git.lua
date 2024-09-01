@@ -56,7 +56,7 @@ return {
     },
     keys = {
       { "<leader>gg", "<cmd>LazyGit<cr>", desc = "LazyGit" },
-      { "<leader>gc", "<cmd>LazyGitFilterCurrentFile", desc = "Commits of current file" },
+      { "<leader>gc", "<cmd>LazyGitFilterCurrentFile<cr>", desc = "Commits of current file" },
       { "<leader>gC", "<cmd>LazyGitFilter<cr>", desc = "Workspace commits" },
     },
   },
