@@ -197,7 +197,7 @@ frg() {
 alias kssh='kitten ssh'
 
 tla() {
-  local template_dir="$HOME/.tmux/layouts/bin"
+  local template_dir="$HOME/.tmux/layouts"
   if [ -z "$1" ]; then
     printf "Known templates: "
     ls "${template_dir}"
