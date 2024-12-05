@@ -162,6 +162,7 @@ alias yrmenu="yay -Qq | fzf --multi --preview 'yay -Qi {1}' | xargs yay -Rns --n
 # tmux
 alias t="tmux"
 alias ta="tmux attach"
+alias td="tmux new-session -A -c"
 alias tks="tmux kill-session"
 
 # misc
@@ -194,3 +195,18 @@ frg() {
 	fi
 }
 alias kssh='kitten ssh'
+
+tla() {
+  local template_dir="$HOME/.tmux/layouts/bin"
+  if [ -z "$1" ]; then
+    printf "Known templates: "
+    ls "${template_dir}"
+  else
+    local full_path="${template_dir}/${1}"
+    if [ -f "${full_path}" ]; then
+      "${full_path}"
+    else
+      echo "Template not found: ${1}"
+    fi
+  fi
+}

@@ -2,6 +2,9 @@ fpath=($ZDOTDIR/funcs $fpath)
 autoload -Uz bashcompinit && bashcompinit -i
 autoload -U compinit && compinit
 
+# init fzf integrations
+eval $(fzf --zsh)
+
 source /usr/bin/aws_zsh_completer.sh
 compdef '_docker compose build' dcbr
 
@@ -13,8 +16,6 @@ zstyle ':completion:*' menu no
 zstyle 'fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
 zstyle 'fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls --color $realpath'
 
-# init fzf integrations
-eval $(fzf --zsh)
 if type "gobuster" > /dev/null; then
   eval $(gobuster completion zsh)
 fi
