@@ -79,6 +79,7 @@ alias glg='git log --oneline --decorate'
 alias glgg='git log --oneline --decorate --graph --all'
 alias glgs='git log --oneline --decorate --stat'
 alias gm='git merge'
+alias gcp='git cherry-pick'
 
 # kubernetes
 alias k='kubectl'
