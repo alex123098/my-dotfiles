@@ -243,6 +243,7 @@ exec --no-startup-id numlockx on
 
 # configure multiple keyboard layouts and hotkey to switch (Alt+CAPSLOCK in this example)
 #exec --no-startup-id setxkbmap -layout 'us,sk' -variant altgr-intl,qwerty -option 'grp:alt_caps_toggle'
+exec --no-startup-id setxkbmap -layout 'us,ua' -option 'grp:alt_space_toggle' -model 'pc105+inet'
 
 # start conky:
 #exec_always --no-startup-id conky
