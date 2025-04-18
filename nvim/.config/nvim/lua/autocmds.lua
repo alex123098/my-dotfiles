@@ -1,24 +1,22 @@
-local function group(name)
-  return vim.api.nvim_create_augroup(name, { clear = true })
-end
+local u = require "utils"
 
 -- Highlight when yank
-vim.api.nvim_create_autocmd("TextYankPost", {
+u.autocmd("TextYankPost", {
   desc = "Highlight when yanking text",
-  group = group "hl-yank",
+  group = u.augroup "hl-yank",
   callback = function()
     vim.hl.on_yank()
   end,
 })
 
 -- Autoreload buffer contents on focus
-vim.api.nvim_create_autocmd({
+u.autocmd({
   "FocusGained",
   "TermClose",
   "TermLeave",
 }, {
   desc = "Autoreload buffer content",
-  group = group "bufreload",
+  group = u.augroup "bufreload",
   callback = function()
     if vim.o.buftype ~= "nofile" then
       vim.cmd "checktime"
@@ -27,9 +25,9 @@ vim.api.nvim_create_autocmd({
 })
 
 -- autoresize windows on parent resize
-vim.api.nvim_create_autocmd("VimResized", {
+u.autocmd("VimResized", {
   desc = "Resize windows on parent resize",
-  group = group "resize_children",
+  group = u.augroup "resize_children",
   callback = function()
     local cur_tab = vim.fn.tabpagenr()
     vim.cmd "tabdo wincmd ="
@@ -38,9 +36,9 @@ vim.api.nvim_create_autocmd("VimResized", {
 })
 
 -- close some buffers with q
-vim.api.nvim_create_autocmd("FileType", {
+u.autocmd("FileType", {
   desc = "Close utilitary windows with q",
-  group = group "close_with_q",
+  group = u.augroup "close_with_q",
   pattern = {
     "PlenaryTestPopup",
     "help",
@@ -61,8 +59,8 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 -- do not list man pages in buflist
-vim.api.nvim_create_autocmd("FileType", {
-  group = group "man_unlist",
+u.autocmd("FileType", {
+  group = u.augroup "man_unlist",
   pattern = { "man" },
   callback = function(event)
     vim.bo[event.buf].buflisted = false
@@ -70,8 +68,8 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 -- set conceallevel to normal for json files
-vim.api.nvim_create_autocmd("FileType", {
-  group = group "json_conceal",
+u.autocmd("FileType", {
+  group = u.augroup "json_conceal",
   pattern = { "json", "jsonc", "json5" },
   callback = function()
     vim.opt_local.conceallevel = 0
@@ -79,8 +77,8 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 -- create all intermediate dirs in path when saving a file
-vim.api.nvim_create_autocmd("BufWritePre", {
-  group = group "auto_create_dir",
+u.autocmd("BufWritePre", {
+  group = u.augroup "auto_create_dir",
   callback = function(event)
     if event.match:match "^%w%w+:[\\/][\\/]" then
       return
@@ -91,8 +89,8 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 })
 
 -- set tab to 4 symbols for some file types
-vim.api.nvim_create_autocmd("FileType", {
-  group = group "custom",
+u.autocmd("FileType", {
+  group = u.augroup "custom",
   pattern = { "go", "rust" },
   callback = function()
     vim.opt_local.tabstop = 4

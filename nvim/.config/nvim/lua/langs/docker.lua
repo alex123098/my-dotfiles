@@ -28,29 +28,4 @@ return {
       },
     },
   },
-  {
-    "nvim-telescope/telescope.nvim",
-    dependencies = {
-      {
-        "lpoto/telescope-docker.nvim",
-        config = function()
-          require("telescope").load_extension "docker"
-        end,
-        keys = {
-          { "<leader>fDc", "<cmd>Telescope docker containers<cr>", desc = "Docker containers" },
-          { "<leader>fDC", "<cmd>Telescope docker compose<cr>", desc = "Docker compose" },
-          { "<leader>fDi", "<cmd>Telescope docker images<cr>", desc = "Docker images" },
-          { "<leader>fDv", "<cmd>Telescope docker volumes<cr>", desc = "Docker volumes" },
-          { "<leader>fDf", "<cmd>Telescope docker files<cr>", desc = "Docker files" },
-        },
-      },
-    },
-    opts = {
-      extensions = {
-        docker = {
-          machine_binary = false,
-        },
-      },
-    },
-  },
 }

@@ -47,7 +47,9 @@ return {
     },
     opts = {
       mode = "cursor",
-      max_lines = 3,
+      max_lines = 5,
+      multiline_threshold = 1,
+      separator = "─",
     },
   },
 }

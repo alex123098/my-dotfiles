@@ -1,3 +1,5 @@
+local u = require "utils"
+
 return {
   {
     "nvim-treesitter",
@@ -55,7 +57,8 @@ return {
       },
       setup = {
         gopls = function()
-          vim.api.nvim_create_autocmd("LspAttach", {
+          u.autocmd("LspAttach", {
+            group = u.augroup "go-specifics",
             callback = function(event)
               local client = vim.lsp.get_client_by_id(event.data.client_id)
               if not client or client.name ~= "gopls" then

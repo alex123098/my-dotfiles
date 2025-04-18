@@ -1,6 +1,7 @@
 return {
   {
-    "hrsh7th/nvim-cmp",
+    "iguanacucumber/magazine.nvim",
+    name = "nvim-cmp",
     event = "InsertEnter",
     dependencies = {
       {
@@ -21,8 +22,10 @@ return {
         },
       },
       "saadparwaiz1/cmp_luasnip",
-      "hrsh7th/cmp-nvim-lsp",
-      "hrsh7th/cmp-path",
+      "hrsh7th/cmp-nvim-lsp-signature-help",
+      { "iguanacucumber/mag-nvim-lsp", name = "cmp-nvim-lsp", opts = {} },
+      { "iguanacucumber/mag-buffer", name = "cmp-buffer" },
+      "https://codeberg.org/FelipeLema/cmp-async-path",
     },
     opts = function()
       local cmp = require "cmp"
@@ -57,8 +60,9 @@ return {
         sources = cmp.config.sources({
           { name = "lazydev" },
           { name = "nvim_lsp" },
+          { name = "nvim_lsp_signature_help" },
           { name = "luasnip" },
-          { name = "path" },
+          { name = "async_path" },
         }, {
           { name = "buffer" },
         }),

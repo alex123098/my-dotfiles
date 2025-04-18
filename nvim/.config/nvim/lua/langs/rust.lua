@@ -1,6 +1,6 @@
 return {
   {
-    "hrsh7th/nvim-cmp",
+    "nvim-cmp",
     dependencies = { "Saecki/crates.nvim" },
     opts = function(_, opts)
       opts.sources = opts.sources or {}

@@ -1,39 +1,39 @@
-vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<cr>")
+local u = require "utils"
+
+u.nmap("<Esc>", "<cmd>nohlsearch<cr>")
 
 -- buffers manipulation
-vim.keymap.set("n", "<S-h>", "<cmd>bp<cr>", { desc = "Previous Buffer" })
-vim.keymap.set("n", "<S-l>", "<cmd>bn<cr>", { desc = "Next Buffer" })
-vim.keymap.set("n", "<leader>bd", "<cmd>bd<cr>", { desc = "Close current buffer" })
-vim.keymap.set("n", "<leader>bad", "<cmd>bufdo bd<cr>", { desc = "Close all buffers" })
-vim.keymap.set("n", "<leader>bs", function()
-  vim.api.nvim_create_buf(true, true)
-end, { desc = "Create scratch buffer" })
+u.nmap("<S-h>", "<cmd>bp<cr>", "Previous Buffer")
+u.nmap("<S-l>", "<cmd>bn<cr>", "Next Buffer")
+u.nmap("<leader>bd", "<cmd>bd<cr>", "Close current buffer")
+u.nmap("<leader>bad", "<cmd>bufdo bd<cr>", "Close all buffers")
+u.nmap("<leader>bod", "<cmd>%bd|e#<cr>", "Close all buffers, reopen current")
 
 -- remap j and k to work as expected on wrapped lines
-vim.keymap.set("n", "j", "gj")
-vim.keymap.set("n", "k", "gk")
+u.nmap("j", "gj")
+u.nmap("k", "gk")
 
 -- windows manipulation
-vim.keymap.set("n", "<C-h>", ":wincmd h<cr>", { silent = true, desc = "Move to the window on the left" })
-vim.keymap.set("n", "<C-j>", ":wincmd j<cr>", { silent = true, desc = "Move to the window on the bottom" })
-vim.keymap.set("n", "<C-k>", ":wincmd k<cr>", { silent = true, desc = "Move to the window on the top" })
-vim.keymap.set("n", "<C-l>", ":wincmd l<cr>", { silent = true, desc = "Move to the window on the right" })
+u.nmap("<C-h>", ":wincmd h<cr>", "Move to the window on the left", { silent = true })
+u.nmap("<C-j>", ":wincmd j<cr>", "Move to the window on the bottom", { silent = true })
+u.nmap("<C-k>", ":wincmd k<cr>", "Move to the window on the top", { silent = true })
+u.nmap("<C-l>", ":wincmd l<cr>", "Move to the window on the right", { silent = true })
 
-vim.keymap.set("n", "<C-Up>", "<cmd>resize +2<cr>", { desc = "Increase window height" })
-vim.keymap.set("n", "<C-Down>", "<cmd>resize -2<cr>", { desc = "Decrease window height" })
-vim.keymap.set("n", "<C-Left>", "<cmd>vertical resize -2<cr>", { desc = "Decrease window width" })
-vim.keymap.set("n", "<C-Right>", "<cmd>vertical resize +2<cr>", { desc = "Increase window width" })
+u.nmap("<C-Up>", "<cmd>resize +2<cr>", "Increase window height")
+u.nmap("<C-Down>", "<cmd>resize -2<cr>", "Decrease window height")
+u.nmap("<C-Left>", "<cmd>vertical resize -2<cr>", "Decrease window width")
+u.nmap("<C-Right>", "<cmd>vertical resize +2<cr>", "Increase window width")
 
-vim.keymap.set("n", "<leader>wd", "<C-W>c", { desc = "Close window", remap = true })
+u.nmap("<leader>wd", "<C-W>c", "Close window", { remap = true })
 
-vim.keymap.set("n", "<leader>|", "<C-W>v", { desc = "Split window to the right", remap = true })
-vim.keymap.set("n", "<leader>-", "<C-W>s", { desc = "Split window to the bottom", remap = true })
+u.nmap("<leader>|", "<C-W>v", "Split window to the right", { remap = true })
+u.nmap("<leader>-", "<C-W>s", "Split window to the bottom", { remap = true })
 
 -- clear search with <ESC>
-vim.keymap.set({ "i", "n" }, "<Esc>", "<cmd>noh<cr><esc>", { desc = "Escape and Clear hlsearch" })
+u.map({ "i", "n" }, "<Esc>", "<cmd>noh<cr><esc>", "Escape and Clear hlsearch")
 
 -- escape to normal mode from terminal by 2<Esc>
-vim.keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Enter normal mode" })
+u.map("t", "<Esc><Esc>", "<C-\\><C-n>", "Enter normal mode")
 
 -- Diagnostics & Quickfixes navigation
 local function goto_diag(next, severity)
@@ -51,20 +51,17 @@ local function goto_diag(next, severity)
     go { severity = severity }
   end
 end
-vim.keymap.set("n", "[q", vim.cmd.cprev, { desc = "Previous quickfix" })
-vim.keymap.set("n", "]q", vim.cmd.cnext, { desc = "Next quickfix" })
+u.nmap("[q", vim.cmd.cprev, "Previous quickfix")
+u.nmap("]q", vim.cmd.cnext, "Next quickfix")
+u.nmap("[d", goto_diag(false), "Previous Diagnostics")
+u.nmap("]d", goto_diag(true), "Next Diagnostics")
+u.nmap("[e", goto_diag(false, "ERROR"), "Previous Error")
+u.nmap("]e", goto_diag(true, "ERROR"), "Next Error")
+u.nmap("[w", goto_diag(false, "WARN"), "Previous Warning")
+u.nmap("]w", goto_diag(true, "WARN"), "Next Warning")
 
-vim.keymap.set("n", "<leader>xq", "<cmd>copen<cr>", { desc = "Quickfix List" })
-vim.keymap.set("n", "<leader>xl", "<cmd>lopen<cr>", { desc = "Location List" })
+u.nmap("<leader>cd", vim.diagnostic.open_float, "Line Diagnostics")
 
-vim.keymap.set("n", "<leader>cd", vim.diagnostic.open_float, { desc = "Line Diagnostics" })
-vim.keymap.set("n", "[d", goto_diag(false), { desc = "Previous Diagnostics" })
-vim.keymap.set("n", "]d", goto_diag(true), { desc = "Next Diagnostics" })
-vim.keymap.set("n", "[e", goto_diag(false, "ERROR"), { desc = "Previous Error" })
-vim.keymap.set("n", "]e", goto_diag(true, "ERROR"), { desc = "Next Error" })
-vim.keymap.set("n", "[w", goto_diag(false, "WARN"), { desc = "Previous Warning" })
-vim.keymap.set("n", "]w", goto_diag(true, "WARN"), { desc = "Next Warning" })
+u.nmap("<leader>L", "<cmd>Lazy<cr>", "Open Lazy menu")
 
-vim.keymap.set("n", "<leader>L", "<cmd>Lazy<cr>", { desc = "Open Lazy menu" })
-
-vim.keymap.set("v", "g/", "<esc>/\\%V", { silent = false, desc = "Search in selected" })
+u.map("v", "g/", "<esc>/\\%V", "Search in selected", { silent = false })

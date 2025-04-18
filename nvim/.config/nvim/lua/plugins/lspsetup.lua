@@ -1,3 +1,5 @@
+local u = require "utils"
+
 return {
   {
     "neovim/nvim-lspconfig",
@@ -11,7 +13,7 @@ return {
         opts = {
           library = {
             { path = "${3rd}/luv/library", words = { "vim%.uv" } },
-            { path = "lazy.nvim", words = { "LazyVim" } },
+            { path = "snacks.nvim", words = { "Snacks" } },
           },
         },
         ft = { "lua" },
@@ -37,19 +39,20 @@ return {
       },
     },
     config = function(_, opts)
-      vim.api.nvim_create_autocmd("LspAttach", {
-        group = vim.api.nvim_create_augroup("lsp-attach", { clear = true }),
+      u.autocmd("LspAttach", {
+        group = u.augroup "lsp-attach",
         callback = function(event)
           local function map(keys, func, desc)
-            vim.keymap.set("n", keys, func, { buffer = event.buf, desc = "LSP: " .. desc })
+            u.nmap(keys, func, "LSP: " .. desc, { buffer = event.buf })
           end
+          local picker = require("snacks").picker
 
-          map("gd", require("telescope.builtin").lsp_definitions, "Goto definition")
-          map("gr", require("telescope.builtin").lsp_references, "Goto references")
-          map("gI", require("telescope.builtin").lsp_implementations, "Goto implementation")
-          map("<leader>cD", require("telescope.builtin").lsp_type_definitions, "Type definition")
-          map("<leader>fs", require("telescope.builtin").lsp_document_symbols, "Find symbols in current document")
-          map("<leader>fS", require("telescope.builtin").lsp_dynamic_workspace_symbols, "Find symbols in workspace")
+          map("gd", picker.lsp_definitions, "Goto definition")
+          map("gr", picker.lsp_references, "Goto references")
+          map("gI", picker.lsp_implementations, "Goto implementation")
+          map("<leader>cD", picker.lsp_type_definitions, "Type definition")
+          map("<leader>fs", picker.lsp_symbols, "Find symbols in current document")
+          map("<leader>fS", picker.lsp_workspace_symbols, "Find symbols in workspace")
           map("<leader>cr", vim.lsp.buf.rename, "Rename")
           map("<leader>ca", require("actions-preview").code_actions, "Code action")
           map("<leader>cL", vim.lsp.codelens.run, "Codelens action")
@@ -58,21 +61,21 @@ return {
 
           local client = vim.lsp.get_client_by_id(event.data.client_id)
           if client and client.server_capabilities.documentHighlightProvider then
-            local highlight_augroup = vim.api.nvim_create_augroup("lsp-highlight", { clear = false })
-            vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
+            local highlight_augroup = u.augroupnc "lsp-highlight"
+            u.autocmd({ "CursorHold", "CursorHoldI" }, {
               buffer = event.buf,
               group = highlight_augroup,
               callback = vim.lsp.buf.document_highlight,
             })
 
-            vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
+            u.autocmd({ "CursorMoved", "CursorMovedI" }, {
               buffer = event.buf,
               group = highlight_augroup,
               callback = vim.lsp.buf.clear_references,
             })
 
-            vim.api.nvim_create_autocmd("LspDetach", {
-              group = vim.api.nvim_create_augroup("lsp-detach", { clear = true }),
+            u.autocmd("LspDetach", {
+              group = u.augroup "lsp-detach",
               callback = function(ev)
                 vim.lsp.buf.clear_references()
                 vim.api.nvim_clear_autocmds { group = "lsp-highlight", buffer = ev.buf }
@@ -97,7 +100,7 @@ return {
           function(server_name)
             local server = servers[server_name] or {}
             server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
-            if opts.setup[server_name] then
+            if opts.setup and opts.setup[server_name] then
               if opts.setup[server_name](server) then
                 return
               end
@@ -127,13 +130,14 @@ return {
 
       local function lines_toggle()
         local current = vim.diagnostic.config().virtual_text
+        --- @cast current boolean
         vim.diagnostic.config {
           virtual_text = not current,
           virtual_lines = current,
         }
         return current
       end
-      vim.keymap.set("n", "<leader>cl", lines_toggle, { desc = "Toggle underline diagnostics", silent = true })
+      u.nmap("<leader>cl", lines_toggle, "Toggle underline diagnostics", { silent = true })
     end,
   },
   {

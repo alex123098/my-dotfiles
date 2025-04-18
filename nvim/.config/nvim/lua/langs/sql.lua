@@ -1,3 +1,5 @@
+local u = require "utils"
+
 return {
   {
     "kristijanhusak/vim-dadbod-ui",
@@ -20,13 +22,13 @@ return {
     end,
   },
   {
-    "hrsh7th/nvim-cmp",
+    "nvim-cmp",
     dependencies = { "kristijanhusak/vim-dadbod-completion" },
-    opts = function(_, opts)
-      vim.api.nvim_create_autocmd("FileType", {
-        group = vim.api.nvim_create_augroup("SQLCmp", { clear = true }),
+    opts = function(_, _)
+      u.autocmd("FileType", {
+        group = u.augroup "SQLCmp",
         pattern = { "sql", "mysql", "plsql", "sqlserver", "pgsql", "sqlite" },
-        callback = function(e)
+        callback = function(_)
           local cmp = require "cmp"
           cmp.setup.buffer {
             sources = {
@@ -37,15 +39,15 @@ return {
         end,
       })
     end,
-    -- config = function()
-    --   local cmp = require "cmp"
-    --
-    --   cmp.setup.filetype({ "sql", "mysql", "plsql", "sqlserver", "pgsql", "sqlite" }, {
-    --     sources = {
-    --       { name = "vim-dadbod-completion" },
-    --       { name = "buffer" },
-    --     },
-    --   })
-    -- end,
+    config = function()
+      local cmp = require "cmp"
+
+      cmp.setup.filetype({ "sql", "mysql", "plsql", "sqlserver", "pgsql", "sqlite" }, {
+        sources = {
+          { name = "vim-dadbod-completion" },
+          { name = "buffer" },
+        },
+      })
+    end,
   },
 }
