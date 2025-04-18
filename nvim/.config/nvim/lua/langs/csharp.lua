@@ -45,15 +45,6 @@ return {
     "MoaidHathot/dotnet.nvim",
     ft = "cs",
     cmd = "DotnetUI",
-    keys = {
-      { "<leader>cn", desc = ".NET" },
-      { "<leader>cni", "<cmd>DotnetUI new_item<cr>", desc = "New item", silent = true },
-      { "<leader>cnf", "<cmd>DotnetUI file bootstrap", desc = "New *.cs file", silent = true },
-      { "<leader>cnra", "<cmd>DotnetUI project reference add<cr>", desc = "Add project reference", silent = true },
-      { "<leader>cnrr", "<cmd>DotnetUI project reference remove<cr>", desc = "Remove project reference", silent = true },
-      { "<leader>cnpa", "<cmd>DotnetUI project package add<cr>", desc = "Add package reference", silent = true },
-      { "<leader>cnpr", "<cmd>DotnetUI project package remove<cr>", desc = "Remove package reference", silent = true },
-    },
     opts = {
       auto_bootstrap = false,
     },

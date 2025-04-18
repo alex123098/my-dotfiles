@@ -8,7 +8,9 @@ return {
     "folke/snacks.nvim",
     priority = 1000,
     lazy = false,
-    opts = {},
+    opts = {
+      image = { enabled = true },
+    },
     keys = {
       {
         "<leader>bsn",
