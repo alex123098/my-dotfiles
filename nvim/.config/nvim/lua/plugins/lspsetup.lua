@@ -6,7 +6,16 @@ return {
       "williamboman/mason-lspconfig.nvim",
       "WhoIsSethDaniel/mason-tool-installer.nvim",
       { "j-hui/fidget.nvim", opts = {} },
-      { "folke/neodev.nvim", opts = {} },
+      {
+        "folke/lazydev.nvim",
+        opts = {
+          library = {
+            { path = "${3rd}/luv/library", words = { "vim%.uv" } },
+            { path = "lazy.nvim", words = { "LazyVim" } },
+          },
+        },
+        ft = { "lua" },
+      },
       {
         "aznhe21/actions-preview.nvim",
         event = "VeryLazy",

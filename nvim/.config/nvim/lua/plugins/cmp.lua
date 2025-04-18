@@ -54,11 +54,14 @@ return {
             end
           end, { "i", "s" }),
         },
-        sources = {
+        sources = cmp.config.sources({
+          { name = "lazydev" },
           { name = "nvim_lsp" },
           { name = "luasnip" },
           { name = "path" },
-        },
+        }, {
+          { name = "buffer" },
+        }),
       }
     end,
     ---@param opts cmp.ConfigSchema
