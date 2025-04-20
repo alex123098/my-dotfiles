@@ -127,4 +127,13 @@ return {
       require("noice").setup(opts)
     end,
   },
+
+  {
+    "folke/snacks.nvim",
+    opts = {
+      dashboard = {
+        enabled = true,
+      },
+    },
+  },
 }
