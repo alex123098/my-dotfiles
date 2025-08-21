@@ -1,22 +1,19 @@
 return {
   {
-    "nvim-cmp",
-    dependencies = { "Saecki/crates.nvim" },
-    opts = function(_, opts)
-      opts.sources = opts.sources or {}
-      opts.sources = vim.list_extend(opts.sources, { { name = "crates" } })
-    end,
-  },
-  {
     "Saecki/crates.nvim",
     event = { "BufRead Cargo.toml" },
     opts = {
       completion = {
-        cmp = { enabled = true },
         crates = {
           enabled = true,
           max_results = 5,
           min_chars = 3,
+        },
+        lsp = {
+          enabled = true,
+          actions = true,
+          completion = true,
+          hover = true,
         },
       },
       popup = {

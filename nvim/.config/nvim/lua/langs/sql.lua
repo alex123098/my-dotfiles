@@ -1,5 +1,3 @@
-local u = require "utils"
-
 return {
   {
     "kristijanhusak/vim-dadbod-ui",
@@ -22,32 +20,19 @@ return {
     end,
   },
   {
-    "nvim-cmp",
-    dependencies = { "kristijanhusak/vim-dadbod-completion" },
-    opts = function(_, _)
-      u.autocmd("FileType", {
-        group = u.augroup "SQLCmp",
-        pattern = { "sql", "mysql", "plsql", "sqlserver", "pgsql", "sqlite" },
-        callback = function(_)
-          local cmp = require "cmp"
-          cmp.setup.buffer {
-            sources = {
-              { name = "vim-dadbod-completion" },
-              { name = "buffer" },
-            },
-          }
-        end,
-      })
-    end,
-    config = function()
-      local cmp = require "cmp"
-
-      cmp.setup.filetype({ "sql", "mysql", "plsql", "sqlserver", "pgsql", "sqlite" }, {
-        sources = {
-          { name = "vim-dadbod-completion" },
-          { name = "buffer" },
+    "saghen/blink.cmp",
+    dependencies = {
+      "kristijanhusak/vim-dadbod-completion",
+    },
+    opts = {
+      sources = {
+        per_filetype = {
+          sql = { "snippets", "dadbod", "buffer" },
         },
-      })
-    end,
+        providers = {
+          dadbod = { name = "Dadbod", module = "vim_dadbod_completion.blink" },
+        },
+      },
+    },
   },
 }
