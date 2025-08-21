@@ -1,3 +1,4 @@
+local u = require "utils"
 return {
   "olimorris/codecompanion.nvim",
   dependencies = {
@@ -20,5 +21,13 @@ return {
   },
   init = function()
     vim.cmd.cabbrev [[cc CodeCompanion]]
+
+    -- remap copilot accept shortcut
+    u.map("i", "<C-a>", "<Plug>(copilot-accept-word)", "Accept copilot suggestion", {
+      expr = true,
+      replace_keycodes = false,
+    })
+    u.map("i", "<C-s>", "<Plug>(copilot-dismiss)", "Dismiss copilot suggestion")
+    vim.g.copilot_no_tab_map = true
   end,
 }
