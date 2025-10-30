@@ -37,18 +37,10 @@ u.map("t", "<Esc><Esc>", "<C-\\><C-n>", "Enter normal mode")
 
 -- Diagnostics & Quickfixes navigation
 local function goto_diag(next, severity)
-  local function goto_next(sev)
-    vim.diagnostic.jump { count = 1, float = true, severity = sev }
-  end
-
-  local function goto_prev(sev)
-    vim.diagnostic.jump { count = -1, float = true, severity = sev }
-  end
-
-  local go = next and goto_next or goto_prev
+  local cnt = next and 1 or -1
   severity = severity and vim.diagnostic.severity[severity] or nil
   return function()
-    go { severity = severity }
+    vim.diagnostic.jump { severity = severity, count = cnt, float = true }
   end
 end
 u.nmap("[q", vim.cmd.cprev, "Previous quickfix")
