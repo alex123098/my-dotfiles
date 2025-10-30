@@ -153,7 +153,7 @@ sys_upgrade() {
 		echo " Keyring is up to date."
 	fi
 
-	yay -Syuv
+	yay -Syuv --noconfirm
 }
 # show searchable package menu and install selected package(s)
 alias yimenu="yay -Slq | fzf --multi --preview 'yay -Si {1}' | xargs yay -S --noconfirm"
