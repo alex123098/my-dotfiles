@@ -2,10 +2,11 @@ return {
   {
     "nvim-treesitter/nvim-treesitter",
     dependencies = {
-      { "nvim-treesitter/nvim-treesitter-textobjects" },
+      { "nvim-treesitter/nvim-treesitter-textobjects", branch = "main" },
       { "nvim-treesitter/nvim-treesitter-context" },
     },
     build = ":TSUpdate",
+    branch = "main",
     opts = {
       ensure_installed = {
         "c",
@@ -28,7 +29,7 @@ return {
     },
     config = function(_, opts)
       require("nvim-treesitter.install").prefer_git = true
-      require("nvim-treesitter.configs").setup(opts)
+      require("nvim-treesitter.config").setup(opts)
     end,
   },
   {
