@@ -163,8 +163,12 @@ alias yrmenu="yay -Qq | fzf --multi --preview 'yay -Qi {1}' | xargs yay -Rns --n
 # tmux
 alias t="tmux"
 alias ta="tmux attach"
-alias td="tmux new-session -A -c"
 alias tks="tmux kill-session"
+td() {
+  query="$1"
+  new_root="$(zoxide query "${query}" || exit 1)"
+  tmux new-session -A -c "${new_root}"
+}
 
 # misc
 alias vim='nvim'
