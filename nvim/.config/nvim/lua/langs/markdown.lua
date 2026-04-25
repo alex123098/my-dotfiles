@@ -22,14 +22,6 @@ return {
     },
   },
   {
-    "neovim/nvim-lspconfig",
-    opts = {
-      servers = {
-        marksman = {},
-      },
-    },
-  },
-  {
     "MeanderingProgrammer/render-markdown.nvim",
     opts = {},
     dependencies = {

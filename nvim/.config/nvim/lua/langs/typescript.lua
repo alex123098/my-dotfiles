@@ -8,53 +8,6 @@ return {
     end,
   },
   {
-    "neovim/nvim-lspconfig",
-    dependencies = {
-      "WhoIsSethDaniel/mason-tool-installer.nvim",
-    },
-    opts = {
-      servers = {
-        ts_ls = {
-          keys = {
-            {
-              "<leader>co",
-              function()
-                vim.lsp.buf.code_action {
-                  apply = true,
-                  context = {
-                    ---@diagnostic disable-next-line: assign-type-mismatch
-                    only = { "source.organizeImports.ts" },
-                    diagnostics = {},
-                  },
-                }
-              end,
-              desc = "Organize imports",
-            },
-            {
-              "<leader>cR",
-              function()
-                vim.lsp.buf.code_action {
-                  apply = true,
-                  context = {
-                    ---@diagnostic disable-next-line: assign-type-mismatch
-                    only = { "source.removeUnused.ts" },
-                    diagnostics = {},
-                  },
-                }
-              end,
-              desc = "Remove unused imports",
-            },
-          },
-          settings = {
-            completions = {
-              completeFunctionCalls = true,
-            },
-          },
-        },
-      },
-    },
-  },
-  {
     "WhoIsSethDaniel/mason-tool-installer.nvim",
     opts = function(_, opts)
       opts.ensure_installed = opts.ensure_installed or {}

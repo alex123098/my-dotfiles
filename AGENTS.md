@@ -25,22 +25,31 @@ stow -t ~  <package>    # apply symlinks
 
 ## Neovim config (`nvim/.config/nvim/`)
 
-**Entry point:** `init.lua` — sets leader=Space, loads `options`, `keymaps`, `autocmds`, `init-lazy`.
+**Entry point:** `init.lua` — sets leader=Space, loads `options`, `keymaps`, `autocmds`, `init-zpack`.
 
-**Plugin manager:** `folke/lazy.nvim`. Plugin specs live in `lua/plugins/` and `lua/langs/`.  
-- The **same plugin can appear in multiple spec files** — lazy.nvim merges `opts` tables. This is intentional.
+**Plugin manager:** `zpack.nvim` (not lazy.nvim). Plugin specs live in `lua/plugins/` and `lua/langs/`.
+- The **same plugin can appear in multiple spec files** — zpack merges specs at startup. This is intentional.
 - `netrw` is disabled; `snacks.explorer` is the only file browser.
 - `snacks.nvim` is the central hub: picker (replaces Telescope), explorer, dashboard, notifications, image preview.
 
 **Key plugin locations:**
 | File | Responsibility |
 |---|---|
-| `lua/plugins/init.lua` | lazy.nvim bootstrap + snacks.nvim core |
+| `lua/plugins/init.lua` | zpack bootstrap + snacks.nvim core |
 | `lua/plugins/lspsetup.lua` | mason + nvim-lspconfig + fidget |
 | `lua/plugins/completions.lua` | blink.cmp |
 | `lua/plugins/autoformat.lua` | conform.nvim (format-on-save) |
 | `lua/plugins/picker.lua` | snacks.picker (fuzzy finder) |
 | `lua/langs/*.lua` | per-language LSP/DAP/test/formatter setup |
+| `lua/lsp-attach.lua` | all `LspAttach` autocmds (global + per-client); required from `autocmds.lua` |
+| `lsp/*.lua` | per-server config via `vim.lsp.config()` — auto-detected by Neovim 0.11+ |
+
+**zpack vs lazy.nvim — key behavioral differences:**
+- **Default loading**: zpack loads plugins **eagerly** by default. lazy.nvim defaults to lazy loading. Plugins with no `event`/`cmd`/`ft`/`keys` trigger and no `lazy = true` will load at startup.
+- **`config`/`init` merge strategy**: both are **OVERRIDE** in zpack — when the same plugin appears in multiple spec files, only the last spec's `config`/`init` runs. In lazy.nvim, multiple `init` functions all run. Consequence: never put `LspAttach` autocmds or other side-effectful logic inside a `{ "neovim/nvim-lspconfig", init = ... }` spec if any other spec file also defines `init` for that plugin. Use a standalone `require` (e.g. `lua/lsp-attach.lua`) instead.
+- **`opts` merge strategy**: zpack uses `tbl_deep_extend("force")` for plain tables — **arrays overwrite by index**, not by appending. lazy.nvim `opts` functions receive the accumulated table from all specs. In zpack, use an `opts` function `(_, opts)` and call `vim.list_extend` to append to array fields.
+- **`opts_extend`**: lazy.nvim has an explicit `opts_extend` mechanism for merging array fields across specs. zpack has no equivalent — always use `vim.list_extend` inside an `opts` function.
+- **`keys` / `event` / `cmd` / `ft`**: these are `LIST_EXTEND` in zpack — safe to declare in multiple spec files for the same plugin.
 
 **Quirks:**
 - `snacks.nvim` + `noice.nvim`: `init.lua` saves/restores `vim.notify` around `snacks.setup()` to prevent noice override — don't remove this guard.

@@ -15,59 +15,11 @@ return {
     },
   },
   {
-    "neovim/nvim-lspconfig",
-    dependencies = {
-      {
-        "WhoIsSethDaniel/mason-tool-installer.nvim",
-        opts = function(_, opts)
-          opts.ensure_installed = opts.ensure_installed or {}
-          vim.list_extend(opts.ensure_installed, { "clangd", "codelldb" })
-        end,
-      },
-    },
-    opts = {
-      servers = {
-        clangd = {
-          keys = {
-            { "<leader>cR", "<cmd>ClangdSwitchSourceHeader<cr>", desc = "Switch source/header" },
-          },
-          root_dir = function(fname)
-            return require("lspconfig.util").root_pattern(
-              "Makefile",
-              "configure.ac",
-              "configure.in",
-              "config.h.in",
-              "meson.build",
-              "meson_options.txt",
-              "build.ninja"
-            )(fname) or require("lspconfig.util").root_pattern("compile_commands.json", "compile_flags.txt")(fname) or vim.fs.dirname(
-              vim.fs.find(".git", { path = fname, upward = true })[1]
-            )
-          end,
-          capabilities = { offsetEncoding = { "utf-16" } },
-          cmd = {
-            "clangd",
-            "--background-index",
-            "--clang-tidy",
-            "--header-insertion=iwyu",
-            "--completion-style=detailed",
-            "--function-arg-placeholders",
-            "--fallback-style=llvm",
-          },
-          init_options = {
-            usePlaceholders = true,
-            completeUnimported = true,
-            clangdFileStatus = true,
-          },
-        },
-      },
-      setup = {
-        clangd = function(opts)
-          local ext_opts = { inlay_hints = { inline = false }, server = opts }
-          require("clangd_extensions").setup(ext_opts)
-        end,
-      },
-    },
+    "WhoIsSethDaniel/mason-tool-installer.nvim",
+    opts = function(_, opts)
+      opts.ensure_installed = opts.ensure_installed or {}
+      vim.list_extend(opts.ensure_installed, { "clangd", "codelldb" })
+    end,
   },
   {
     "mfussenegger/nvim-dap",

@@ -1,5 +1,7 @@
 local u = require "utils"
 
+require "lsp-attach"
+
 -- Highlight when yank
 u.autocmd("TextYankPost", {
   desc = "Highlight when yanking text",
