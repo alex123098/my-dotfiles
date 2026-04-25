@@ -2,7 +2,14 @@ return {
   "stevearc/conform.nvim",
   lazy = false,
   keys = {
-    { "<leader>bf", function() end, mode = "", desc = "Format buffer" },
+    {
+      "<leader>bf",
+      function()
+        require("conform").format()
+      end,
+      mode = "",
+      desc = "Format buffer",
+    },
   },
   opts = {
     notify_on_error = false,

@@ -1,33 +1,33 @@
 local u = require "utils"
 return {
-  "olimorris/codecompanion.nvim",
+  "CopilotC-Nvim/CopilotChat.nvim",
   dependencies = {
-    "nvim-lua/plenary.nvim",
-    "nvim-treesitter/nvim-treesitter",
-    "github/copilot.vim",
-  },
-
-  opts = {
-    strategies = {
-      chat = { adapter = "copilot" },
-      inline = { adapter = "copilot" },
-      agent = { adapter = "copilot" },
+    { "nvim-lua/plenary.nvim", branch = "master" },
+    {
+      "github/copilot.vim",
+      cmd = { "Copilot" },
+      init = function()
+        vim.g.copilot_no_tab_map = true
+        u.map("i", "<C-a>", "<Plug>(copilot-accept-word)", "Accept copilot suggestion", {
+          expr = true,
+          replace_keycodes = false,
+        })
+        u.map("i", "<C-s>", "<Plug>(copilot-dismiss)", "Dismiss copilot suggestion")
+      end,
     },
   },
+  build = "make tiktoken",
   keys = {
-    { "<leader>aa", "<cmd>CodeCompanionActions<cr>", desc = "Open CodeCompanion actions", mode = { "n", "v" } },
-    { "<leader>ac", "<cmd>CodeCompanionChat<cr>", desc = "Open CodeCompanion chat", mode = { "n", "v" } },
-    { "ga", "<cmd>CodeCompanionAdd<cr>", desc = "Add selection to CodeCompanion" },
+    { "<leader>am", "<cmd>CopilotChatModels<cr>", desc = "Open model selection", mode = "n" },
+    { "<leader>ac", "<cmd>CopilotChatToggle<cr>", desc = "Toggle chat window", mode = { "n", "v" } },
   },
-  init = function()
-    vim.cmd.cabbrev [[cc CodeCompanion]]
-
-    -- remap copilot accept shortcut
-    u.map("i", "<C-a>", "<Plug>(copilot-accept-word)", "Accept copilot suggestion", {
-      expr = true,
-      replace_keycodes = false,
-    })
-    u.map("i", "<C-s>", "<Plug>(copilot-dismiss)", "Dismiss copilot suggestion")
-    vim.g.copilot_no_tab_map = true
-  end,
+  opts = {
+    temperature = 0.2,
+    model = "claude-opus-4.6",
+    window = {
+      layout = "vertical",
+      width = 0.5,
+    },
+    auto_insert_mode = true,
+  },
 }

@@ -6,6 +6,27 @@ return {
     },
     opts = {
       picker = {
+        layout = "bottom_search",
+        layouts = {
+          bottom_search = {
+            layout = {
+              box = "vertical",
+              backdrop = false,
+              row = -1,
+              width = 0,
+              height = 0.4,
+              border = "top",
+              title = " {title} {live} {flags}",
+              title_pos = "left",
+              {
+                box = "horizontal",
+                { win = "list", border = "none" },
+                { win = "preview", title = "{preview}", width = 0.6, border = "left" },
+              },
+              { win = "input", height = 1, border = "top" },
+            },
+          },
+        },
         actions = {
           trouble_open = function(...)
             return require("trouble.sources.snacks").actions.trouble_open.action(...)
