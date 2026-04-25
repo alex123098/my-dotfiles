@@ -97,3 +97,15 @@ u.autocmd("FileType", {
     vim.opt_local.shiftwidth = 4
   end,
 })
+
+-- enable treesitter highlighting for any buffer whose filetype has a parser
+u.autocmd("FileType", {
+  desc = "Start treesitter highlighting when a parser is available",
+  group = u.augroup "treesitter_highlight",
+  callback = function(event)
+    local ok, parser = pcall(vim.treesitter.get_parser, event.buf)
+    if ok and parser then
+      vim.treesitter.start(event.buf)
+    end
+  end,
+})

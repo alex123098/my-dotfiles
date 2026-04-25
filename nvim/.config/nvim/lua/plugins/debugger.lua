@@ -56,17 +56,7 @@ return {
         "theHamsta/nvim-dap-virtual-text",
         opts = {},
       },
-      "nvim-neotest/nvim-nio",
-      {
-        "jay-babu/mason-nvim-dap.nvim",
-        dependencies = { "williamboman/mason.nvim" },
-        cmd = { "DapInstall", "DapUninstall" },
-        opts = {
-          automatic_installation = true,
-          handlers = {},
-          ensure_installed = {},
-        },
-      },
+      { "nvim-neotest/nvim-nio" },
     },
     keys = {
       {
@@ -143,5 +133,15 @@ return {
     config = function()
       vim.api.nvim_set_hl(0, "DapStoppedLine", { default = true, link = "Visual" })
     end,
+  },
+  {
+    "jay-babu/mason-nvim-dap.nvim",
+    dependencies = { { "mfussenegger/nvim-dap" } },
+    cmd = { "DapInstall", "DapUninstall" },
+    opts = {
+      automatic_installation = true,
+      handlers = {},
+      ensure_installed = {},
+    },
   },
 }

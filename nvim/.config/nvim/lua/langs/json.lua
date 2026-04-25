@@ -9,7 +9,7 @@ return {
   {
     "neovim/nvim-lspconfig",
     dependencies = {
-      { "b0o/SchemaStore.nvim", lazy = true, version = false },
+      { "b0o/SchemaStore.nvim", lazy = true },
     },
     opts = {
       servers = {

@@ -5,7 +5,7 @@ return {
       "saghen/blink.compat",
       "rafamadriz/friendly-snippets",
     },
-    version = "1.*",
+    sem_version = "1.*",
     event = "InsertEnter",
     opts = {
       appearance = {

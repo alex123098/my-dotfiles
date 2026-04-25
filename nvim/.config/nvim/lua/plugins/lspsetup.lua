@@ -5,8 +5,8 @@ return {
     "neovim/nvim-lspconfig",
     dependencies = {
       { "williamboman/mason.nvim", config = true },
-      "williamboman/mason-lspconfig.nvim",
-      "WhoIsSethDaniel/mason-tool-installer.nvim",
+      { "williamboman/mason-lspconfig.nvim" },
+      { "WhoIsSethDaniel/mason-tool-installer.nvim" },
       { "j-hui/fidget.nvim", opts = {} },
       {
         "folke/lazydev.nvim",
@@ -117,7 +117,7 @@ return {
     opts = true,
   },
   {
-    "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
+    src = "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
     opts = true,
     config = function()
       require("lsp_lines").setup()

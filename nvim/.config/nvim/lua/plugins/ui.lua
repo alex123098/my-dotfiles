@@ -56,7 +56,6 @@ return {
     --   end
     -- end,
   },
-
   {
     "folke/tokyonight.nvim",
     priority = 1000,
@@ -67,7 +66,8 @@ return {
         sidebars = "transparent",
       },
     },
-    init = function()
+    config = function(_, opts)
+      require("tokyonight").setup(opts)
       vim.cmd.colorscheme "tokyonight-night"
       vim.cmd.hi "Comment gui=none"
     end,
@@ -92,6 +92,7 @@ return {
 
   {
     "folke/noice.nvim",
+    dependencies = { "MunifTanjim/nui.nvim" },
     event = "VeryLazy",
     opts = {
       cmdline = {
@@ -106,12 +107,18 @@ return {
         },
       },
       routes = {
-        filter = {
-          event = "msg_show",
-          any = {
-            { find = "%d+L, %d+B" },
-            { find = "; after #%d+" },
-            { find = "; before #%d+" },
+        {
+          filter = { find = "vim%.pack" },
+          view = "notify",
+        },
+        {
+          filter = {
+            event = "msg_show",
+            any = {
+              { find = "%d+L, %d+B" },
+              { find = "; after #%d+" },
+              { find = "; before #%d+" },
+            },
           },
           view = "mini",
         },
@@ -124,20 +131,7 @@ return {
       },
     },
     config = function(_, opts)
-      -- skip messages from lazy installer
-      if vim.o.filetype == "lazy" then
-        vim.cmd [[messages clear]]
-      end
       require("noice").setup(opts)
     end,
-  },
-
-  {
-    "folke/snacks.nvim",
-    opts = {
-      dashboard = {
-        enabled = true,
-      },
-    },
   },
 }

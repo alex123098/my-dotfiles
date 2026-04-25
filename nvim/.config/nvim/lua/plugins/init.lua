@@ -1,9 +1,8 @@
 local function has_plugin(name)
-  return require("lazy.core.config").spec.plugins[name] ~= nil
+  return require("zpack").get_plugin(name) ~= nil
 end
 
 return {
-  { "folke/lazy.nvim", version = "*" },
   {
     "folke/snacks.nvim",
     priority = 1000,
