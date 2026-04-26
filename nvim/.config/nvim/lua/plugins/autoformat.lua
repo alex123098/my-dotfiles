@@ -1,27 +1,21 @@
-return {
-  "stevearc/conform.nvim",
-  lazy = false,
-  keys = {
-    {
-      "<leader>bf",
-      function()
-        require("conform").format()
-      end,
-      mode = "",
-      desc = "Format buffer",
-    },
-  },
-  opts = {
-    notify_on_error = false,
-    format_on_save = function(bufnr)
-      local disable_ft = { c = true, cpp = true }
-      return {
-        timeout_ms = 500,
-        lsp_fallback = not disable_ft[vim.bo[bufnr].filetype],
-      }
-    end,
-    formatters_by_ft = {
-      lua = { "stylua" },
-    },
-  },
+local pack = require "fw.pack"
+local k = require "fw.keys"
+
+pack.add { "stevearc/conform.nvim" }
+
+local conform = require "conform"
+
+conform.setup {
+  notify_on_error = false,
+  format_on_save = function(bufnr)
+    local disable_ft = { c = true, cpp = true }
+    return {
+      timeout_ms = 500,
+      lsp_fallback = not disable_ft[vim.bo[bufnr].filetype],
+    }
+  end,
 }
+
+k.nmap("<leader>bf", function()
+  conform.format()
+end)

@@ -1,15 +1,6 @@
--- Disable unused built-in plugins
-vim.g.loaded_netrw = 1
-vim.g.loaded_netrwPlugin = 1
-vim.g.loaded_gzip = 1
-vim.g.loaded_matchit = 1
-vim.g.loaded_matchparen = 1
-vim.g.loaded_tarPlugin = 1
-vim.g.loaded_tohtml = 1
-vim.g.loaded_tutor = 1
-vim.g.loaded_zipPlugin = 1
+vim.g.mapleader = " "
+vim.g.maplocalleader = " "
 
-vim.opt.termguicolors = true
 vim.opt.number = true
 vim.opt.relativenumber = true
 
@@ -27,6 +18,9 @@ vim.opt.ignorecase = true
 vim.opt.smartcase = true
 
 vim.opt.signcolumn = "yes"
+vim.opt.termguicolors = true
+vim.opt.showmatch = true
+vim.opt.matchtime = 2
 
 vim.opt.updatetime = 250
 
@@ -64,3 +58,5 @@ vim.filetype.add {
     [".zshrc"] = "sh",
   },
 }
+
+vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"

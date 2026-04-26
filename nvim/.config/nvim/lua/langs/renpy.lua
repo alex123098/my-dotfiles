@@ -1,18 +1,17 @@
+--- @type LanguageSettings
 return {
-  {
-    "inzoiniac/renpy-syntax.nvim",
-    config = function()
-      require("renpy-syntax").setup()
-    end,
+  packages = {
+    { src = "inzoiniac/renpy-syntax.nvim" },
   },
-  {
-    "saghen/blink.cmp",
-    opts = {
-      sources = {
-        per_filetype = {
-          renpy = { "renpy" },
-        },
-      },
-    },
-  },
+  setup = function()
+    require("renpy-syntax").setup()
+
+    -- add renpy completion source to blink.cmp
+    local ok, blink = pcall(require, "blink.cmp")
+    if ok then
+      blink.add_provider("renpy", {
+        per_filetype = { renpy = { "renpy" } },
+      })
+    end
+  end,
 }

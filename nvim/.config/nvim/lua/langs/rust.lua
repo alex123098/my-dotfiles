@@ -1,72 +1,61 @@
+--- @type LanguageSettings
 return {
-  {
-    "Saecki/crates.nvim",
-    event = { "BufRead Cargo.toml" },
-    opts = {
+  lsps = {
+    "codelldb",
+    "rust-analyzer",
+    "taplo",
+  },
+  grammars = {
+    "ron",
+    "rust",
+    "toml",
+  },
+  packages = {
+    { src = "Saecki/crates.nvim" },
+    { src = "mrcjkb/rustaceanvim" },
+  },
+  test_adapters = {
+    "rustaceanvim.neotest",
+  },
+  setup = function()
+    require("crates").setup {
       completion = {
         crates = {
           enabled = true,
           max_results = 5,
           min_chars = 3,
         },
-        lsp = {
-          enabled = true,
-          actions = true,
-          completion = true,
-          hover = true,
-        },
       },
       popup = {
         border = "rounded",
       },
-    },
-    config = function()
-      require("crates").setup {}
+    }
 
-      -- setup Cargo.toml specific keymaps
-      vim.api.nvim_create_autocmd("BufEnter", {
-        group = vim.api.nvim_create_augroup("CargoTomlKeymaps", { clear = true }),
-        pattern = { "Cargo.toml" },
-        callback = function(e)
-          local buf = e.buf
-          local function mapn(lhs, rhs, desc)
-            vim.keymap.set("n", lhs, rhs, { buffer = buf, desc = desc, silent = true, noremap = true })
-          end
-          mapn("<leader>cp", function()
-            require("crates").show_crate_popup()
-          end, "Crate details")
-          mapn("<leader>cl", function()
-            require("crates").show_dependencies_popup()
-          end, "Crate dependencies")
-          mapn("<leader>cf", function()
-            require("crates").show_features_popup()
-          end, "Crate features")
-          mapn("<leader>co", function()
-            require("crates").open_repository()
-          end, "Open crate repository")
-        end,
-      })
-    end,
-  },
-  {
-    "nvim-treesitter/nvim-treesitter",
-    opts = function(_, opts)
-      opts.ensure_installed = opts.ensure_installed or {}
-      vim.list_extend(opts.ensure_installed, { "ron", "rust", "toml" })
-    end,
-  },
-  {
-    "WhoIsSethDaniel/mason-tool-installer.nvim",
-    opts = function(_, opts)
-      opts.ensure_installed = opts.ensure_installed or {}
-      vim.list_extend(opts.ensure_installed, { "codelldb", "rust-analyzer", "taplo" })
-    end,
-  },
-  {
-    "mrcjkb/rustaceanvim",
-    sem_version = "^4",
-    ft = { "rust" },
-    opts = {
+    -- Cargo.toml keymaps
+    vim.api.nvim_create_autocmd("BufEnter", {
+      group = vim.api.nvim_create_augroup("CargoTomlKeymaps", { clear = true }),
+      pattern = { "Cargo.toml" },
+      callback = function(e)
+        local buf = e.buf
+        local function mapn(lhs, rhs, desc)
+          vim.keymap.set("n", lhs, rhs, { buffer = buf, desc = desc, silent = true, noremap = true })
+        end
+        mapn("<leader>cp", function()
+          require("crates").show_crate_popup()
+        end, "Crate details")
+        mapn("<leader>cl", function()
+          require("crates").show_dependencies_popup()
+        end, "Crate dependencies")
+        mapn("<leader>cf", function()
+          require("crates").show_features_popup()
+        end, "Crate features")
+        mapn("<leader>co", function()
+          require("crates").open_repository()
+        end, "Open crate repository")
+      end,
+    })
+
+    vim.g.rustaceanvim = vim.tbl_extend("keep", vim.g.rustaceanvim or {}, {
       server = {
         on_attach = function(_, bufnr)
           vim.keymap.set("n", "<leader>cR", function()
@@ -99,16 +88,6 @@ return {
           },
         },
       },
-    },
-    config = function(_, opts)
-      vim.g.rustaceanvim = vim.tbl_extend("keep", vim.g.rustaceanvim or {}, opts or {})
-    end,
-  },
-  {
-    "nvim-neotest/neotest",
-    opts = function(_, opts)
-      opts.adapters = opts.adapters or {}
-      vim.list_extend(opts.adapters, { require "rustaceanvim.neotest" })
-    end,
-  },
+    })
+  end,
 }

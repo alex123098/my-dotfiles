@@ -1,137 +1,113 @@
-local u = require "utils"
+local pack = require "fw.pack"
+local k = require "fw.keys"
 
-return {
-  {
-    "echasnovski/mini.animate",
-    event = "VeryLazy",
-    opts = function(_, opts)
-      local mouse_scrolled = false
-      for _, scroll in ipairs { "Up", "Down" } do
-        local key = "<ScrollWheel" .. scroll .. ">"
-        u.map({ "", "i" }, key, function()
-          mouse_scrolled = true
-          return key
-        end, nil, { expr = true })
-      end
+pack.add {
+  "folke/tokyonight.nvim",
+  "echasnovski/mini.icons",
+  "echasnovski/mini.animate",
+  "MunifTanjim/nui.nvim",
+  "folke/noice.nvim",
+  "echasnovski/mini.tabline",
+}
 
-      local animate = require "mini.animate"
-      return vim.tbl_deep_extend("force", opts, {
-        open = { enable = false },
-        close = { enable = false },
-        resize = {
-          timing = animate.gen_timing.linear { duration = 100, unit = "total" },
-        },
-        scroll = {
-          timing = animate.gen_timing.linear { duration = 150, unit = "total" },
-          subscroll = animate.gen_subscroll.equal {
-            predicate = function(total_scroll)
-              if mouse_scrolled then
-                mouse_scrolled = false
-                return false
-              end
-              return total_scroll > 1
-            end,
-          },
-        },
-      })
-    end,
+require("tokyonight").setup {
+  transparent = true,
+  styles = {
+    floats = "transparent",
+    sidebars = "transparent",
   },
+  on_colors = function(c)
+    c.bg_statusline = "#292e42"
+  end,
+  on_highlights = function(hl, c)
+    hl.StatusLine = { fg = c.fg_sidebar, bg = c.bg_statusline }
+  end,
+}
 
-  {
-    "echasnovski/mini.icons",
-    lazy = true,
-    opts = {
-      file = {
-        [".keep"] = { glyph = "󰊢", hl = "MiniIconsGrey" },
-        ["devcontainer.json"] = { glyph = "", hl = "MiniIconsAzure" },
-      },
-      filetype = {
-        dotenv = { glyph = "", hl = "MiniIconsYellow" },
-      },
-    },
-    init = function()
-      package.preload["nvim-web-devicons"] = function()
-        require("mini.icons").mock_nvim_web_devicons()
-        return package.loaded["nvim-web-devicons"]
-      end
-    end,
-  },
-  {
-    "folke/tokyonight.nvim",
-    priority = 1000,
-    opts = {
-      transparent = true,
-      styles = {
-        floats = "transparent",
-        sidebars = "transparent",
-      },
-    },
-    config = function(_, opts)
-      require("tokyonight").setup(opts)
-      vim.cmd.colorscheme "tokyonight-night"
-      vim.cmd.hi "Comment gui=none"
-    end,
-  },
+vim.cmd.colorscheme "tokyonight-night"
+vim.cmd.hi "Comment gui=none"
 
-  {
-    "echasnovski/mini.statusline",
-    opts = { use_icons = true },
-    config = function(_, opts)
-      local statusline = require "mini.statusline"
-      statusline.setup(opts)
-      ---@diagnostic disable-next-line: duplicate-set-field
-      statusline.section_location = function()
-        return "%21:%-2v"
-      end
-    end,
+require("mini.icons").setup {
+  file = {
+    [".keep"] = { glyph = "󰊢", hl = "MiniIconsGrey" },
+    ["devcontainer.json"] = { glyph = "", hl = "MiniIconsAzure" },
   },
-  {
-    "echasnovski/mini.tabline",
-    opts = {},
-  },
-
-  {
-    "folke/noice.nvim",
-    dependencies = { "MunifTanjim/nui.nvim" },
-    event = "VeryLazy",
-    opts = {
-      cmdline = {
-        enabled = true,
-        view = "cmdline",
-      },
-      lsp = {
-        override = {
-          ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
-          ["vim.lsp.util.stylize_markdown"] = true,
-          ["cmp.entry.get_documentation"] = true,
-        },
-      },
-      routes = {
-        {
-          filter = { find = "vim%.pack" },
-          view = "notify",
-        },
-        {
-          filter = {
-            event = "msg_show",
-            any = {
-              { find = "%d+L, %d+B" },
-              { find = "; after #%d+" },
-              { find = "; before #%d+" },
-            },
-          },
-          view = "mini",
-        },
-      },
-      presets = {
-        bottom_search = true,
-        command_palette = true,
-        long_message_to_split = true,
-        inc_rename = true,
-      },
-    },
-    config = function(_, opts)
-      require("noice").setup(opts)
-    end,
+  filetype = {
+    dotenv = { glyph = "", hl = "MiniIconsYellow" },
   },
 }
+require("mini.icons").mock_nvim_web_devicons()
+
+local mouse_scrolled = false
+for _, scroll in ipairs { "Up", "Down" } do
+  local key = "<ScrollWheel" .. scroll .. ">"
+  k.map({ "", "i" }, key, function()
+    mouse_scrolled = true
+    return key
+  end, nil, { expr = true })
+end
+
+local animate = require "mini.animate"
+animate.setup {
+  open = { enable = false },
+  close = { enable = false },
+  resize = {
+    timing = animate.gen_timing.linear { duration = 100, unit = "total" },
+  },
+  scroll = {
+    timing = animate.gen_timing.linear { duration = 150, unit = "total" },
+    subscroll = animate.gen_subscroll.equal {
+      predicate = function(total_scroll)
+        if mouse_scrolled then
+          mouse_scrolled = false
+          return false
+        end
+        return total_scroll > 1
+      end,
+    },
+  },
+}
+
+-- set statusline
+vim.opt.statusline = "%!v:lua.require'plugins.statusline'.render()"
+
+require("noice").setup {
+  cmdline = {
+    enabled = true,
+    view = "cmdline",
+  },
+  lsp = {
+    override = {
+      ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+      ["vim.lsp.util.stylize_markdown"] = true,
+      ["cmp.entry.get_documentation"] = true,
+    },
+  },
+  routes = {
+    filter = {
+      event = "msg_show",
+      any = {
+        { find = "%d+L, %d+B" },
+        { find = "; after #%d+" },
+        { find = "; before #%d+" },
+      },
+      view = "mini",
+    },
+  },
+  presets = {
+    bottom_search = true,
+    command_palette = true,
+    long_message_to_split = true,
+    inc_rename = true,
+  },
+}
+
+local cmd = require "fw.cmds"
+cmd.autocmd("VimEnter", {
+  group = cmd.augroup "tabline-setup",
+  callback = function()
+    vim.cmd.packadd "mini.tabline"
+    require("mini.tabline").setup()
+  end,
+})
+

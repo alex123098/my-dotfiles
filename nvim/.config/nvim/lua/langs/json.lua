@@ -1,20 +1,13 @@
+--- @type LanguageSettings
 return {
-  {
-    "nvim-treesitter/nvim-treesitter",
-    opts = function(_, opts)
-      opts.ensure_installed = opts.ensure_installed or {}
-      vim.list_extend(opts.ensure_installed, { "json", "json5", "jsonc" })
-    end,
+  lsps = {
+    "jsonls",
   },
-  {
-    "b0o/SchemaStore.nvim",
-    lazy = false,
+  grammars = {
+    "json",
+    "json5",
   },
-  {
-    "WhoIsSethDaniel/mason-tool-installer.nvim",
-    opts = function(_, opts)
-      opts.ensure_installed = opts.ensure_installed or {}
-      vim.list_extend(opts.ensure_installed, { "jsonls" })
-    end,
+  packages = {
+    { src = "b0o/SchemaStore.nvim" },
   },
 }

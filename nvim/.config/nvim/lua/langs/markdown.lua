@@ -1,32 +1,21 @@
+--- @type LanguageSettings
 return {
-  {
-    "nvim-treesitter/nvim-treesitter",
-    opts = function(_, opts)
-      opts.ensure_installed = opts.ensure_installed or {}
-      vim.list_extend(opts.ensure_installed, { "markdown", "markdown_inline" })
-    end,
+  lsps = {
+    "markdownlint",
+    "marksman",
   },
-  {
-    "WhoIsSethDaniel/mason-tool-installer.nvim",
-    opts = function(_, opts)
-      opts.ensure_installed = opts.ensure_installed or {}
-      vim.list_extend(opts.ensure_installed, { "markdownlint", "marksman" })
-    end,
+  grammars = {
+    "markdown",
+    "markdown_inline",
   },
-  {
-    "mfussenegger/nvim-lint",
-    opts = {
-      linters_by_ft = {
-        markdown = { "markdownlint" },
-      },
-    },
+  packages = {
+    { src = "MeanderingProgrammer/render-markdown.nvim" },
   },
-  {
-    "MeanderingProgrammer/render-markdown.nvim",
-    opts = {},
-    dependencies = {
-      "nvim-treesitter/nvim-treesitter",
-      "DaikyXendo/nvim-material-icon",
-    },
-  },
+  setup = function()
+    require("lint").linters_by_ft = vim.tbl_extend("force", require("lint").linters_by_ft or {}, {
+      markdown = { "markdownlint" },
+    })
+
+    require("render-markdown").setup {}
+  end,
 }

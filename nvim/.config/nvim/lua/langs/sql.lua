@@ -1,38 +1,20 @@
+--- @type LanguageSettings
 return {
-  {
-    "kristijanhusak/vim-dadbod-ui",
-    dependencies = {
-      { "tpope/vim-dadbod", lazy = true },
-      {
-        "kristijanhusak/vim-dadbod-completion",
-        ft = { "sql", "mysql", "plsql", "sqlserver", "pgsql", "sqlite" },
-        lazy = true,
-      },
-    },
-    cmd = {
-      "DBUI",
-      "DBUIToggle",
-      "DBUIAddConnection",
-      "DBUIFindBuffer",
-    },
-    init = function()
-      vim.g.db_ui_use_nerd_fonts = 1
-    end,
+  packages = {
+    { src = "kristijanhusak/vim-dadbod-ui" },
+    { src = "tpope/vim-dadbod" },
+    { src = "kristijanhusak/vim-dadbod-completion" },
   },
-  {
-    "saghen/blink.cmp",
-    dependencies = {
-      "kristijanhusak/vim-dadbod-completion",
-    },
-    opts = {
-      sources = {
-        per_filetype = {
-          sql = { "snippets", "dadbod", "buffer" },
-        },
-        providers = {
-          dadbod = { name = "Dadbod", module = "vim_dadbod_completion.blink" },
-        },
-      },
-    },
-  },
+  setup = function()
+    vim.g.db_ui_use_nerd_fonts = 1
+
+    -- blink.cmp dadbod source
+    local ok, blink = pcall(require, "blink.cmp")
+    if ok then
+      blink.add_provider("dadbod", {
+        name = "Dadbod",
+        module = "vim_dadbod_completion.blink",
+      })
+    end
+  end,
 }

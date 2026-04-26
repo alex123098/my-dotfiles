@@ -1,24 +1,22 @@
-local u = require "utils"
-
-require "lsp-attach"
+local cmd = require "fw.cmds"
 
 -- Highlight when yank
-u.autocmd("TextYankPost", {
+cmd.autocmd("TextYankPost", {
   desc = "Highlight when yanking text",
-  group = u.augroup "hl-yank",
+  group = cmd.augroup "hl-yank",
   callback = function()
     vim.hl.on_yank()
   end,
 })
 
 -- Autoreload buffer contents on focus
-u.autocmd({
+cmd.autocmd({
   "FocusGained",
   "TermClose",
   "TermLeave",
 }, {
   desc = "Autoreload buffer content",
-  group = u.augroup "bufreload",
+  group = cmd.augroup "bufreload",
   callback = function()
     if vim.o.buftype ~= "nofile" then
       vim.cmd "checktime"
@@ -27,9 +25,9 @@ u.autocmd({
 })
 
 -- autoresize windows on parent resize
-u.autocmd("VimResized", {
+cmd.autocmd("VimResized", {
   desc = "Resize windows on parent resize",
-  group = u.augroup "resize_children",
+  group = cmd.augroup "resize_children",
   callback = function()
     local cur_tab = vim.fn.tabpagenr()
     vim.cmd "tabdo wincmd ="
@@ -38,9 +36,9 @@ u.autocmd("VimResized", {
 })
 
 -- close some buffers with q
-u.autocmd("FileType", {
+cmd.autocmd("FileType", {
   desc = "Close utilitary windows with q",
-  group = u.augroup "close_with_q",
+  group = cmd.augroup "close_with_q",
   pattern = {
     "PlenaryTestPopup",
     "help",
@@ -61,8 +59,8 @@ u.autocmd("FileType", {
 })
 
 -- do not list man pages in buflist
-u.autocmd("FileType", {
-  group = u.augroup "man_unlist",
+cmd.autocmd("FileType", {
+  group = cmd.augroup "man_unlist",
   pattern = { "man" },
   callback = function(event)
     vim.bo[event.buf].buflisted = false
@@ -70,8 +68,8 @@ u.autocmd("FileType", {
 })
 
 -- set conceallevel to normal for json files
-u.autocmd("FileType", {
-  group = u.augroup "json_conceal",
+cmd.autocmd("FileType", {
+  group = cmd.augroup "json_conceal",
   pattern = { "json", "jsonc", "json5" },
   callback = function()
     vim.opt_local.conceallevel = 0
@@ -79,8 +77,8 @@ u.autocmd("FileType", {
 })
 
 -- create all intermediate dirs in path when saving a file
-u.autocmd("BufWritePre", {
-  group = u.augroup "auto_create_dir",
+cmd.autocmd("BufWritePre", {
+  group = cmd.augroup "auto_create_dir",
   callback = function(event)
     if event.match:match "^%w%w+:[\\/][\\/]" then
       return
@@ -91,8 +89,8 @@ u.autocmd("BufWritePre", {
 })
 
 -- set tab to 4 symbols for some file types
-u.autocmd("FileType", {
-  group = u.augroup "custom",
+cmd.autocmd("FileType", {
+  group = cmd.augroup "custom",
   pattern = { "go", "rust" },
   callback = function()
     vim.opt_local.tabstop = 4
@@ -101,13 +99,30 @@ u.autocmd("FileType", {
 })
 
 -- enable treesitter highlighting for any buffer whose filetype has a parser
-u.autocmd("FileType", {
+cmd.autocmd("FileType", {
   desc = "Start treesitter highlighting when a parser is available",
-  group = u.augroup "treesitter_highlight",
+  group = cmd.augroup "treesitter_highlight",
   callback = function(event)
     local ok, parser = pcall(vim.treesitter.get_parser, event.buf)
     if ok and parser then
       vim.treesitter.start(event.buf)
     end
+  end,
+})
+
+-- turn relative numbering off when entering insert mode
+local grp = cmd.augroup "rel_num"
+
+cmd.autocmd("InsertEnter", {
+  group = grp,
+  callback = function()
+    vim.opt.relativenumber = false
+  end,
+})
+
+cmd.autocmd("InsertLeave", {
+  group = grp,
+  callback = function()
+    vim.opt.relativenumber = true
   end,
 })

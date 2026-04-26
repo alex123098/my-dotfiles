@@ -1,12 +1,9 @@
-return {
-  {
-    "rmagatti/auto-session",
-    config = function()
-      require("auto-session").setup {
-        log_level = "error",
-        auto_restore_enabled = true,
-        auto_session_suppress_dirs = { "~/", "~/Downloads", "~/Documents", "/" },
-      }
-    end,
-  },
+local pack = require "fw.pack"
+
+pack.add { src = "rmagatti/auto-session", load = true }
+
+require("auto-session").setup {
+  log_level = "error",
+  auto_restore = true,
+  suppress_dirs = { "~/", "/" },
 }

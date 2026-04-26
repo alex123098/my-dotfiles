@@ -1,65 +1,54 @@
+--- @type LanguageSettings
 return {
-  {
-    "nvim-treesitter/nvim-treesitter",
-    opts = function(_, opts)
-      if type(opts.ensure_installed) == "table" then
-        vim.list_extend(opts.ensure_installed, { "typescript", "tsx", "javascript" })
-      end
-    end,
+  lsps = {
+    "js-debug-adapter",
+    "ts_ls",
   },
-  {
-    "WhoIsSethDaniel/mason-tool-installer.nvim",
-    opts = function(_, opts)
-      opts.ensure_installed = opts.ensure_installed or {}
-      vim.list_extend(opts.ensure_installed, { "js-debug-adapter", "ts_ls" })
-    end,
+  grammars = {
+    "typescript",
+    "tsx",
+    "javascript",
   },
-  {
-    "mfussenegger/nvim-dap",
-    dependencies = {
-      "WhoIsSethDaniel/mason-tool-installer.nvim",
-    },
-    opts = function()
-      local dap = require "dap"
-      if not dap.adapters["pwa-node"] then
-        dap.adapters["pwa-node"] = {
-          type = "server",
-          host = "localhost",
-          port = "${port}",
-          executable = {
-            command = "node",
-            args = {
-              vim.fn.expand "$MASON/packages/js-debug-adapter" .. "/js-debug/src/dapDebugServer.js",
-              "${port}",
-            },
+  packages = {
+    { src = "windwp/nvim-ts-autotag" },
+  },
+  setup = function()
+    require("nvim-ts-autotag").setup {}
+
+    local dap = require "dap"
+    if not dap.adapters["pwa-node"] then
+      dap.adapters["pwa-node"] = {
+        type = "server",
+        host = "localhost",
+        port = "${port}",
+        executable = {
+          command = "node",
+          args = {
+            vim.fn.expand "$MASON/packages/js-debug-adapter" .. "/js-debug/src/dapDebugServer.js",
+            "${port}",
+          },
+        },
+      }
+    end
+    for _, lang in ipairs { "typescript", "javascript", "typescriptreact", "javascriptreact" } do
+      if not dap.configurations[lang] then
+        dap.configurations[lang] = {
+          {
+            type = "pwa-node",
+            request = "launch",
+            name = "Launch file",
+            program = "${file}",
+            cwd = "${workspaceFolder}",
+          },
+          {
+            type = "pwa-node",
+            request = "attach",
+            name = "Attach to process",
+            processId = require("dap.utils").pick_process,
+            cwd = "${workspaceFolder}",
           },
         }
       end
-      for _, lang in ipairs { "typescript", "javascript", "typescriptreact", "javascriptreact" } do
-        if not dap.configurations[lang] then
-          dap.configurations[lang] = {
-            {
-              type = "pwa-node",
-              request = "launch",
-              name = "Launch file",
-              program = "${file}",
-              cwd = "${workspaceFolder}",
-            },
-            {
-              type = "pwa-node",
-              request = "attach",
-              name = "Attach to process",
-              processId = require("dap.utils").pick_process,
-              cwd = "${workspaceFolder}",
-            },
-          }
-        end
-      end
-    end,
-  },
-  {
-    "windwp/nvim-ts-autotag",
-    event = "VeryLazy",
-    opts = {},
-  },
+    end
+  end,
 }
