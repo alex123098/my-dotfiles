@@ -42,7 +42,7 @@ stow -t ~  <package>    # apply symlinks
 | `lua/plugins/picker.lua` | snacks.picker (fuzzy finder) |
 | `lua/langs/*.lua` | per-language LSP/DAP/test/formatter setup |
 | `lua/lsp-attach.lua` | all `LspAttach` autocmds (global + per-client); required from `autocmds.lua` |
-| `lsp/*.lua` | per-server config via `vim.lsp.config()` — auto-detected by Neovim 0.11+ |
+| `lsp/*.lua` | per-server config via `vim.lsp.config()` — auto-detected by Neovim 0.11+ (running 0.12+) |
 
 **zpack vs lazy.nvim — key behavioral differences:**
 - **Default loading**: zpack loads plugins **eagerly** by default. lazy.nvim defaults to lazy loading. Plugins with no `event`/`cmd`/`ft`/`keys` trigger and no `lazy = true` will load at startup.
@@ -57,6 +57,8 @@ stow -t ~  <package>    # apply symlinks
 - Tab size is **4** for Go and Rust (autocmd), **2 spaces** everywhere else.
 - `lsp_lines.nvim` is sourced from `https://git.sr.ht/~whynothugo/lsp_lines.nvim` (not GitHub).
 - `vim-tmux-navigator` is installed in **both** nvim and tmux — the `C-h/j/k/l` bindings are intentionally duplicated.
+- `nvim-web-devicons` is **not installed**. `mini.icons` provides a compatibility shim via `mock_nvim_web_devicons()` registered in `package.preload` (see `lua/plugins/ui.lua`). Any plugin that `require("nvim-web-devicons")` will transparently get `mini.icons` instead — do not add `nvim-web-devicons` as a dependency.
+- Winbar breadcrumbs are provided by `dropbar.nvim` (`Bekaboo/dropbar.nvim`). Peek/pick the winbar with `<leader>;`.
 
 **Lua style (enforced by `.stylua.toml`):**
 - 160-column width, 2-space indent, `AutoPreferDouble` quotes, `call_parentheses = "None"`.

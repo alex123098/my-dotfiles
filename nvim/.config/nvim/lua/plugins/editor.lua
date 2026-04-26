@@ -15,31 +15,11 @@ return {
 
   -- breadcrumbs
   {
-    "utilyre/barbecue.nvim",
-    name = "barbecue",
-    sem_version = "*",
-    dependencies = {
-      "SmiteshP/nvim-navic",
-      "nvim-tree/nvim-web-devicons",
+    "Bekaboo/dropbar.nvim",
+    keys = {
+      { "<leader>;", function() require("dropbar.api").pick() end, desc = "Dropbar pick" },
     },
-    opts = {
-      create_autocmd = false,
-    },
-    config = function(_, opts)
-      require("barbecue").setup(opts)
-
-      u.autocmd({
-        "WinScrolled",
-        "BufWinEnter",
-        "CursorHold",
-        "InsertLeave",
-      }, {
-        group = u.augroup "barbecue_updater",
-        callback = function()
-          require("barbecue.ui").update()
-        end,
-      })
-    end,
+    opts = {},
   },
 
   -- auto append matching closing brackets
