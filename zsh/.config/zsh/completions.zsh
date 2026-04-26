@@ -20,4 +20,8 @@ if type "glow" > /dev/null; then
   eval $(glow completion zsh)
 fi
 
+if type "opencode" > /dev/null; then
+  eval "$(opencode completion zsh)"
+fi
+
 export NVM_COMPLETION=true
