@@ -27,6 +27,7 @@ return {
         unusedparams = true,
         unusedwrite = true,
         useany = true,
+        ST1000 = false, -- suppress "at least one file in a package should have a package comment"
       },
       usePlaceholders = true,
       completeUnimported = true,

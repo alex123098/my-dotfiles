@@ -2,6 +2,7 @@
 return {
   lsps = {
     "jsonls",
+    "jsonlint",
   },
   grammars = {
     "json",
