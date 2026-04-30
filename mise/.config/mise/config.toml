@@ -1,0 +1,12 @@
+[tools]
+node = "lts"
+go = "latest"
+python = "latest"
+rust = "latest"
+dotnet = "latest"
+bun = "latest"
+
+[settings]
+go.set_goroot = true
+go.set_gopath = true
+go.default_package_file = "~/.config/mise/go-packages"
