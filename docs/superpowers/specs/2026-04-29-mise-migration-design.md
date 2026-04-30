@@ -57,7 +57,9 @@ bun = "latest"
 [settings]
 go_set_goroot = true
 go_default_packages_file = "~/.config/mise/go-packages"
-dotnet_isolated = true
+
+[settings.dotnet]
+isolated = true
 ```
 
 - `lts` / `latest` resolved and pinned at install time
