@@ -54,10 +54,10 @@ rust = "latest"
 dotnet = "latest"
 bun = "latest"
 
-[settings]
-go.set_goroot = true
-go.set_gopath = true
-go.default_package_file = "~/.config/mise/go-packages"
+[settings.go]
+set_goroot = true
+set_gopath = true
+default_packages_file = "~/.config/mise/go-packages"
 ```
 
 - `lts` / `latest` resolved and pinned at install time
@@ -71,7 +71,7 @@ mise handles this via:
 
 - **`go.set_goroot = true`** — sets `GOROOT` to the mise-managed Go installation, ensuring `go install` uses the correct SDK
 - **`go.set_gopath = true`** — sets `GOPATH` to a mise-managed path, keeping Go tools isolated from any system Go
-- **`go.default_package_file`** — points to `~/.config/mise/go-packages`, a plain text file listing Go tools to auto-install when the Go version changes
+- **`go.default_packages_file`** — points to `~/.config/mise/go-packages`, a plain text file listing Go tools to auto-install when the Go version changes
 
 **`mise/.config/mise/go-packages`** (new file, committed to dotfiles):
 ```
