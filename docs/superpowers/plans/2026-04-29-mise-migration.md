@@ -67,10 +67,10 @@ rust = "latest"
 dotnet = "latest"
 bun = "latest"
 
-[settings.go]
-set_goroot = true
-set_gopath = true
-default_packages_file = "~/.config/mise/go-packages"
+[settings]
+go_set_goroot = true
+go_set_gopath = true
+go_default_packages_file = "~/.config/mise/go-packages"
 ```
 
 - [ ] **Step 3: Create `mise/.config/mise/go-packages`**
