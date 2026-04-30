@@ -70,6 +70,7 @@ bun = "latest"
 [settings]
 go_set_goroot = true
 go_default_packages_file = "~/.config/mise/go-packages"
+dotnet_isolated = true
 ```
 
 - [ ] **Step 3: Create `mise/.config/mise/go-packages`**

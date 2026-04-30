@@ -9,6 +9,4 @@ bun = "latest"
 [settings]
 go_set_goroot = true
 go_default_packages_file = "~/.config/mise/go-packages"
-
-[settings.dotnet]
-isolated = true
+dotnet_isolated = true

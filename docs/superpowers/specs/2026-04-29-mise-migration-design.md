@@ -57,6 +57,7 @@ bun = "latest"
 [settings]
 go_set_goroot = true
 go_default_packages_file = "~/.config/mise/go-packages"
+dotnet_isolated = true
 ```
 
 - `lts` / `latest` resolved and pinned at install time
@@ -86,7 +87,9 @@ github.com/golangci/golangci-lint/cmd/golangci-lint@latest
 
 When `mise install` runs (or Go version changes), mise automatically runs `go install` for each package in this file using the activated Go SDK. This guarantees tools are always compiled against the current Go version.
 
-**`zsh/.zshenv` change:** Remove `GOBIN=$HOME/go/bin` from PATH — mise manages the Go bin path via `GOPATH`. The tools remain accessible because mise shims or `GOPATH/bin` is on PATH via mise activation.
+**`zsh/.zshenv` change:** Remove `GOBIN=$HOME/go/bin` from PATH — mise manages the Go bin path via `GOROOT`. The tools remain accessible because mise shims or `GOROOT/bin` is on PATH via mise activation.
+
+> **Note — `dotnet_isolated = true` is required:** By default, mise's dotnet backend symlinks to whatever `dotnet` binary is on the system (e.g. the Arch `dotnet-sdk` package) rather than downloading its own SDK. This defeats per-project version pinning. Setting `dotnet_isolated = true` makes mise download and manage its own .NET SDKs independently of the system install.
 
 ### Per-project config
 
