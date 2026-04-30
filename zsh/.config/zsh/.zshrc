@@ -26,6 +26,9 @@ eval $(thefuck --alias)
 # set keybindings
 source $ZDOTDIR/keybindings.zsh
 
+# mise — unified runtime manager
+eval "$(mise activate zsh)"
+
 # setup nvm
 source /usr/share/nvm/init-nvm.sh
 

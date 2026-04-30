@@ -1,0 +1,2 @@
+# mise per-project local overrides (personal env vars, not for team)
+.mise.local.toml

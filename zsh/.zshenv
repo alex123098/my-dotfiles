@@ -7,9 +7,7 @@ export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_CACHE_HOME="$HOME/.cache"
 export XDG_DATA_HOME="$HOME/.local/share"
 
-export GOBIN="$HOME/go/bin"
-
-export PATH="$HOME/.dotnet/tools:$HOME/.local/bin:$GOBIN:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
 
 export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
 
