@@ -29,14 +29,7 @@ source $ZDOTDIR/keybindings.zsh
 # mise — unified runtime manager
 eval "$(mise activate zsh)"
 
-# setup nvm
-source /usr/share/nvm/init-nvm.sh
-
 # Activate oh-my-posh
 eval "$(oh-my-posh init zsh --config ~/.config/zsh/omp.conf.json)"
 
 source $ZDOTDIR/aliases.zsh
-
-source <(direnv hook zsh)
-# bun completions
-[ -s "/home/alex/.bun/_bun" ] && source "/home/alex/.bun/_bun"
