@@ -15,7 +15,7 @@ Migrate from the current fragmented tool management setup (nvm, direnv, bun, sys
 | Per-directory env vars | direnv + `.envrc` |
 | Bun | Installed directly to `~/.bun` |
 | .NET SDK | System install, `~/.dotnet/tools` in PATH |
-| Go | System install, `GOBIN` in PATH |
+| Go | System install, `GOBIN` in PATH; tools installed via `go install` |
 | Python / Rust | System install |
 
 ## Target State
@@ -39,7 +39,8 @@ Migrate from the current fragmented tool management setup (nvm, direnv, bun, sys
 mise/
 └── .config/
     └── mise/
-        └── config.toml    ← global tool versions
+        ├── config.toml       ← global tool versions + settings
+        └── go-packages       ← Go tools to auto-install with each Go version
 ```
 
 ### Global config (`~/.config/mise/config.toml`)
@@ -52,10 +53,38 @@ python = "latest"
 rust = "latest"
 dotnet = "latest"
 bun = "latest"
+
+[settings]
+go.set_goroot = true
+go.set_gopath = true
+go.default_package_file = "~/.config/mise/go-packages"
 ```
 
 - `lts` / `latest` resolved and pinned at install time
 - Activated automatically when no project-level `.mise.toml` is found
+
+### Go tooling
+
+Go tools (delve, gopls, goimports, etc.) must be compiled with the same Go version that mise activates — otherwise version skew causes subtle breakage (e.g. delve compiled with Go 1.24 cannot debug binaries compiled with Go 1.25+).
+
+mise handles this via:
+
+- **`go.set_goroot = true`** — sets `GOROOT` to the mise-managed Go installation, ensuring `go install` uses the correct SDK
+- **`go.set_gopath = true`** — sets `GOPATH` to a mise-managed path, keeping Go tools isolated from any system Go
+- **`go.default_package_file`** — points to `~/.config/mise/go-packages`, a plain text file listing Go tools to auto-install when the Go version changes
+
+**`mise/.config/mise/go-packages`** (new file, committed to dotfiles):
+```
+golang.org/x/tools/gopls@latest
+github.com/go-delve/delve/cmd/dlv@latest
+golang.org/x/tools/cmd/goimports@latest
+mvdan.cc/gofumpt@latest
+github.com/golangci/golangci-lint/cmd/golangci-lint@latest
+```
+
+When `mise install` runs (or Go version changes), mise automatically runs `go install` for each package in this file using the activated Go SDK. This guarantees tools are always compiled against the current Go version.
+
+**`zsh/.zshenv` change:** Remove `GOBIN=$HOME/go/bin` from PATH — mise manages the Go bin path via `GOPATH`. The tools remain accessible because mise shims or `GOPATH/bin` is on PATH via mise activation.
 
 ### Per-project config
 
@@ -97,7 +126,7 @@ System CLI tools (`kubectl`, `docker`, `fzf`, `bat`, `ripgrep`, `oh-my-posh`, et
 | Action | Change |
 |---|---|
 | Remove | `$HOME/.dotnet/tools` from PATH |
-| Keep | `GOBIN=$HOME/go/bin` (still useful for `go install`-ed tools) |
+| Remove | `GOBIN=$HOME/go/bin` from PATH (mise manages Go bin path via `GOPATH`) |
 
 ### `git/.gitignore.global`
 
@@ -106,16 +135,17 @@ Add `.mise.local.toml` so it is excluded from all repos without per-repo config.
 ## Migration Sequence
 
 1. Install mise (`yay -S mise`)
-2. Create `mise/.config/mise/config.toml` with global tool versions
-3. `stow -t ~ mise` to symlink the config
-4. Add `eval "$(mise activate zsh)"` to `.zshrc`, keep nvm/direnv lines for now
-5. Run `mise install` to download all global tools
-6. Validate each runtime: `node -v`, `go version`, `dotnet --version`, etc.
-7. Remove `source /usr/share/nvm/init-nvm.sh` from `.zshrc`
-8. Remove `source <(direnv hook zsh)` and bun completions from `.zshrc`
-9. Remove `$HOME/.dotnet/tools` from PATH in `.zshenv`
-10. Add `.mise.local.toml` to `~/.gitignore.global`
-11. Migrate existing `.envrc` files to `.mise.local.toml` as projects are touched
+2. Create `mise/.config/mise/config.toml` with global tool versions + Go settings
+3. Create `mise/.config/mise/go-packages` with Go tools list
+4. `stow -t ~ mise` to symlink the config
+5. Add `eval "$(mise activate zsh)"` to `.zshrc`, keep nvm/direnv lines for now
+6. Run `mise install` to download all global tools (Go tools auto-installed via `go-packages`)
+7. Validate each runtime: `node -v`, `go version`, `dotnet --version`, `dlv version`, etc.
+8. Remove `source /usr/share/nvm/init-nvm.sh` from `.zshrc`
+9. Remove `source <(direnv hook zsh)` and bun completions from `.zshrc`
+10. Remove `$HOME/.dotnet/tools` and `$GOBIN` from PATH in `.zshenv`
+11. Add `.mise.local.toml` to `~/.gitignore.global`
+12. Migrate existing `.envrc` files to `.mise.local.toml` as projects are touched
 
 ## Out of Scope (for now)
 
