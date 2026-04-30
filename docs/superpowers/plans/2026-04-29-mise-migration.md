@@ -69,7 +69,6 @@ bun = "latest"
 
 [settings]
 go_set_goroot = true
-go_set_gopath = true
 go_default_packages_file = "~/.config/mise/go-packages"
 ```
 
@@ -128,6 +127,8 @@ mise install
 This downloads Node LTS, Go latest, Python latest, Rust latest, .NET latest, Bun latest, and then runs `go install` for each package in `go-packages`. This will take several minutes.
 
 Expected: no errors. Each tool line shows `✓ installed`.
+
+> **Note:** `go_default_packages_file` is only processed during a Go *install*, not when Go is already present. If Go was already installed before this step, the packages will not be installed automatically. In that case, force a reinstall: `mise uninstall go@latest && mise install`. This is expected behaviour.
 
 ---
 
@@ -261,7 +262,7 @@ Replace with:
 export PATH="$HOME/.local/bin:$PATH"
 ```
 
-Both `$HOME/.dotnet/tools` and `$GOBIN` are removed. mise manages the Go bin path via `GOPATH/bin` (set by `go.set_gopath = true`) and dotnet shims via its own shim directory, both of which are on PATH through `mise activate`.
+Both `$HOME/.dotnet/tools` and `$GOBIN` are removed. mise manages the Go bin path via `GOROOT/bin` (set by `go_set_goroot = true`) and dotnet shims via its own shim directory, both of which are on PATH through `mise activate`.
 
 - [ ] **Step 2: Reload and verify tools still accessible**
 

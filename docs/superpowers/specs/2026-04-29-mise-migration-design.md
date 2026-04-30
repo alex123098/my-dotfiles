@@ -56,7 +56,6 @@ bun = "latest"
 
 [settings]
 go_set_goroot = true
-go_set_gopath = true
 go_default_packages_file = "~/.config/mise/go-packages"
 ```
 
@@ -69,9 +68,12 @@ Go tools (delve, gopls, goimports, etc.) must be compiled with the same Go versi
 
 mise handles this via:
 
-- **`go_set_goroot = true`** — sets `GOROOT` to the mise-managed Go installation, ensuring `go install` uses the correct SDK
-- **`go_set_gopath = true`** — sets `GOPATH` to a mise-managed path, keeping Go tools isolated from any system Go
+- **`go_set_goroot = true`** — sets `GOROOT` to the mise-managed Go installation, ensuring `go install` uses the correct SDK. This is the default; included explicitly for clarity.
 - **`go_default_packages_file`** — points to `~/.config/mise/go-packages`, a plain text file listing Go tools to auto-install when the Go version changes
+
+> **Note — `go_set_gopath` is deprecated:** mise previously offered `go_set_gopath = true` to set `GOPATH` to a mise-managed path. This setting is now deprecated and emits a warning. It has been removed from the config. Go tools installed via `go install` land in `$GOROOT/bin` (managed by mise via `go_set_goroot`), which is sufficient.
+
+> **Note — Go packages require a Go reinstall to trigger:** `go_default_packages_file` is only processed during a Go *install*, not when Go is already present and `mise install` is re-run. If you add packages to the file or change the settings key, you must force a Go reinstall (`mise uninstall go@latest && mise install`) to trigger package installation.
 
 **`mise/.config/mise/go-packages`** (new file, committed to dotfiles):
 ```
