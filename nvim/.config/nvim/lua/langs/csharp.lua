@@ -16,7 +16,16 @@ return {
     "neotest-dotnet",
   },
   setup = function()
-    require("roslyn").setup {}
+    -- packadd ensures roslyn.nvim is loaded from opt/ (deferred plugin)
+    vim.cmd.packadd "roslyn.nvim"
+
+    require("roslyn").setup {
+      extensions = {
+        razor = {
+          enabled = false,
+        },
+      },
+    }
 
     require("dotnet").setup {
       auto_bootstrap = false,
