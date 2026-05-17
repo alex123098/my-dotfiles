@@ -47,6 +47,7 @@ snacks.setup {
     },
   },
   explorer = {},
+  lazygit = {},
 }
 
 k.nmap("<leader>bsn", function()
@@ -85,3 +86,6 @@ end, "Close all buffers")
 k.nmap("<leader>bod", function()
   snacks.bufdelete.other()
 end, "Close all buffers but current")
+k.nmap("<leader>gg", function()
+  snacks.lazygit.open()
+end)
