@@ -20,6 +20,12 @@ return {
     vim.cmd.packadd "roslyn.nvim"
 
     require("roslyn").setup {
+      -- Enable broad search to find solution files in parent directories
+      broad_search = true,
+      -- Don't silence notifications so we can see what's happening
+      silent = false,
+      -- File watching: let roslyn handle it for better project tracking
+      filewatching = "roslyn",
       extensions = {
         razor = {
           enabled = false,
