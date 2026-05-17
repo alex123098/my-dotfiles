@@ -35,6 +35,7 @@ require("gitsigns").setup {
     end, "Previous git change")
 
     map("<leader>gb", gitsigns.blame_line, "Blame current line")
+    map("<leader>gB", gitsigns.blame, "Blame file")
     map("<leader>gd", gitsigns.diffthis, "Diff against index")
     map("<leader>gD", function()
       gitsigns.diffthis "@"
