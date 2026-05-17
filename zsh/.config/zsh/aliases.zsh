@@ -20,32 +20,32 @@ alias dtop='docker top'
 
 # git aliases
 __git_main_branch() {
-	# Verify if we under git repository
-	command git rev-parse --git-dir &>/dev/null || return 1
-	local ref
-	for ref in refs/{heads,remotes/{origin,upstream}}/{main,master,default,trunk}; do
-		if command git show-ref -q --verify $ref; then
-			echo ${ref:t}
-			return 0
-		fi
-	done
+  # Verify if we under git repository
+  command git rev-parse --git-dir &>/dev/null || return 1
+  local ref
+  for ref in refs/{heads,remotes/{origin,upstream}}/{main,master,default,trunk}; do
+    if command git show-ref -q --verify $ref; then
+      echo ${ref:t}
+      return 0
+    fi
+  done
 
-	echo "main"
-	return 1
+  echo "main"
+  return 1
 }
 gdcol() {
-	if ! git rev-parse >/dev/null 2>&1; then
-		echo "Not a git repository"
-		return 1
-	fi
-	git diff --name-only --line-prefix=`git rev-parse --show-toplevel`/ --diff-filter=d | xargs bat --diff
+  if ! git rev-parse >/dev/null 2>&1; then
+    echo "Not a git repository"
+    return 1
+  fi
+  git diff --name-only --line-prefix=`git rev-parse --show-toplevel`/ --diff-filter=d | xargs bat --diff
 }
 gdscol() {
-	if ! git rev-parse >/dev/null 2>&1; then
-		echo "Not a git repository"
-		return 1
-	fi
-	git diff --name-only --line-prefix=`git rev-parse --show-toplevel`/ --diff-filter=d --staged | xargs bat --diff
+  if ! git rev-parse >/dev/null 2>&1; then
+    echo "Not a git repository"
+    return 1
+  fi
+  git diff --name-only --line-prefix=`git rev-parse --show-toplevel`/ --diff-filter=d --staged | xargs bat --diff
 }
 alias g='git'
 alias ga="git add"
@@ -177,27 +177,27 @@ alias diff='diff --color=auto'
 alias cless='LESS=" -Ri " LESSOPEN="| pygmentize -O style=tokyonight -g %s" less -M '
 # launch yazi, cd after exit
 yy() {
-	local dir="$(mktemp -t "yazi-cwd.XXXXXX")"
-	yazi "$@" --cwd-file="$dir"
-	if cwd="$(command cat -- "$dir")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
-		cd -- "$cwd"
-	fi
-	rm -f -- "$dir"
+  local dir="$(mktemp -t "yazi-cwd.XXXXXX")"
+  yazi "$@" --cwd-file="$dir"
+  if cwd="$(command cat -- "$dir")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+    cd -- "$cwd"
+  fi
+  rm -f -- "$dir"
 }
 
 # search file with preview, open for edit afterwards
 frg() {
-	result=$(rg --ignore-case --color=always --line-number --no-heading --with-filename --hidden -g "!.git" . |
-			fzf --ansi \
-					--color 'hl:-1:underline,hl+:-1:underline:reverse' \
-					--delimiter ':' \
-					--preview "bat --color=always {1} --highlight-line {2}" \
-					--preview-window 'up,60%,border-bottom,+{2}+3/3,~3')
-	file="${result%%:*}"
-	linenumber=$(echo $result | cut -d ':' -f 2)
-	if [ ! -z "$file" ]; then
-		$EDITOR +"${linenumber}" "${file}"
-	fi
+  result=$(rg --ignore-case --color=always --line-number --no-heading --with-filename --hidden -g "!.git" . |
+      fzf --ansi \
+          --color 'hl:-1:underline,hl+:-1:underline:reverse' \
+          --delimiter ':' \
+          --preview "bat --color=always {1} --highlight-line {2}" \
+          --preview-window 'up,60%,border-bottom,+{2}+3/3,~3')
+  file="${result%%:*}"
+  linenumber=$(echo $result | cut -d ':' -f 2)
+  if [ ! -z "$file" ]; then
+    $EDITOR +"${linenumber}" "${file}"
+  fi
 }
 alias kssh='kitten ssh'
 
@@ -214,4 +214,8 @@ tla() {
       echo "Template not found: ${1}"
     fi
   fi
+}
+
+ytv() {
+  bash ~/.config/zsh/ytv.sh
 }

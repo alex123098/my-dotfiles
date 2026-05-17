@@ -5,6 +5,7 @@ return {
     "goimports",
     "gofumpt",
     "delve",
+    "golangci-lint",
   },
   grammars = {
     "go",

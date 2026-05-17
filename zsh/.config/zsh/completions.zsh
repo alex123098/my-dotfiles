@@ -24,4 +24,8 @@ if type "opencode" > /dev/null; then
   eval "$(opencode completion zsh)"
 fi
 
+if type "mise" > /dev/null; then
+  eval "$(mise completion zsh)"
+fi
+
 export NVM_COMPLETION=true
