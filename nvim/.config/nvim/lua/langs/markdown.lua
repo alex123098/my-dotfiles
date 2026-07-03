@@ -16,6 +16,9 @@ return {
       markdown = { "markdownlint" },
     })
 
+    -- Mute MD013 (line length) warning for markdown files
+    require("lint").linters.markdownlint.args = { "--stdin", "--disable", "MD013" }
+
     require("render-markdown").setup {}
   end,
 }
