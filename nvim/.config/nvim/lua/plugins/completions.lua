@@ -34,3 +34,5 @@ require("blink.cmp").setup {
     ["<C-h>"] = { "snippet_backward", "fallback" },
   },
 }
+
+require("blink.compat").setup {}
