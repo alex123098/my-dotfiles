@@ -1,0 +1,8 @@
+agent/run-history.jsonl
+agent/trust.json
+agent/sessions/
+agent/auth.json
+agent/projects-memory
+agent/pi-hermes-memory/*
+
+!agent/pi-hermes-memory/skills
