@@ -1,0 +1,28 @@
+{
+  "enabled": true,
+  "network": {
+    "allowedDomains": [
+      "github.com",
+      "*.github.com",
+      "npmjs.org",
+      "*.npmjs.org",
+      "registry.npmjs.org"
+    ],
+    "deniedDomains": []
+  },
+  "filesystem": {
+    "denyRead": [
+      "~/.ssh",
+      "~/.aws",
+      "~/.gnupg"
+    ],
+    "allowWrite": [
+      "."
+    ],
+    "denyWrite": [
+      ".env",
+      "*.pem",
+      "*.key"
+    ]
+  }
+}

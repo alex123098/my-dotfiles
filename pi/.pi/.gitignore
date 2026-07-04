@@ -1,3 +1,4 @@
+node_modules
 agent/run-history.jsonl
 agent/trust.json
 agent/sessions/

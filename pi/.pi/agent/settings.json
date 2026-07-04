@@ -7,7 +7,8 @@
   "treeFilterMode": "default",
   "theme": "tokyo-dark",
   "extensions": [
-    "extensions/status-bar.ts"
+    "extensions/status-bar.ts",
+    "extensions/sandbox"
   ],
   "packages": [
     "npm:@juicesharp/rpiv-ask-user-question",
