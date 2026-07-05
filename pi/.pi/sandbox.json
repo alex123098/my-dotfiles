@@ -1,0 +1,9 @@
+{
+  "enabled": true,
+  "blockNetwork": false,
+  "filesystem": {
+    "denyRead": ["~/.ssh", "~/.aws", "~/.gnupg"],
+    "allowWrite": [".", "/tmp"],
+    "denyWrite": [".env", ".env.*", "*.pem", "*.key"]
+  }
+}
