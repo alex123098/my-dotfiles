@@ -8,7 +8,7 @@
   "theme": "tokyo-dark",
   "extensions": [
     "extensions/status-bar.ts",
-    "extensions/sandbox"
+    "extensions/git-scout.ts"
   ],
   "packages": [
     "npm:@juicesharp/rpiv-ask-user-question",
