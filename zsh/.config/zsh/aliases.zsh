@@ -219,3 +219,6 @@ tla() {
 ytv() {
   bash ~/.config/zsh/ytv.sh
 }
+
+# alias pi to wrapper that restores terminal cursor upon exit
+alias pi='~/.config/zsh/pi.zsh'
