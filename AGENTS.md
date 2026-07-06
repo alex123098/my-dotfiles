@@ -9,7 +9,7 @@ Each top-level directory is a **GNU Stow package**. The internal path mirrors `$
 ```
 awesome/    bat/    dunst/    git/    i3/    ideavim/
 kitty/      neovide/  nvim/   omnisharp/  picom/  rofi/
-spicetify/  tmux/   Xresources/  yazi/   zsh/
+spicetify/  tmux/   Xresources/  yazi/   zsh/ pi/
 ```
 
 Git submodules: `awesome/freedesktop`, `awesome/lain`, `yazi/flavors/tokyo-night.yazi`. Tmux plugins under `tmux/.tmux/plugins/` are embedded repos but **not** in `.gitmodules`.
@@ -163,6 +163,10 @@ test_adapters = { ["neotest-python"] = { dap = { justMyCode = false } } }
 - Status bar at **top**.
 - Theme: `tokyo-night-tmux`. Plugins managed by TPM (`tmux/.tmux/plugins/tpm`).
 - `td <query>` / `tla [name]` — see Shell functions above.
+
+## Pi coding agent
+
+Configuration located at `pi/` stow. To modify current Pi agent configuration use `pi/.pi` path.
 
 ## OS / environment
 
