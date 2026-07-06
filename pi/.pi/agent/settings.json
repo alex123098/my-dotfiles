@@ -22,7 +22,8 @@
     "npm:pi-intercom",
     "npm:pi-observational-memory",
     "npm:pi-prompt-template-model",
-    "npm:pi-lsp"
+    "npm:pi-lsp",
+    "npm:pi-vimmode"
   ],
   "enabledModels": [
     "opencode/big-pickle",
@@ -43,5 +44,17 @@
   "observational-memory": {
     "compactAfterTokens": 125000
   },
-  "hideThinkingBlock": false
+  "hideThinkingBlock": false,
+  "piVimMode": {
+    "startMode": "insert",
+    "cursor": {
+      "insert": "bar",
+      "normal": "block"
+    },
+    "ui": {
+      "status": {
+        "items": ["mode", "pending", "search", "macro", "cursorPosition", "warnings"]
+      }
+    }
+  }
 }
