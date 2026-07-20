@@ -1,0 +1,35 @@
+{
+  // DCP — Dynamic Context Pruning for Pi
+  // Full docs: https://github.com/complexthings/pi-dynamic-context-pruning
+  //
+  // Place this file at ~/.config/pi/dcp.jsonc (global config)
+  // Or at .pi/dcp.jsonc in a project dir (project-local override)
+
+  "compress": {
+    // Above 70% context: fire a nudge (every nudgeFrequency=4 context events)
+    "maxContextPercent": 0.7,
+    // Below 35% context: no nudges
+    "minContextPercent": 0.35,
+    // How many context events between nudges
+    "nudgeFrequency": 4,
+    // Nudge after this many tool calls since the last user message
+    "iterationNudgeThreshold": 12,
+    // "strong" = emergency tone, "soft" = housekeeping tone
+    "nudgeForce": "soft",
+    // These tool outputs are never auto-pruned
+    "protectedTools": ["compress", "write", "edit", "read", "bash"]
+  },
+  "strategies": {
+    "deduplication": {
+      "enabled": true,
+      "protectedTools": []
+    },
+    "purgeErrors": {
+      "enabled": true,
+      "turns": 3,
+      "protectedTools": []
+    }
+  },
+  "protectedFilePatterns": [],
+  "pruneNotification": "minimal"
+}

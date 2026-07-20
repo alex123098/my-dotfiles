@@ -1,11 +1,11 @@
 {
-  "lastChangelogVersion": "0.80.3",
+  "lastChangelogVersion": "0.80.10",
   "defaultProvider": "opencode",
-  "defaultModel": "deepseek-v4-flash-free",
-  "defaultThinkingLevel": "high",
+  "defaultModel": "hy3-free",
+  "defaultThinkingLevel": "medium",
   "enableInstallTelemetry": false,
   "treeFilterMode": "default",
-  "theme": "tokyo-dark",
+  "theme": "tokyo-night",
   "extensions": [
     "extensions/status-bar.ts",
     "extensions/git-scout.ts",
@@ -13,17 +13,17 @@
   ],
   "packages": [
     "npm:@juicesharp/rpiv-ask-user-question",
-    "npm:my-pi-themes",
     "npm:@juicesharp/rpiv-todo",
     "npm:pi-web-access",
     "npm:pi-subagents",
     "npm:pi-hermes-memory",
-    "npm:@zosmaai/pi-llm-wiki",
     "npm:pi-intercom",
-    "npm:pi-observational-memory",
     "npm:pi-prompt-template-model",
     "npm:pi-lsp",
-    "npm:pi-vimmode"
+    "npm:pi-vimmode",
+    "npm:@complexthings/pi-dynamic-context-pruning",
+    "npm:@ineersa/my-pi-themes",
+    "npm:pi-rtk-optimizer"
   ],
   "enabledModels": [
     "opencode/big-pickle",
@@ -53,7 +53,14 @@
     },
     "ui": {
       "status": {
-        "items": ["mode", "pending", "search", "macro", "cursorPosition", "warnings"]
+        "items": [
+          "mode",
+          "pending",
+          "search",
+          "macro",
+          "cursorPosition",
+          "warnings"
+        ]
       }
     }
   }

@@ -5,6 +5,7 @@ python = "latest"
 rust = "latest"
 dotnet = "latest"
 bun = "latest"
+usage = "latest"
 
 [settings]
 go_set_goroot = true
