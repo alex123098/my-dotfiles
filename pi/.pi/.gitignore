@@ -5,5 +5,7 @@ agent/sessions/
 agent/auth.json
 agent/projects-memory
 agent/pi-hermes-memory/*
+agent/models-store.json
+agent/.pi-hermes-locks.*
 
 !agent/pi-hermes-memory/skills
