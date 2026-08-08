@@ -6,6 +6,9 @@ k.map({ "n", "i" }, "<Esc>", "<cmd>nohlsearch<cr>")
 k.nmap("<S-h>", "<cmd>bp<cr>", "Previous Buffer")
 k.nmap("<S-l>", "<cmd>bn<cr>", "Next Buffer")
 
+-- Make ctrl-c beahve as <esc> in insert mode
+k.imap("<C-c>", "<Esc>")
+
 -- remap j and k to work as expected on wrapped lines
 k.map({ "n", "x" }, "j", "v:count == 0 ? 'gj' : 'j'", "Down", { expr = true, silent = true })
 k.map({ "n", "x" }, "k", "v:count == 0 ? 'gk' : 'k'", "Up", { expr = true, silent = true })
