@@ -213,6 +213,9 @@ bindsym $mod+Shift+p exec --no-startup-id ~/.config/i3/scripts/power-profiles
 # Pass environment from i3 to D-Bus
 exec --no-startup-id dbus-update-activation-environment --systemd --all
 
+# Start unclutter (autohide mouse)
+exec --no-startup-id unclutter -idle 3
+
 ##############
 # compositor #
 ##############
