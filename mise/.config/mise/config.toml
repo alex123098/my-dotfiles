@@ -6,6 +6,7 @@ rust = "latest"
 dotnet = "latest"
 bun = "latest"
 usage = "latest"
+pi = "latest"
 
 [settings]
 go_set_goroot = true
