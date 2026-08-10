@@ -1,7 +1,7 @@
 local pack = require "fw.pack"
 pack.add { "nvim-lua/plenary.nvim" }
 
-require "plugins.tmux"
+require "plugins.herdr"
 require "plugins.autosession"
 require "plugins.snacks"
 require "plugins.git"

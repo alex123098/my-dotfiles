@@ -14,10 +14,9 @@ k.map({ "n", "x" }, "j", "v:count == 0 ? 'gj' : 'j'", "Down", { expr = true, sil
 k.map({ "n", "x" }, "k", "v:count == 0 ? 'gk' : 'k'", "Up", { expr = true, silent = true })
 
 -- windows manipulation
-k.nmap("<C-h>", ":wincmd h<cr>", "Move to the window on the left", { silent = true })
-k.nmap("<C-j>", ":wincmd j<cr>", "Move to the window on the bottom", { silent = true })
-k.nmap("<C-k>", ":wincmd k<cr>", "Move to the window on the top", { silent = true })
-k.nmap("<C-l>", ":wincmd l<cr>", "Move to the window on the right", { silent = true })
+-- Note: <C-h/j/k/l> window navigation is handled by herdr-nvim-nav plugin
+-- (lua/plugins/herdr.lua) which provides seamless navigation between nvim
+-- splits and herdr panes
 
 k.nmap("<C-Up>", "<cmd>resize +2<cr>", "Increase window height")
 k.nmap("<C-Down>", "<cmd>resize -2<cr>", "Decrease window height")

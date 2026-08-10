@@ -3,6 +3,9 @@ export LS_COLORS=$(vivid generate $ZDOTDIR/vivid-theme.yml)
 
 unsetopt beep
 
+# mise — unified runtime manager
+eval "$(mise activate zsh)"
+
 # set navigation settings
 source $ZDOTDIR/navigation.zsh
 
@@ -25,9 +28,6 @@ eval $(thefuck --alias)
 
 # set keybindings
 source $ZDOTDIR/keybindings.zsh
-
-# mise — unified runtime manager
-eval "$(mise activate zsh)"
 
 # Activate oh-my-posh
 eval "$(oh-my-posh init zsh --config ~/.config/zsh/omp.conf.json)"

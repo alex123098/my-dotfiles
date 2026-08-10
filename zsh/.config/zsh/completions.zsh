@@ -28,4 +28,8 @@ if type "mise" > /dev/null; then
   eval "$(mise completion zsh)"
 fi
 
+if type "herdr" > /dev/null; then
+  eval "$(herdr completion zsh)"
+fi
+
 export NVM_COMPLETION=true

@@ -160,15 +160,7 @@ alias yimenu="yay -Slq | fzf --multi --preview 'yay -Si {1}' | xargs yay -S --no
 # show searchable list of installed packages and remove selected
 alias yrmenu="yay -Qq | fzf --multi --preview 'yay -Qi {1}' | xargs yay -Rns --noconfirm"
 
-# tmux
-alias t="tmux"
-alias ta="tmux attach"
-alias tks="tmux kill-session"
-td() {
-  query="$1"
-  new_root="$(zoxide query "${query}" || exit 1)"
-  tmux new-session -A -c "${new_root}"
-}
+
 
 # misc
 alias vim='nvim'
@@ -201,20 +193,7 @@ frg() {
 }
 alias kssh='kitten ssh'
 
-tla() {
-  local template_dir="$HOME/.tmux/layouts"
-  if [ -z "$1" ]; then
-    printf "Known templates: "
-    ls "${template_dir}"
-  else
-    local full_path="${template_dir}/${1}"
-    if [ -f "${full_path}" ]; then
-      "${full_path}"
-    else
-      echo "Template not found: ${1}"
-    fi
-  fi
-}
+
 
 ytv() {
   bash ~/.config/zsh/ytv.sh
