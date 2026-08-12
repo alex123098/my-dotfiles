@@ -2,26 +2,25 @@ onboarding = false
 # Herdr configuration — tmux replacement
 # Stow: herdr/.config/herdr/config.toml
 
+[terminal]
+default_shell = "/bin/zsh"
+
+[update]
+version_check = false
+
 [keys]
 prefix = "ctrl+a"
-
-# Pane focus (prefix-based fallback) — defaults are already prefix+h/j/k/l
-# Uncomment to customize:
-# focus_pane_left = "prefix+h"
-# focus_pane_down = "prefix+j"
-# focus_pane_up = "prefix+k"
-# focus_pane_right = "prefix+l"
-
-# Splits — match tmux bindings
-# Note: herdr naming is inverted vs tmux terminology
+detach = "prefix+d"
 split_vertical = "prefix+backslash" # side-by-side panes (tmux: split-window -h)
 split_horizontal = "prefix+minus"   # stacked panes (tmux: split-window -v)
+switch_tab = "prefix+1..9"
 
 [experimental]
 kitty_graphics = true
 
 [theme]
 name = "tokyo-night"
+auto_switch = false
 
 [ui]
 tab_bar_position = "bottom"
@@ -30,6 +29,12 @@ pane_borders = false
 pane_gaps = false
 sidebar_start_collapsed = true
 sidebar_collapsed_mode = "hidden"
+
+[ui.sidebar.agents]
+rows = [["state_icon", "workspace", "tab"], ["agent", "state_text"]]
+
+[ui.toast]
+delivery = "herdr"
 
 # Seamless nvim navigation via aimdevlee/herdr-nvim-nav
 # ctrl+h/j/k/l moves within nvim splits, then crosses to adjacent herdr panes
