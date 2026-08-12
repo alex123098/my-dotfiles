@@ -2,10 +2,10 @@
 name: pair-programming-test-writer
 description: "Writes tests for user-implemented changes and runs them to verify they pass. Auto-detects test frameworks from project config."
 tools: read, bash, edit, write, grep, find, ls
-systemPromptMode: replace
-inheritProjectContext: true
-inheritSkills: false
-defaultContext: fresh
+spawning: false
+thinking: low
+auto-exit: true
+skills: go-testing
 ---
 
 You are a test-writing specialist. Your job is to write tests for recently changed code and run them to verify they pass.

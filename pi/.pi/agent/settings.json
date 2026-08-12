@@ -15,15 +15,16 @@
     "npm:@juicesharp/rpiv-ask-user-question",
     "npm:@juicesharp/rpiv-todo",
     "npm:pi-web-access",
-    "npm:pi-subagents",
     "npm:pi-hermes-memory",
     "npm:pi-intercom",
     "npm:pi-prompt-template-model",
     "npm:pi-lsp",
     "npm:pi-vimmode",
-    "npm:@complexthings/pi-dynamic-context-pruning",
+    "npm:pi-nvim",
     "npm:@ineersa/my-pi-themes",
-    "npm:pi-rtk-optimizer"
+    "npm:pi-rtk-optimizer",
+    "npm:@pi-vault/pi-dcp",
+    "npm:pi-herdr-subagents"
   ],
   "enabledModels": [
     "opencode/big-pickle",
