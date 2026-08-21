@@ -5,8 +5,6 @@ version: 1
 created: "2026-06-20"
 updated: "2026-06-20"
 ---
-## When to Use
-Use when writing concurrent Go code: spawning goroutines, creating channels, using sync primitives (Mutex, RWMutex, WaitGroup, Once, atomic), setting up errgroup groups, implementing worker pools or pipelines, or debugging goroutine leaks, races, or deadlocks.
 
 ## Procedure
 1. **Goroutine Discipline**: Every goroutine must have a clear exit path — without a shutdown mechanism, they leak. Before spawning: (1) How will it exit? (2) Can I signal it to stop? (3) How do I wait for it? (4) Who owns the channels? (5) Could this be synchronous instead? Use context cancellation or done channels for signaling. Track leaks with `go.uber.org/goleak.VerifyTestMain(m)`.

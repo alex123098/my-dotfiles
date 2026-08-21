@@ -1,8 +1,8 @@
 {
-  "lastChangelogVersion": "0.84.1",
+  "lastChangelogVersion": "0.84.2",
   "defaultProvider": "opencode",
-  "defaultModel": "big-pickle",
-  "defaultThinkingLevel": "medium",
+  "defaultModel": "deepseek-v4-flash",
+  "defaultThinkingLevel": "high",
   "enableInstallTelemetry": false,
   "treeFilterMode": "default",
   "theme": "tokyo-night",
@@ -15,7 +15,6 @@
     "npm:@juicesharp/rpiv-ask-user-question",
     "npm:@juicesharp/rpiv-todo",
     "npm:pi-web-access",
-    "npm:pi-hermes-memory",
     "npm:pi-intercom",
     "npm:pi-prompt-template-model",
     "npm:pi-lsp",
@@ -25,22 +24,6 @@
     "npm:pi-rtk-optimizer",
     "npm:@pi-vault/pi-dcp",
     "npm:pi-herdr-subagents"
-  ],
-  "enabledModels": [
-    "opencode/big-pickle",
-    "github-copilot/claude-haiku-4.5",
-    "github-copilot/claude-sonnet-4.5",
-    "github-copilot/claude-sonnet-4.6",
-    "github-copilot/gemini-2.5-pro",
-    "github-copilot/gemini-3-flash-preview",
-    "github-copilot/gemini-3.1-pro-preview",
-    "github-copilot/gemini-3.5-flash",
-    "github-copilot/gpt-5-mini",
-    "github-copilot/gpt-5.3-codex",
-    "github-copilot/gpt-5.4",
-    "github-copilot/gpt-5.4-mini",
-    "opencode/nemotron-3-ultra-free",
-    "opencode/deepseek-v4-flash-free"
   ],
   "observational-memory": {
     "compactAfterTokens": 125000

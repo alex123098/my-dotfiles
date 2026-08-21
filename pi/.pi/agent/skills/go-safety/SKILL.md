@@ -5,9 +5,6 @@ version: 1
 created: "2026-06-20"
 updated: "2026-06-20"
 ---
-## When to Use
-Use when writing or reviewing Go code for correctness — nil safety, slice/map aliasing, numeric conversion safety, resource lifecycle management, zero-value design, and type assertion safety. Not for security-specific concerns (injection, crypto) or performance optimization.
-
 ## Procedure
 1. **Nil Safety**: The typed nil interface trap — returning a typed nil pointer from an interface function creates `interface{type: *T, value: nil}` which is NOT `== nil`. Always return untyped `nil` for the nil case: `return nil`, not `return var h *T`. Writing to a nil map panics — always initialize with `make()` or lazy-init in methods. Indexing a nil slice panics. Ranging over nil map/slice/channel is safe (0 iterations). Use safe type assertions: `v, ok := x.(T)` — never bare `x.(T)`.
 2. **Slice & Map Aliasing**: `append` reuses the backing array if capacity allows — both slices then share memory and silently corrupt each other. To force a copy on append: `s[:len(s):len(s)]` (full slice expression). Return defensive copies from exported functions: `return slices.Clone(c.hosts)` instead of `return c.hosts`. Never return internal slice/map references — callers can mutate your internals.

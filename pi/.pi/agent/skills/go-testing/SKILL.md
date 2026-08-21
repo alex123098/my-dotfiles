@@ -5,8 +5,6 @@ version: 1
 created: "2026-06-20"
 updated: "2026-06-20"
 ---
-## When to Use
-Use when writing new Go tests, reviewing test PRs, debugging flaky tests, adding benchmarks, setting up integration test infrastructure, or choosing test patterns (table-driven, fuzzing, parallel). Covers standard library testing, testify (assert/require/mock/suite), benchmarks with benchstat, fuzzing, goroutine leak detection, and integration test separation.
 
 ## Procedure
 1. **Table-Driven Tests**: Always use named subtests with `t.Run`. Each test case must have a `name` field. Use descriptive lowercase phrases for subtest names (`"valid id"`, `"empty input"`). Loop with `for _, tt := range tests { t.Run(tt.name, func(t *testing.T) { ... }) }`. Use `got`/`want` naming for results and expectations. Use `t.Errorf` for non-fatal assertions, `t.Fatalf` for setup failures.

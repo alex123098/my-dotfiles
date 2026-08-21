@@ -5,8 +5,6 @@ version: 1
 created: "2026-06-20"
 updated: "2026-06-20"
 ---
-## When to Use
-Use when writing repository functions, query helpers, transaction wrappers, or connection pool configuration in Go. Covers sqlx/pgx patterns (no ORMs), parameterized queries, NULL handling, scanning, transactions with isolation levels, connection pool tuning, batch processing, and context-aware operations.
 
 ## Procedure
 1. **Use sqlx or pgx, Not ORMs**: Use `jmoiron/sqlx` for struct scanning ergonomics or `jackc/pgx` for PostgreSQL-specific features. Avoid GORM and other ORMs — they hide SQL, generate unpredictable queries, and make debugging harder. ORMs also obscure JOINs, subqueries, and index utilization from query plans.

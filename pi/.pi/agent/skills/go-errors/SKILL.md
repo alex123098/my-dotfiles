@@ -5,8 +5,6 @@ version: 1
 created: "2026-06-20"
 updated: "2026-06-20"
 ---
-## When to Use
-Use when writing error handling code, debugging error flows, setting up context propagation, or designing cancellation/timeout patterns. Covers error creation (sentinel errors, custom types), wrapping with %w, inspection with errors.Is/As/AsType, the single handling rule, structured error logging, and context.Context propagation through API boundaries.
 
 ## Procedure
 1. **Error Creation**: Use `errors.New` for static messages, `fmt.Errorf` for dynamic. Error strings MUST be lowercase, no trailing punctuation, no prescribed action. Use sentinel errors (`var ErrNotFound = errors.New("pkg: not found")`) for expected conditions. Use custom error types for carrying structured data. Preallocate sentinels at package level — never inline `errors.New` in functions called repeatedly.

@@ -5,8 +5,6 @@ version: 1
 created: "2026-06-20"
 updated: "2026-06-20"
 ---
-## When to Use
-Use when instrumenting Go services for production: adding structured logging (slog), declaring Prometheus metrics, adding OpenTelemetry spans, or setting up pprof profiling. Also use when debugging production incidents via logs, metrics, or traces. Not for one-off performance investigation (profiling specific bottlenecks).
 
 ## Procedure
 1. **Structured Logging (slog)**: Use `log/slog` (Go 1.21+) — never `fmt.Println` or `log.Printf` in production. Set up JSON handler: `slog.SetDefault(slog.New(slog.NewJSONHandler(os.Stdout, nil)))`. Always use context variants: `slog.InfoContext(ctx, "msg", "key", val)` to correlate with traces. Use log levels: Debug=dev, Info=normal operations, Warn=degraded state, Error=failure needing attention. Replace `zap`/`logrus`/`zerolog` with slog — use bridge handlers during migration (e.g., samber/slog-zap).

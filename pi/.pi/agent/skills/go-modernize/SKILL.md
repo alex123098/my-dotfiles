@@ -5,8 +5,6 @@ version: 1
 created: "2026-06-20"
 updated: "2026-06-20"
 ---
-## When to Use
-Use when upgrading Go version in go.mod, encountering deprecated API warnings, seeing old-style patterns (interface{}, sort.Slice, math/rand), or when asked to modernize a Go codebase. Covers Go 1.21 through 1.26 features, deprecated package migration, and testing modernization.
 
 ## Procedure
 1. **Check go.mod Version**: Read the `go` directive in `go.mod` to determine the current target. Reference the relevant Go release notes for features available at that version. The latest stable versions and their changelogs: Go 1.21 (Aug 2023, go.dev/doc/go1.21), Go 1.22 (Feb 2024), Go 1.23 (Aug 2024), Go 1.24 (Feb 2025), Go 1.25 (Aug 2025), Go 1.26 (Feb 2026, go.dev/doc/go1.26).

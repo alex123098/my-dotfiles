@@ -5,8 +5,6 @@ version: 1
 created: "2026-06-20"
 updated: "2026-06-20"
 ---
-## When to Use
-Use when writing or reviewing Go tests that import github.com/stretchr/testify. Covers all four testify packages: assert (soft assertions), require (hard assertions), mock (interface mocking), and suite (test organization with setup/teardown). Not for general Go testing patterns (table-driven tests, parallel tests, fuzzing) — see go-testing skill for those.
 
 ## Procedure
 1. **assert vs require**: Both offer identical assertions. `assert` records failure and continues — you see all failures at once. `require` calls `t.FailNow()` — use for preconditions where continuing would panic (nil pointers after error, missing config). Rule: `require` for guards/setup, `assert` for verifications. Use `assert.New(t)` / `require.New(t)` aliased as `is` and `must` for readability: `is.Equal(a, b)` / `must.NoError(err)`.
