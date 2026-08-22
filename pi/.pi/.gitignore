@@ -2,10 +2,13 @@ node_modules
 agent/run-history.jsonl
 agent/trust.json
 agent/sessions/
+agent/intercom
 agent/auth.json
 agent/projects-memory
 agent/pi-hermes-memory/*
 agent/models-store.json
 agent/.pi-hermes-locks.*
+agent/zero-mem/store.emb.bin
+agent/zero-mem/store.json
 
 !agent/pi-hermes-memory/skills

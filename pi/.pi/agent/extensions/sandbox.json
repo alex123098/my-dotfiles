@@ -10,7 +10,9 @@
     "allowWrite": [
       ".",
       "/tmp",
-      "~/.cache/go-build"
+      "~/.cache/go-build",
+      "~/go/pkg/mod",
+      "~/.cache/cymbal/repos"
     ],
     "denyWrite": [
       ".env",

@@ -28,6 +28,41 @@ function barChar(pct: number): string {
   return "█";
 }
 
+/**
+ * Sum the total session cost (USD) accross all entries, mirroring pi's own stats
+ */
+function sessionCost(ctx: ExtensionContext): number {
+  let total = 0;
+  for (const entry of ctx.sessionManager.getEntries()) {
+    let usage: { cost?: { total?: number } } | undefined;
+    if (entry.type === "message") {
+      const role = entry.message?.role;
+      if (role === "assistant" || role === "toolResult") {
+        usage = entry.message.usage;
+      }
+    } else if (entry.type === "compaction" || entry.type === "branch_summary") {
+      usage = entry.usage;
+    }
+
+    const c = usage?.cost?.total;
+    if (typeof c === "number" && Number.isFinite(c)) {
+      total += c;
+    }
+  }
+
+  return total;
+}
+
+/**
+ * Format USD dollar amount with scaled precision.
+ */
+function formatCost(cost: number): string {
+  if (cost <= 0) return "$0.00";
+  if (cost < 0.01) return `$${cost.toFixed(4)}`;
+  if (cost < 0.1) return `$${cost.toFixed(3)}`;
+  return `$${cost.toFixed(2)}`;
+}
+
 export default function(pi: ExtensionAPI) {
   // --- Track mutable state for the footer ---
   let renderRequestFn: (() => void) | null = null;
@@ -95,7 +130,10 @@ export default function(pi: ExtensionAPI) {
               ? `~${cwd.slice((process.env.HOME ?? "").length)}`
               : cwd.split("/").pop() ?? cwd;
 
-          const left = `${ctxStr}  ${theme.fg("accent", cwdShort)}`;
+          // Session cost
+          const costStr = theme.fg("success", formatCost(sessionCost(ctx)));
+
+          const left = `${ctxStr}  ${costStr}  ${theme.fg("accent", cwdShort)}`;
 
           // --- Right side: model + thinking ---
           const modelId = ctx.model?.id ?? "no-model";

@@ -1,7 +1,7 @@
 {
   "lastChangelogVersion": "0.84.2",
-  "defaultProvider": "opencode",
-  "defaultModel": "deepseek-v4-flash",
+  "defaultProvider": "openrouter",
+  "defaultModel": "tencent/hy3",
   "defaultThinkingLevel": "high",
   "enableInstallTelemetry": false,
   "treeFilterMode": "default",
@@ -9,7 +9,8 @@
   "extensions": [
     "extensions/status-bar.ts",
     "extensions/git-scout.ts",
-    "extensions/sandbox"
+    "extensions/sandbox",
+    "extensions/cymbal-nudge.ts"
   ],
   "packages": [
     "npm:@juicesharp/rpiv-ask-user-question",
