@@ -1,8 +1,8 @@
 {
   "lastChangelogVersion": "0.84.2",
   "defaultProvider": "openrouter",
-  "defaultModel": "tencent/hy3",
-  "defaultThinkingLevel": "high",
+  "defaultModel": "stealth/ox-alpha",
+  "defaultThinkingLevel": "medium",
   "enableInstallTelemetry": false,
   "treeFilterMode": "default",
   "theme": "tokyo-night",
