@@ -32,7 +32,7 @@
  *
  * CONFIG
  * ------
- * Global: ~/.pi/agent/extensions/sandbox.json
+ * Global: ~/.pi/agent/sandbox.json
  * Project: <cwd>/.pi/sandbox.json  (merged, project wins)
  *
  * {
@@ -99,7 +99,7 @@ const DEFAULT_CONFIG: SandboxConfig = {
 // ─── Config loading ───────────────────────────────────────────────────────────
 
 function loadConfig(cwd: string): SandboxConfig {
-  const globalPath = resolve(getAgentDir(), "extensions", "sandbox.json");
+  const globalPath = resolve(getAgentDir(), "sandbox.json");
   const projectPath = resolve(cwd, CONFIG_DIR_NAME, "sandbox.json");
 
   let global: Partial<SandboxConfig> = {};
